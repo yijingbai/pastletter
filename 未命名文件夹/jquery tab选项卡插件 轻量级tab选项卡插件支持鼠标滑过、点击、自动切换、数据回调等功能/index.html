@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jquery tab选项卡插件 轻量级tab选项卡插件支持鼠标滑过、点击、自动切换、数据回调等功能</title>
+
+<style type="text/css">
+*{margin:0;padding:0;list-style-type:none;}
+a,img{border:0;}
+body{background:#e3e3e3;height:100%;font:normal normal 12px/24px "Microsoft yahei", Arial;padding-bottom:30px;}
+a{color:#333;text-decoration:none;}
+a:hover{color:#093;text-decoration:none;}
+#title{width:300px;margin:3% auto 0;}
+#title h2{font-size:18px;}
+#wrapper{width:980px;margin:0 auto;background:#f8f8f8;border:1px solid #a3a3a3;padding:20px 20px 50px;border-radius:5px;-moz-border-radius:5px;}
+#wrapper h3{color:#333;font-size:14px;text-align:center;margin:20px 0;}
+/* box */
+.box{width:400px;margin:10px auto 0;background:#fff;border:1px solid #d3d3d3;}
+.tab_menu{overflow:hidden;}
+.tab_menu li{width:100px;float:left;height:30px;line-height:30px;color:#fff;background:#093;text-align:center;cursor:pointer;}
+.tab_menu li.current{color:#333;background:#fff;}
+.tab_menu li a{color:#fff;text-decoration:none;}
+.tab_menu li.current a{color:#333;}
+.tab_box{padding:20px;}
+.tab_box li{height:24px;line-height:24px;overflow:hidden;}
+.tab_box li span{margin:0 5px 0 0;font-family:"宋体";font-size:12px;font-weight:400;color:#ddd;}
+.tab_box .hide{display:none;}}
+</style>
+
+
+<link href="css/style.css" rel="stylesheet">
+<style type="text/css">
+    body{
+		width:1004px;
+		height:945px;
+		margin:auto;
+		padding-top:40px;
+		background-color:#94bfcf;
+
+	}
+	
+</style>
+</head>
+
+<body>
+<script src="js/jquery.js"></script>
+<script src="js/jquery.tabs.js"></script>
+<script src="js/jquery.lazyload.js"></script>
+<script type="text/javascript">
+$(function(){
+
+	$("img[original]").lazyload({ placeholder:"images/color3.gif" });
+	
+	$('.demo1').Tabs();
+	$('.demo2').Tabs({
+		event:'click'
+	});
+	$('.demo3').Tabs({
+		timeout:300
+	});
+	$('.demo4').Tabs({
+		auto:3000
+	});
+	$('.demo5').Tabs({
+		event:'click',
+		callback:lazyloadForPart
+	});
+	//部分区域图片延迟加载
+	function lazyloadForPart(container) {
+		container.find('img').each(function () {
+			var original = $(this).attr("original");
+			if (original) {
+				$(this).attr('src', original).removeAttr('original');
+			}
+		});
+	}
+});	
+</script>
+
+	<div id="title">
+		<h2>jQuery TAB插件演示</h2>
+	</div>
+	
+	<div id="wrapper">
+		
+		<h3>鼠标点击</h3>
+	
+		<div class="box demo2">
+			<ul class="tab_menu">
+				<li class="current">jquery特效</li>
+				<li>javascript 特效</li>
+			
+			</ul>
+			<div class="tab_box">
+				<div>
+				
+						<div class="kuai">
+			                <p style="font-family:Verdana;font-size:12px;color:#022b5a;margin-left:24px;"><b>Dear FutureMe</b></p>
+			                <p style="font-family:Verdana;font-size:12px;color:#535455;margin-left:24px;">How are things in Boston? I hope you finally made it up north, and are living well on your own. I know the winters get a little chilly, but just remember how TERRIBLE that Florida ...</p>
+			                <p style="font-family:Verdana;font-size:12px;color:#999999;margin-top:-9px;float:right;margin-right:5px;">sent 2 years into the future, to Yestoday</p>
+			            </div><hr style="border:dashed thin;width:408px;color:#cbcbcb;">
+			            <div class="kuai">
+			                <p style="font-family:Verdana;font-size:12px;color:#022b5a;margin-left:24px;"><b>Dear FutureMe</b></p>
+			                <p style="font-family:Verdana;font-size:12px;color:#535455;margin-left:24px;">How are things in Boston? I hope you finally made it up north, and are living well on your own. I know the winters get a little chilly, but just remember how TERRIBLE that Florida ...</p>
+			                <p style="font-family:Verdana;font-size:12px;color:#999999;margin-top:-9px;float:right;margin-right:5px;">sent 2 years into the future, to Yestoday</p>    
+			            </div><hr style="border:dashed thin;width:408px;color:#cbcbcb;">
+			            <div class="kuai">
+			                <p style="font-family:Verdana;font-size:12px;color:#022b5a;margin-left:24px;"><b>Dear FutureMe</b></p>
+			                <p style="font-family:Verdana;font-size:12px;color:#535455;margin-left:24px;">How are things in Boston? I hope you finally made it up north, and are living well on your own. I know the winters get a little chilly, but just remember how TERRIBLE that Florida ...</p>
+			                <p style="font-family:Verdana;font-size:12px;color:#999999;margin-top:-9px;float:right;margin-right:5px;">sent 2 years into the future, to Yestoday</p>
+			            </div><hr style="border:dashed thin;width:408px;color:#cbcbcb;">
+			            <div class="kuai">
+			                <p style="font-family:Verdana;font-size:12px;color:#022b5a;margin-left:24px;"><b>Dear FutureMe</b></p>
+			                <p style="font-family:Verdana;font-size:12px;color:#535455;margin-left:24px;">How are things in Boston? I hope you finally made it up north, and are living well on your own. I know the winters get a little chilly, but just remember how TERRIBLE that Florida ...</p>
+			                <p style="font-family:Verdana;font-size:12px;color:#999999;margin-top:-9px;float:right;margin-right:5px;">sent 2 years into the future, to Yestoday</p>
+			            </div><hr style="border:dashed thin;width:408px;color:#cbcbcb;">
+					
+				</div>
+				<div class="hide">
+					<ul>
+						<li><span>▪</span><a href="http://www.jsfoot.com/js/items/2011-08-19/133.html" title="javascript jscolor colorpicker js颜色选择器插件10多种调用颜色方法与取值">javascript jscolor colorpicker js颜色选择器插件10多种调用颜色方法与取值</a></li>
+						<li><span>▪</span><a href="http://www.jsfoot.com/js/items/2011-08-08/110.html" title="javascript图片特效 网站banner制作焦点图片切换带按钮和固定图标控制图片左右滚动">javascript图片特效 网站banner制作焦点图片切换带按钮和固定图标控制图片左右滚动</a></li>
+						<li><span>▪</span><a href="http://www.jsfoot.com/js/items/2011-08-07/108.html" title="javascript滚动图片插件支持单排图片上下滚动、图片无缝滚动">javascript滚动图片插件支持单排图片上下滚动、图片无缝滚动</a></li>
+						<li><span>▪</span><a href="http://www.jsfoot.com/js/items/2011-08-06/106.html" title="js多功能选项卡插件 选项卡自动切换内容图片延迟加载">js多功能选项卡插件 选项卡自动切换内容图片延迟加载</a></li>
+						<li><span>▪</span><a href="http://www.jsfoot.com/js/items/2011-08-05/104.html" title=" javascript滚动图片按钮控制图片左右自动滚动"> javascript滚动图片按钮控制图片左右自动滚动</a></li>
+					</ul>
+				</div>
+				
+			</div>
+		</div><!--demo2 end-->
+		
+		
+		
+	</div>
+	
+</body>
+</html>
