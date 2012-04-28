@@ -15,4 +15,6 @@ class Epaper extends CI_Controller {
         );
     }
 }
+
+
 /* End of file epaper.php */

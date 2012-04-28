@@ -24,10 +24,18 @@
 	font-size:12px;
 }
 a:link {color:#344e78;} 
+
+a:visited {
+	color:#344e78;
+}
+a:link {color:#344e78;} 
 a:visit {color:#F00; text-decoration:underline;}
 .jiantizhongwen-fix{
 	margin-top:-20px;
 	font-family:Verdana;
+}
+#pastl label{
+	color:#ab0000;
 }
 #lantiao{
 	background-image:url(../img/bluebottom.png);

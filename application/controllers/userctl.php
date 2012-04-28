@@ -53,13 +53,15 @@ class Userctl extends CI_Controller {
 					if ($this->user_check($vipname,$vippass) == "TRUE") {
 						$users = $this->user_model->getUserByEmail($vipname);
 						$user = $users[0];
+						$username = $user["name"];
 						$userid = $user["user_id"];
 						$newdata = array(
-								'username' => $vipname,
+								'username' => $username,
 								'user_id' => $userid
 						);
 						$this->session->set_userdata($newdata);
-					 	redirect(base_url("/"));
+						$out["message"] = $this->lang->line('loginsuccess');
+					 	$this->load->view("success",$out);
 					} else {
 							$out["errormess"] = $this->user_check($vipname,$vippass);
 	 					    $this->load->view('usersignin',$out);
@@ -114,6 +116,7 @@ class Userctl extends CI_Controller {
 		$this->load->helper(array('url','form'));
 		$this->load->library('form_validation');
 	  	$this->session->unset_userdata('username');
+		$this->session->unset_userdata('user_id');
 	  	redirect(base_url("/"));
 	}
 	
@@ -279,15 +282,15 @@ class Userctl extends CI_Controller {
 
 			</body>
 			</html>";
-		echo $mail_body;
 	        $this->load->library('mailer');
 	        $this->mailer->sendmail(
-	            '782972119@qq.com',
-	            '永夜',
-	            '验证',
+	            $this->input->post("email"),
+	            'PastLetter',
+	            $this->lang->line("validaccount"),
 	            $mail_body
 	        );
-			redirect(base_url("/"));
+		   $out = array('message' => $this->lang->line('validmailsent'));
+			$this->load->view("success",$out);
 		}
 	}
 	
@@ -309,6 +312,8 @@ class Userctl extends CI_Controller {
 					$this->load->view("lettererror",$out);
 			}
 	}
+	
+
 	
 	public function resetPassword() {
 		$this->load->model("user_model");
@@ -373,15 +378,77 @@ class Userctl extends CI_Controller {
 					$user = $users[0];
 					$id = $user["user_id"];
 					$activationKey = $user["actionkey"];
-				  $mail_body = "<h1>Dear ". $user["name"].",Welcome to pastletter</h1><h2>click this to reset your pass<a href=\"".base_url("userctl/resetPass/$activationKey/$id")."\">certi</a></h2>/>";
+					
+						$mail_body = "<html xmlns='http://www.w3.org/1999/xhtml'>
+
+						<body>
+							<table border='0' align ='center' cellspacing='0' cellpadding='0' style ='width:791px;' >
+								<tbody width='791'>
+								<tr >
+									<td><img src='".base_url('static/img/index_fullscreen_04.png')."' /></td>
+									<td style = 'font-family:Verdana;font-size:12px;color:#576b8e;float:right;margin-top:30px;'>www.pastletter.com</td>
+								</tr>
+
+									<tr style = 'width:791'>
+										<td colspan=2><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."'><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /></td>
+									</tr>
+								<tr background='".base_url('static/img/index_fullscreen_13.jpg')."'>
+									<td><p style='font-family:Verdana;font-size:12px;float:left;margin-top:30px;margin-left:40px;color:#022b5a;'>".$this->lang->line('dear')."".$user["name"].','.$this->lang->line('thanksign')."</p></td>
+									<td><img src='".base_url('static/img/future.png')."'></td>
+								</tr>
+								<tr background='".base_url('static/img/index_fullscreen_13.jpg')."'>
+										<td colspan=2 style='padding-left:10px;font-family:Verdana;font-size:12px;color:#535455;'>".$this->lang->line('click')." &nbsp;<a href='".base_url("userctl/resetPass/$activationKey/$id")."'>".$this->lang->line('toresetpass')."</a></h2>
+										</td>
+								</tr >
+								<tr background='".base_url('static/img/index_fullscreen_13.jpg')."'>
+									<td colspan=2><br /><br /><br /><br /><br /><br /></td>
+								</tr>
+
+								<tr background='".base_url('static/img/index_fullscreen_13.jpg')."'>
+									<td colspan=2><hr style='width:785px;float:left;color:#cbcbcb;border:dashed; border-width:1px;'></td>
+								</tr>
+
+								<tr background='".base_url('static/img/index_fullscreen_13.jpg')."'>
+									<td colspan=2><br /><br /></td>
+								</tr>
+
+								<tr style = 'width:791'>
+									<td colspan=2><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."'><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /></td>
+								</tr>
+
+
+								<tr background='".base_url('static/img/index_fullscreen_27.jpg')."'>
+
+									<td colspan=2 style = 'padding:10px;'>Copyright © 2012 - pastletter labs - All rights reserved.
+							                <div style = 'float:right; margin-right:20px;'>
+							                    <img src='".base_url('static/img/index_fullscreen_31.jpg')."'>
+							                    <img src='".base_url('static/img/index_fullscreen_33.jpg')."'>
+							                    <img src='".base_url('static/img/index_fullscreen_35.jpg')."'>
+							                    <img src='".base_url('static/img/index_fullscreen_37.jpg')."'>
+							                </div>
+							         </td>
+
+
+								</tr>
+
+								</tbody>
+							</table>
+
+						</body>
+						</html>";
+					
+		
 			        $this->load->library('mailer');
 			        $this->mailer->sendmail(
-			            'everatnight@gmail.com',
-			            '永夜',
-			            '验证',
+			            $this->input->post("email"),
+			            'PastLetter',
+			            $this->lang->line('findpass'),
 			            $mail_body
 			        );
-					redirect(base_url("/"));
+					$out = array(
+						"message" => $this->lang->line('forgetmailsent')
+ 					);
+					$this->load->view("success",$out);
 			} else {
 				$out["error"] = $this->email_check($this->input->post("email"));
 				$this->load->view("lettererror",$out);

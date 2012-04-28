@@ -47,6 +47,11 @@ class User_model extends CI_Model {
 			return $query->result_array();
 	}
 	
+	public function getUserByName($name) {
+		$query = $this->db->get_where('user', array('name' => $name));
+		return $query->result_array();
+	}
+	
 	public function getUnvalidUser($offset,$num) {
 		$sql = "SELECT * FROM user WHERE status = 0 ORDER BY user_id desc limit ?,?";
 		$query = $this->db->query($sql,array($offset,$num));

@@ -86,7 +86,7 @@ class Letterctl extends CI_Controller {
 							"content" => $this->input->post("content"),
 							"month" => $this->input->post("month"),
 							"day" => $this->input->post("day"),
-							"type" => $this->input->post("type"),
+							"type" => $this->input->post("is_public"),
 							"is_abey" => $this->input->post("is_abey"),
 							"letters" => $this->letter_model->getPublicLetterByType(0,$language,0,3)
 						);
@@ -125,47 +125,67 @@ class Letterctl extends CI_Controller {
 	}
 	
 	public function insertLetterToFuture() {
-		$this->load->model("letter_model");
-		$this->load->helper(array('form', 'url'));
-		$language = $this->session->userdata("language");
-		$language = 1; //设定
-		if ($this->session->userdata('username') != NULL) {
-			$this->form_validation->set_rules('email',$this->lang->line('email'), 'valid_email|required');
-			$this->form_validation->set_rules('title', $this->lang->line('subject'), 'required');
-			$this->form_validation->set_rules('content', $this->lang->line('content'), 'required');
-		 	$this->form_validation->set_rules('year', $this->lang->line('year'), 'required|integer');
-		 	$this->form_validation->set_rules('month', $this->lang->line('month'), 'required|integer');
-		 	$this->form_validation->set_rules('day', $this->lang->line('day'), 'required|integer');
-			$this->form_validation->set_rules('is_public', $this->lang->line('is_public'), 'required|integer');
-			$this->form_validation->set_message('required', $this->lang->line('required'));
-			$this->form_validation->set_message('integer', $this->lang->line('integer'));
-			if ($this->form_validation->run() == FALSE) {
-			  		$this->load->view('headerf');
-					$this->load->view('indexfullf');
-					$this->load->view('foot');
-			} else {
-				 	  	$data = array(
-							"email" => $this->input->post("email"),
-							"title" => $this->input->post("title"),
-							"year" => $this->input->post("year"),
-							"month" => $this->input->post("month"),
-							"day" => $this->input->post("day"),
-							"type" => 1,
-							"user_id" => $this->session->userdata("user_id"),
-							"is_public" => $this->input->post("is_public"),
-							"content" => $this->input->post("content"),
-							"language" => $language
-						);
-					$this->letter_model->insertLetter($data);
-						$this->load->view('headerf');
-						$this->load->view('indexfullf');
-						$this->load->view('foot');
-		 		 
+			$this->load->model("letter_model");
+				$language = $this->session->userdata("language");
+				$language = 1; //设定
+		//	if ($this->session->userdata('username') != NULL) {
+				$content = $this->input->post("content");
+				$this->form_validation->set_rules('email',$this->lang->line('email'), 'required|valid_email');
+				$this->form_validation->set_rules('title', $this->lang->line('title'), 'required');
+				$this->form_validation->set_rules('content', $this->lang->line('content'), 'required');
+			 	$this->form_validation->set_rules('year', $this->lang->line('year'), 'required|integer');
+			 	$this->form_validation->set_rules('month', $this->lang->line('month'), 'required|integer');
+			 	$this->form_validation->set_rules('day', $this->lang->line('day'), 'required|integer');
+				$this->form_validation->set_rules('is_public', $this->lang->line('is_public'), 'required|integer');
+				$this->form_validation->set_message('required', $this->lang->line('required'));
+				$this->form_validation->set_message('integer', $this->lang->line('integer'));
+				echo $this->session->userdata("Checknumuser");
+			//	if ($this->input->post("passcode") == $this->session->userdata("Checknumuser")) {
+					if ($this->form_validation->run() == FALSE) {
+							$language = $this->session->userdata("language");
+							$this->load->model("letter_model");
+							$out["data"] = array(
+								"email" => $this->input->post("email"),
+								"title" => $this->input->post("title"),
+								"year" => $this->input->post("year"),
+								"content" => $content,
+								"month" => $this->input->post("month"),
+								"day" => $this->input->post("day"),
+								"type" => $this->input->post("is_public"),
+								"is_abey" => $this->input->post("is_abey"),
+								"letters" => $this->letter_model->getPublicLetterByType(0,$language,0,3)
+							);
 
-			}
-		} else {
-			redirect();
-		}
+							$this->load->view('headerf');
+							$this->load->view('indexfullf',$out);
+							$this->load->view('foot');
+					} else {
+
+						 	  	$data = array(
+									"email" => $this->input->post("email"),
+									"title" => $this->input->post("title"),
+									"year" => $this->input->post("year"),
+									"month" => $this->input->post("month"),
+									"day" => $this->input->post("day"),
+									"type" => 1,
+									"user_id" => $this->session->userdata("user_id"),
+									"is_public" => $this->input->post("is_public"),
+									"content" => $this->input->post("content"),
+									"language" => $language
+								);
+							$this->letter_model->insertLetter($data);
+							echo "<script>alert(\"发送成功\")</script>";
+							$this->load->view('headerf');
+							$this->load->view('indexfullf');
+							$this->load->view('foot');			 		 
+					}
+	/*		} else {
+				$out['error'] = $this->lang->line("errorcode");
+					$this->load->view('header');
+					$this->load->view('indexfullp',$out);
+					$this->load->view('foot');
+			};*/
+	  	//	} else { echo  "验证码错误";}
 	}
 	
 	public function changePage($change,$type) {
@@ -244,6 +264,17 @@ class Letterctl extends CI_Controller {
 			}
 		
 	
+	}
+	
+	public function delUserletter($id) {
+		$this->load->model("letter_model");
+		$userid = $this->session->userdata("user_id");
+		if ($userid != NULL) {
+			$this->letter_model->delUserLetter($id,$userid);
+			redirect(base_url("letterctl/listUserLetter/1"));
+		} else {
+			
+		}
 	}
 	
 	public function listPublicLetterToFutureA() {
@@ -355,6 +386,30 @@ class Letterctl extends CI_Controller {
 		}
 	}
 	
+	public function showPastLetterById($id)
+	{
+		$language = $this->session->userdata("language");
+		$this->load->model("letter_model");
+		if ($this->session->userdata("username")!==NULL) {
+			$out["letters"] = $this->letter_model->getPublicLetterById($id,$language);
+			$this->load->view("email-past",$out);
+		} else {
+			
+		}
+	}
+	
+	public function showFutureLetterById($id)
+	{
+		$language = $this->session->userdata("language");
+		$this->load->model("letter_model");
+		if ($this->session->userdata("username")!==NULL) {
+			$out["letters"] = $this->letter_model->getPublicLetterById($id,$language);
+			$this->load->view("email-future",$out);
+		} else {
+			
+		}
+	}
+	
 	public function listPublicLetterToPast($type) {
 		$language = $this->session->userdata("language");
 		$this->load->model("letter_model");
@@ -385,8 +440,9 @@ class Letterctl extends CI_Controller {
 				);
 				break;
 		}
-		
+		$this->load->view('headerrp');
 		$this->load->view('readpublicpast',$out);
+		$this->load->view('foot');
 	}
 	
 	public function listPublicLetterToFuture($type) {
@@ -420,7 +476,9 @@ class Letterctl extends CI_Controller {
 					break;
 			}
 
+			$this->load->view('headerrf');
 			$this->load->view('readpublicfuture',$out);
+			$this->load->view('foot');
 	}
 	
 	public function listPublicLetter() {
@@ -434,6 +492,45 @@ class Letterctl extends CI_Controller {
 				"letter" => $this->letter_model->getPublicLetterByType(1,$language,$pass,$config['per_page'])
 			);
 		$this->load->view('list',$out);
+	}
+	
+	public function	editUserLetter($id) {
+		$language = $this->session->userdata("language");
+		$userid = $this->session->userdata("user_id");
+		$this->load->model("letter_model");
+		if ($this->session->userdata("username") != NULL) {
+				if (!$this->input->post("email")) {
+					$out = array(
+						'data'  =>  $this->letter_model->getUserLetterById($id,$userid),
+						'id' => $id,
+					);	
+					$this->load->view('editletter',$out);
+				} else {
+						$this->form_validation->set_rules('email',$this->lang->line('email'), 'required|valid_email');
+						$this->form_validation->set_rules('is_public',$this->lang->line('is_public'), 'required');
+						$this->form_validation->set_message('valid_email', $this->lang->line("valid_email"));
+						$this->form_validation->set_message('required', $this->lang->line("required"));
+						if ($this->form_validation->run() == false) {
+							$out = array(
+								'data'  =>  $this->letter_model->getUserLetterById($id,$userid),
+								'id' => $id,
+							);
+							$this->load->view('editletter',$out);
+						} else {
+							$data = array(
+								"email" => $this->input->post("email"),
+								"is_public" => $this->input->post("is_public"),
+							);
+							$this->letter_model->updateLetter($id,$data);
+							$out = array(
+								"message" => $this->lang->line('editsuccess')
+							);
+							$this->load->view("success",$out);
+						}
+				}
+		} else {
+			
+		}
 	}
 	
 	public function listUserLetter($type) {
@@ -465,7 +562,7 @@ class Letterctl extends CI_Controller {
 					$config['base_url'] = base_url("/letterctl/listUserLetter/3");
 					$config['total_rows']= count($this->letter_model->getUserLikeLetterC($userid));
 					$pass =  $this->uri->segment(4)*1;
-					$this->pagination->initialize($config); 
+					$this->pagination->initialize($config);
 					$out = array(
 							"letters" => $this->letter_model->getUserLikeLetter($userid,$pass,$config['per_page'])
 						);
@@ -483,7 +580,9 @@ class Letterctl extends CI_Controller {
 						);
 						break;
 			}
-			$this->load->view('listUserLetter',$out);	
+				$this->load->view('headerrp');
+	 			$this->load->view('listUserLetter',$out);	
+				$this->load->view('foot');
 		} else {
 			redirect("/userctl/userlogin");
 		}
@@ -491,8 +590,149 @@ class Letterctl extends CI_Controller {
 	
 
 	public function checkletterToSend() {
-		
-	}
+		$this->load->model("letter_model");
+		$fletters = $this->letter_model->getLetterToSendFuture();
+		$pletters = $this->letter_model->getLetterToSendPast();
+		foreach ($fletters as $letter) {
+				$mail_body = "<html xmlns='http://www.w3.org/1999/xhtml'>
+
+				<body>
+					<table border='0' align ='center' cellspacing='0' cellpadding='0' style ='width:791px;' >
+						<tbody width='791'>
+						<tr >
+							<td><img src='".base_url('static/img/index_fullscreen_04.png')."' /></td>
+							<td style = 'font-family:Verdana;font-size:12px;color:#576b8e;float:right;margin-top:30px;'>www.pastletter.com</td>
+						</tr>
+
+							<tr style = 'width:791'>
+								<td colspan=2><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."'><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /></td>
+							</tr>
+						<tr background='".base_url('static/img/index_fullscreen_13.jpg')."'>
+							<td><p style='font-family:Verdana;font-size:12px;float:left;margin-top:30px;margin-left:40px;color:#022b5a;'>".$letter["title"]."</p></td>
+							<td><img src='".base_url('static/img/future.png')."'></td>
+						</tr>
+						<tr background='".base_url('static/img/index_fullscreen_13.jpg')."'>
+								<td colspan=2 style='padding-left:10px;font-family:Verdana;font-size:12px;color:#535455;'>".$letter["content"]."</a></h2>
+								</td>
+						</tr >
+						<tr background='".base_url('static/img/index_fullscreen_13.jpg')."'>
+							<td colspan=2><br /><br /><br /><br /><br /><br /></td>
+						</tr>
+
+						<tr background='".base_url('static/img/index_fullscreen_13.jpg')."'>
+							<td colspan=2><hr style='width:785px;float:left;color:#cbcbcb;border:dashed; border-width:1px;'></td>
+						</tr>
+
+						<tr background='".base_url('static/img/index_fullscreen_13.jpg')."'>
+							<td colspan=2><br /><br /></td>
+						</tr>
+
+						<tr style = 'width:791'>
+							<td colspan=2><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."'><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /></td>
+						</tr>
+
+
+						<tr background='".base_url('static/img/index_fullscreen_27.jpg')."'>
+
+							<td colspan=2 style = 'padding:10px;'>Copyright © 2012 - pastletter labs - All rights reserved.
+					                <div style = 'float:right; margin-right:20px;'>
+					                    <img src='".base_url('static/img/index_fullscreen_31.jpg')."'>
+					                    <img src='".base_url('static/img/index_fullscreen_33.jpg')."'>
+					                    <img src='".base_url('static/img/index_fullscreen_35.jpg')."'>
+					                    <img src='".base_url('static/img/index_fullscreen_37.jpg')."'>
+					                </div>
+					         </td>
+
+
+						</tr>
+
+						</tbody>
+					</table>
+
+				</body>
+				</html>";
+			
+
+	        $this->load->library('mailer');
+	        $this->mailer->sendmail(
+	            $letter["email"],
+	            "PastLetter",
+	            $letter["title"],
+	            $mail_body
+	        );
+			$this->letter_model->setLetterSent($letter["letter_id"]);
+		}
 	
+	
+		foreach ($pletters as $letter) {
+				$mail_body = "<html xmlns='http://www.w3.org/1999/xhtml'>
+
+				<body>
+					<table border='0' align ='center' cellspacing='0' cellpadding='0' style ='width:791px;' >
+						<tbody width='791'>
+						<tr >
+							<td><img src='".base_url('static/img/index_fullscreen_04.png')."' /></td>
+							<td style = 'font-family:Verdana;font-size:12px;color:#576b8e;float:right;margin-top:30px;'>www.pastletter.com</td>
+						</tr>
+
+							<tr style = 'width:791'>
+								<td colspan=2><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."'><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /></td>
+							</tr>
+						<tr background='".base_url('static/img/index_fullscreen_13.jpg')."'>
+							<td><p style='font-family:Verdana;font-size:12px;float:left;margin-top:30px;margin-left:40px;color:#022b5a;'>".$letter["title"]."</p></td>
+							<td><img src='".base_url('static/img/email-chuo.png')."'></td>
+						</tr>
+						<tr background='".base_url('static/img/index_fullscreen_13.jpg')."'>
+								<td colspan=2 style='padding-left:10px;font-family:Verdana;font-size:12px;color:#535455;'>".$letter["content"]."</a></h2>
+								</td>
+						</tr >
+						<tr background='".base_url('static/img/index_fullscreen_13.jpg')."'>
+							<td colspan=2><br /><br /><br /><br /><br /><br /></td>
+						</tr>
+
+						<tr background='".base_url('static/img/index_fullscreen_13.jpg')."'>
+							<td colspan=2><hr style='width:785px;float:left;color:#cbcbcb;border:dashed; border-width:1px;'></td>
+						</tr>
+
+						<tr background='".base_url('static/img/index_fullscreen_13.jpg')."'>
+							<td colspan=2><br /><br /></td>
+						</tr>
+
+						<tr style = 'width:791'>
+							<td colspan=2><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."'><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /></td>
+						</tr>
+
+
+						<tr background='".base_url('static/img/index_fullscreen_27.jpg')."'>
+
+							<td colspan=2 style = 'padding:10px;'>Copyright © 2012 - pastletter labs - All rights reserved.
+					                <div style = 'float:right; margin-right:20px;'>
+					                    <img src='".base_url('static/img/index_fullscreen_31.jpg')."'>
+					                    <img src='".base_url('static/img/index_fullscreen_33.jpg')."'>
+					                    <img src='".base_url('static/img/index_fullscreen_35.jpg')."'>
+					                    <img src='".base_url('static/img/index_fullscreen_37.jpg')."'>
+					                </div>
+					         </td>
+
+
+						</tr>
+
+						</tbody>
+					</table>
+
+				</body>
+				</html>";
+			
+
+	        $this->load->library('mailer');
+	        $this->mailer->sendmail(
+	            $letter["email"],
+	            "PastLetter",
+	            $letter["title"],
+	            $mail_body
+	        );
+			$this->letter_model->setLetterSent($letter["letter_id"]);
+		}
+	}
 	
 }

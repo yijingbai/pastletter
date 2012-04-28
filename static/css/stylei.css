@@ -71,6 +71,9 @@ a.red：link{color:#344e78;} visit{color:#F00; text-decoration:underline;}
 	height:5px;
 	float:left;
 }
+#futurel label{
+	color:#ab0000;
+}
 .caitiao-fix{
 	margin-top:0px;
 }
@@ -119,7 +122,6 @@ a.red：link{color:#344e78;} visit{color:#F00; text-decoration:underline;}
 	float:left;
 	margin-left:25px;
 	font-family:Arial;
-	font-size:7px;
 	color:#7f7f7f;
 }
 #xietiao-xiao{
@@ -129,7 +131,6 @@ a.red：link{color:#344e78;} visit{color:#F00; text-decoration:underline;}
 	float:left;
 	margin-left:20px;
 	font-family:Arial;
-	font-size:7px;
 	color:#7f7f7f;
 }
 .kuai{
@@ -139,7 +140,6 @@ a.red：link{color:#344e78;} visit{color:#F00; text-decoration:underline;}
 }
 #more{
 	text-align:center;
-	font-size:12px;
 	font-family:Verdana;
 	width:243px;
 	height:20px;

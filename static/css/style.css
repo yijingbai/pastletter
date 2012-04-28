@@ -24,7 +24,10 @@
 	font-size:12px;
 }
 a:link {color:#344e78;} 
-a:visit {color:#F00; text-decoration:underline;}
+
+a:visited {
+	color:#344e78;
+}
 .jiantizhongwen-fix{
 	margin-top:-20px;
 	font-family:Verdana;
@@ -38,7 +41,6 @@ a:visit {color:#F00; text-decoration:underline;}
 .biaoqian{
 	font-size:12px;
 	font-family:Georgia;
-	color:#344e78;
 	width:167px;
 	height:33px;
 	float:left;

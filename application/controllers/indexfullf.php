@@ -13,6 +13,8 @@ class Indexfullf extends CI_Controller {
 	
 	public function index()
 	{
+		$language = $this->session->userdata("language");
+		$this->load->model("letter_model");
 		$out["data"] = array(
 			"email" => $this->input->post("email"),
 			"title" => $this->input->post("title"),
@@ -21,8 +23,10 @@ class Indexfullf extends CI_Controller {
 			"month" => $this->input->post("month"),
 			"day" => $this->input->post("day"),
 			"type" => $this->input->post("type"),
-			"is_abey" => $this->input->post("is_abey")
+			"is_abey" => $this->input->post("is_abey"),
+			"letters" => $this->letter_model->getPublicLetterByType(1,$language,0,3)
 		);
+	
 		$this->load->view('headerf');
 		$this->load->view('indexfullf',$out);
 		$this->load->view('foot');

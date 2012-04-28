@@ -14,9 +14,12 @@
         padding-top: 60px;
         padding-bottom: 40px;
       }
+
     </style>
 
 	<SCRIPT LANGUAGE="JavaScript">
+	
+	
 	        function reloadcode(){
 	 var d = new Date();
 	 document.getElementById('safecode').src="<?php echo base_url("showimg")?>"

@@ -34,6 +34,11 @@ class Letter_model extends CI_Model {
 		$query = $this->db->query($sql,$id);
 	}
 	
+	function delUserLetter($id,$userid) {
+		$sql = "DELETE FROM letter WHERE letter_id = ? AND user_id=?";
+		$query = $this->db->query($sql,array($id,$userid));
+	}
+	
 	function modifyLetter($id,$letter) {
 		$data = array(
 				"title" => $letter["title"],
@@ -51,50 +56,77 @@ class Letter_model extends CI_Model {
 		$query = $this->db->query($sql,$data);
 	} 
 	
+	function setLetterSent($id) {
+		$sql = "UPDATE letter SET is_sent=1 WHERE letter_id=?";
+		$query = $this->db->query($sql,$id);
+	}
+	
+	function updateLetter($id,$letter) {
+		$data = array(
+			"email" => $letter["email"],
+			"is_public" => $letter["is_public"],
+			"letter_id" => $id
+		);
+		$sql = "UPDATE letter SET email=?,is_public=? WHERE letter_id=?";
+		$query = $this->db->query($sql,$data);
+	}
+	
+	function getLetterToSendPast() {
+		$sql = "SELECT * FROM `letter` WHERE year=year(now()) AND month=month(now()) AND day=day(now()) AND type=0";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+	
+	function getLetterToSendFuture() {
+		$sql = "SELECT * FROM `letter` WHERE year=year(now()) AND month=month(now()) AND day=day(now()) AND type=1";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+	
 	function getAllPublicLetterC() {
-		$sql = "SELECT * FROM letter WHERE is_public =1";
+		$sql = "SELECT * FROM letter";
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
 	
 	function getAllPublicLetter($offset,$num) {		
-		$sql = "SELECT A.*,B.name FROM letter A LEFT JOIN user B ON B.user_id = A.user_id WHERE is_public =1 limit ?,?";
+		$sql = "SELECT A.*,B.name FROM letter A LEFT JOIN user B ON B.user_id = A.user_id limit ?,?";
 		$query = $this->db->query($sql,array($offset,$num));
 		return $query->result_array();
 	}
 	
 	function getAllPublicLetterByType($type,$offset,$size) {
-		$sql = "SELECT A.*,B.name FROM letter A LEFT JOIN user B ON B.user_id = A.user_id WHERE type = ? AND is_public = 1 limit ?,?";
+		$sql = "SELECT A.*,B.name FROM letter A LEFT JOIN user B ON B.user_id = A.user_id WHERE type = ?  limit ?,?";
 		$query = $this->db->query($sql,array($type,$offset,$size));
 		return $query->result_array();
 	}
 	
 	function getAllPublicLetterByTypeC($type) {
-		$sql = "SELECT * FROM letter WHERE type = ? AND is_public = 1";
+		$sql = "SELECT * FROM letter WHERE type = ? ";
 		$query = $this->db->query($sql,array($type));
 		return $query->result_array();
 	}
 	
 	function getAllPublicLetterSent($offset,$num) {
-		$sql = "SELECT A.*,B.name FROM letter A LEFT JOIN user B ON B.user_id = A.user_id WHERE is_sent =1 AND is_public = 1 limit ?,?";
+		$sql = "SELECT A.*,B.name FROM letter A LEFT JOIN user B ON B.user_id = A.user_id WHERE is_sent =1  limit ?,?";
 		$query = $this->db->query($sql,array($offset,$num));
 		return $query->result_array();
 	}
 	
 	function getAllPublicLetterSentC() {
-		$sql = "SELECT * FROM letter WHERE is_sent =1 AND is_public = 1";
+		$sql = "SELECT * FROM letter WHERE is_sent =1 ";
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
 	
 	function getAllPublicLetterUnsent($offset,$num) {
-		$sql = "SELECT A.*,B.name FROM letter A LEFT JOIN user B ON B.user_id = A.user_id WHERE is_sent =0 AND is_public = 1 limit ?,?";
+		$sql = "SELECT A.*,B.name FROM letter A LEFT JOIN user B ON B.user_id = A.user_id WHERE is_sent =0 limit ?,?";
 		$query = $this->db->query($sql,array($offset,$num));
 		return $query->result_array();
 	}
 	
 	function getAllPublicLetterUnsentC() {
-		$sql = "SELECT * FROM letter WHERE is_sent =0 AND is_public = 1";
+		$sql = "SELECT * FROM letter WHERE is_sent =0 ";
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
