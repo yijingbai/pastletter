@@ -1,6 +1,6 @@
 #
 # TABLE STRUCTURE FOR: image
-#
+#d
 
 DROP TABLE IF EXISTS image;
 
