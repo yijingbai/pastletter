@@ -13,6 +13,7 @@ class Indexfullp extends CI_Controller {
 	
 	public function index()
 	{
+	 	echo validation_errors();
 		$language = $this->session->userdata("language");
 		$this->load->model("letter_model");
 		$out["data"] = array(

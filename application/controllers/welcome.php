@@ -63,6 +63,20 @@ class Welcome extends CI_Controller {
 		$this->load->view('index',$out);
 	}
 	
+	public function support()
+	{
+		$this->load->view('headerrf');
+		$this->load->view('support');
+		$this->load->view('foot');
+	}
+	
+	public function about()
+	{
+		$this->load->view('headerrf');
+		$this->load->view('about');
+		$this->load->view('foot');
+	}
+	
 	public function fullfilldata($type,$page) {
 		switch($type) {
 			case 1 : 

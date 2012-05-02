@@ -138,13 +138,30 @@ class Letter_model extends CI_Model {
 	}
 	
 	function getPublicLetterByType($type,$language,$offset,$size) {
-		$sql = "SELECT * FROM letter WHERE type = ? AND language = ? AND is_public = 1  ORDER BY letter_id desc limit ?,?";
+		$sql = "SELECT letter.*, IFNULL( ed.num, 0 ) likenum
+		FROM (
+		SELECT letter.letter_id lid, letter.title, count( * ) num
+		FROM user_like, letter
+		WHERE letter.letter_id = user_like.letter_id
+		GROUP BY letter.letter_id, letter.title
+		)ed
+		RIGHT JOIN letter ON ed.lid = letter.letter_id 
+		where letter.type=? AND letter.language = ? AND letter.is_public=1 ORDER BY letter.letter_id desc limit ?,?";
 		$query = $this->db->query($sql,array($type,$language,$offset,$size));
 		return $query->result_array();
 	}
 	
 	function getPublicLetterByTypeC($type,$language) {
-		$sql = "SELECT * FROM letter WHERE type = ? AND language = ? AND is_public = 1";
+		$sql = "SELECT letter.*, IFNULL( ed.num, 0 ) likenum
+		FROM (
+
+		SELECT letter.letter_id lid, letter.title, count( * ) num
+		FROM user_like, letter
+		WHERE letter.letter_id = user_like.letter_id
+		GROUP BY letter.letter_id, letter.title
+		)ed
+		RIGHT JOIN letter ON ed.lid = letter.letter_id 
+		where letter.type=? AND letter.language = ? AND letter.is_public=1 ORDER BY letter.letter_id desc";
 		$query = $this->db->query($sql,array($type,$language));
 		return $query->result_array();
 	}
@@ -160,7 +177,7 @@ class Letter_model extends CI_Model {
 	}
 	
 	function getAllPublicFavoriteLetter($offset,$size) {
-		$sql = "SELECT letter.*,user.name,count(*)
+		$sql = "SELECT letter.*,user.name,count(*) AS likenum
 		FROM user_like,letter,user
 		where letter.letter_id=user_like.letter_id AND letter.user_id=user.user_id
 		group by letter.letter_id,letter.title
@@ -189,7 +206,7 @@ class Letter_model extends CI_Model {
 	}
 	
 	function getPublicFavoriteLetterPage($language,$offset,$size) {
-		$sql = "SELECT letter.*,user.name,count(*)
+		$sql = "SELECT letter.*,user.name,count(*) AS likenum
 		FROM user_like,letter,user
 		where letter.letter_id=user_like.letter_id AND letter.user_id=user.user_id AND letter.language=?
 		group by letter.letter_id,letter.title
@@ -209,7 +226,16 @@ class Letter_model extends CI_Model {
 	}
 	
 	function getPublicFathestLetterPage($language,$offset,$size) {
-		$sql = "SELECT * FROM letter WHERE language = ? ORDER BY year desc limit ?,?";
+		$sql = "SELECT letter.*, IFNULL( ed.num, 0 ) likenum
+		FROM (
+
+		SELECT letter.letter_id lid, letter.title, count( * ) num
+		FROM user_like, letter
+		WHERE letter.letter_id = user_like.letter_id
+		GROUP BY letter.letter_id, letter.title
+		)ed
+		RIGHT JOIN letter ON ed.lid = letter.letter_id 
+		WHERE letter.language = ? ORDER BY letter.year desc limit ?,?";
 		$query = $this->db->query($sql,array($language,$offset,$size));
 		return $query->result_array();
 	}
@@ -221,7 +247,16 @@ class Letter_model extends CI_Model {
 	}
 	
 	function getPublicFathestPastLetterPage($language,$offset,$size) {
-		$sql = "SELECT * FROM letter WHERE language = ? ORDER BY year limit ?,?";
+		$sql = "SELECT letter.*, IFNULL( ed.num, 0 ) likenum
+		FROM (
+
+		SELECT letter.letter_id lid, letter.title, count( * ) num
+		FROM user_like, letter
+		WHERE letter.letter_id = user_like.letter_id
+		GROUP BY letter.letter_id, letter.title
+		)ed
+		RIGHT JOIN letter ON ed.lid = letter.letter_id 
+			WHERE letter.language = ? ORDER BY letter.year limit ?,?";
 		$query = $this->db->query($sql,array($language,$offset,$size));
 		return $query->result_array();
 	}

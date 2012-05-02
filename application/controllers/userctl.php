@@ -305,7 +305,8 @@ class Userctl extends CI_Controller {
 				} else {
 					$pass = $this->encrypt->sha1($this->input->post("password"));
 					$this->user_model->setPassById($pass,$id);
-					$this->load->view("resetsuccess");
+					$out = array('message' => $this->lang->line('resetpasssuccess'));
+					$this->load->view("success",$out);
 				}
 			} else {
 					$out["error"] = $this->reset_check($this->input->post("email"));
@@ -330,7 +331,8 @@ class Userctl extends CI_Controller {
 				if ($password ==  $this->encrypt->sha1($this->input->post("oldpass"))) {
 					$pass = $this->encrypt->sha1($this->input->post("password"));
 					$this->user_model->setPassById($pass,$this->session->userdata("user_id"));
-					$this->load->view("resetsuccess");
+					$out = array('message' => $this->lang->line('resetpasssuccess'));
+					$this->load->view("success",$out);
 				} else {
 					$out["error"] = $this->lang->line("oldpasswrong");
 					$this->load->view("lettererror",$out);
@@ -455,6 +457,151 @@ class Userctl extends CI_Controller {
 			}
   		  
 		}
+	}
+	
+	public function singlesign()
+	{
+			$this->load->helper(array('url','form'));
+			$this->load->library('form_validation');
+			$this->load->model("user_model");
+
+			$this->form_validation->set_rules('username',$this->lang->line('username'), 'required');
+			$this->form_validation->set_rules('password', $this->lang->line('password'), 'required|matches[passconf]');
+			$this->form_validation->set_rules('passconf', $this->lang->line('passconf'), 'required');
+		 	$this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[user.email]');
+			$this->form_validation->set_message('required', $this->lang->line('required'));
+			$this->form_validation->set_message('is_unique', $this->lang->line('is_unique'));
+				$this->form_validation->set_message('matches', $this->lang->line('matches'));
+			if ($this->form_validation->run() == FALSE) {
+						$this->load->view('headerrf');
+						$this->load->view('singlesign');
+						$this->load->view('foot');
+			} else {
+				$activationKey =  mt_rand() . mt_rand() . mt_rand() . mt_rand() . mt_rand();
+				$data = array(
+					"name" => $this->input->post("username"),
+					"pass" => $this->encrypt->sha1($this->input->post("password")),
+					"email" => $this->input->post("email"),
+					"actionkey" => $activationKey,
+					"status" => 0
+				);
+				$this->user_model->insertUser($data);
+
+				$mail_body = "<html xmlns='http://www.w3.org/1999/xhtml'>
+
+				<body>
+					<table border='0' align ='center' cellspacing='0' cellpadding='0' style ='width:791px;' >
+						<tbody width='791'>
+						<tr >
+							<td><img src='".base_url('static/img/index_fullscreen_04.png')."' /></td>
+							<td style = 'font-family:Verdana;font-size:12px;color:#576b8e;float:right;margin-top:30px;'>www.pastletter.com</td>
+						</tr>
+
+							<tr style = 'width:791'>
+								<td colspan=2><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."'><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /></td>
+							</tr>
+						<tr background='".base_url('static/img/index_fullscreen_13.jpg')."'>
+							<td><p style='font-family:Verdana;font-size:12px;float:left;margin-top:30px;margin-left:40px;color:#022b5a;'>Dear".$this->input->post("username").','.'Thank your for sign in PastLetter'."</p></td>
+							<td><img src='".base_url('static/img/future.png')."'></td>
+						</tr>
+						<tr background='".base_url('static/img/index_fullscreen_13.jpg')."'>
+								<td colspan=2 style='padding-left:10px;font-family:Verdana;font-size:12px;color:#535455;'>Please click  &nbsp;<a href = ".base_url("userctl/userValid").'/'.$activationKey.">here</a> to valid your account
+								</td>
+						</tr >
+						<tr background='".base_url('static/img/index_fullscreen_13.jpg')."'>
+							<td colspan=2><br /><br /><br /><br /><br /><br /></td>
+						</tr>
+
+						<tr background='".base_url('static/img/index_fullscreen_13.jpg')."'>
+							<td colspan=2><hr style='width:785px;float:left;color:#cbcbcb;border:dashed; border-width:1px;'></td>
+						</tr>
+
+						<tr background='".base_url('static/img/index_fullscreen_13.jpg')."'>
+							<td colspan=2><br /><br /></td>
+						</tr>
+
+						<tr style = 'width:791'>
+							<td colspan=2><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."'><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /></td>
+						</tr>
+
+
+						<tr background='".base_url('static/img/index_fullscreen_27.jpg')."'>
+
+							<td colspan=2 style = 'padding:10px;'>Copyright © 2012 - pastletter labs - All rights reserved.
+					                <div style = 'float:right; margin-right:20px;'>
+					                    <img src='".base_url('static/img/index_fullscreen_31.jpg')."'>
+					                    <img src='".base_url('static/img/index_fullscreen_33.jpg')."'>
+					                    <img src='".base_url('static/img/index_fullscreen_35.jpg')."'>
+					                    <img src='".base_url('static/img/index_fullscreen_37.jpg')."'>
+					                </div>
+					         </td>
+
+
+						</tr>
+
+						</tbody>
+					</table>
+
+				</body>
+				</html>";
+		        $this->load->library('mailer');
+		        $this->mailer->sendmail(
+		            $this->input->post("email"),
+		            'PastLetter',
+		            $this->lang->line("validaccount"),
+		            $mail_body
+		        );
+			   $out = array('message' => $this->lang->line('validmailsent'));
+				$this->load->view("success",$out);
+			}
+		
+		
+	}
+	
+	public function singlesignin()
+	{
+			$this->load->helper(array('url','form'));
+			$this->load->library('form_validation');
+			$this->load->model("user_model");
+			if ($this->session->userdata('username') == NULL) {
+				$this->form_validation->set_rules('email', $this->lang->line('email'), 'required|valid_email');
+				$this->form_validation->set_rules('password',$this->lang->line('password'), 'required');
+				$this->form_validation->set_message('required', '%s'.$this->lang->line('notnull'));
+				if ($this->form_validation->run() == FALSE) {
+					$out["errormess"] = "";
+				   	$this->load->view('headerrf');
+					$this->load->view('singlesignin',$out);
+					$this->load->view('foot');
+				} else {
+						$vipname = $this->input->post("email");
+						$vippass = $this->encrypt->sha1($this->input->post("password"));
+
+						if ($this->user_check($vipname,$vippass) == "TRUE") {
+							$users = $this->user_model->getUserByEmail($vipname);
+							$user = $users[0];
+							$username = $user["name"];
+							$userid = $user["user_id"];
+							$newdata = array(
+									'username' => $username,
+									'user_id' => $userid
+							);
+							$this->session->set_userdata($newdata);
+							$out["message"] = $this->lang->line('loginsuccess');
+						 	$this->load->view("success",$out);
+						} else {
+								$out["errormess"] = $this->user_check($vipname,$vippass);
+								
+								$this->load->view('headerrf');
+								$this->load->view('singlesignin',$out);
+								$this->load->view('foot');
+								return;
+						}
+				}
+			} else {
+				$this->load->view('admin_top');
+				$this->load->view('admin_left');
+				$this->load->view('admin_info');
+			}
 	}
 	
 	public function email_check($email) {

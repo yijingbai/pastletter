@@ -64,13 +64,11 @@ class Letterctl extends CI_Controller {
 		$this->load->model("letter_model");
 			$language = $this->session->userdata("language");
 			$language = 1; //设定
-	//	if ($this->session->userdata('username') != NULL) {
+		if ($this->session->userdata('username') != NULL) {
 			$this->form_validation->set_rules('email',$this->lang->line('email'), 'required|valid_email');
 			$this->form_validation->set_rules('title', $this->lang->line('title'), 'required');
 			$this->form_validation->set_rules('content', $this->lang->line('content'), 'required');
-		 	$this->form_validation->set_rules('year', $this->lang->line('year'), 'required|integer');
-		 	$this->form_validation->set_rules('month', $this->lang->line('month'), 'required|integer');
-		 	$this->form_validation->set_rules('day', $this->lang->line('day'), 'required|integer');
+		 	$this->form_validation->set_rules('year', $this->lang->line('year'), 'required');
 			$this->form_validation->set_rules('is_public', $this->lang->line('is_public'), 'required|integer');
 			$this->form_validation->set_message('required', $this->lang->line('required'));
 			$this->form_validation->set_message('integer', $this->lang->line('integer'));
@@ -79,13 +77,13 @@ class Letterctl extends CI_Controller {
 				if ($this->form_validation->run() == FALSE) {
 						$language = $this->session->userdata("language");
 						$this->load->model("letter_model");
+						$date = $this->input->post("year");
+						$dates = explode("/",$date);
 						$out["data"] = array(
 							"email" => $this->input->post("email"),
 							"title" => $this->input->post("title"),
-							"year" => $this->input->post("year"),
+							"year" => $date,
 							"content" => $this->input->post("content"),
-							"month" => $this->input->post("month"),
-							"day" => $this->input->post("day"),
 							"type" => $this->input->post("is_public"),
 							"is_abey" => $this->input->post("is_abey"),
 							"letters" => $this->letter_model->getPublicLetterByType(0,$language,0,3)
@@ -95,13 +93,14 @@ class Letterctl extends CI_Controller {
 						$this->load->view('indexfullp',$out);
 						$this->load->view('foot');
 				} else {
-				
+						$date = $this->input->post("year");
+						$dates = explode("/",$date);
 					 	  	$data = array(
 								"email" => $this->input->post("email"),
 								"title" => $this->input->post("title"),
-								"year" => $this->input->post("year"),
-								"month" => $this->input->post("month"),
-								"day" => $this->input->post("day"),
+								"year" => $dates[2],
+								"month" => $dates[0],
+								"day" => $dates[1],
 								"type" => 0,
 								"user_id" => $this->session->userdata("user_id"),
 								"is_public" => $this->input->post("is_public"),
@@ -120,7 +119,9 @@ class Letterctl extends CI_Controller {
 				$this->load->view('indexfullp',$out);
 				$this->load->view('foot');
 		};*/
-  	//	} else { echo  "验证码错误";}
+  		} else { 
+			redirect(base_url("userctl/singlesignin"));
+		}
 			
 	}
 	
@@ -133,24 +134,22 @@ class Letterctl extends CI_Controller {
 				$this->form_validation->set_rules('email',$this->lang->line('email'), 'required|valid_email');
 				$this->form_validation->set_rules('title', $this->lang->line('title'), 'required');
 				$this->form_validation->set_rules('content', $this->lang->line('content'), 'required');
-			 	$this->form_validation->set_rules('year', $this->lang->line('year'), 'required|integer');
-			 	$this->form_validation->set_rules('month', $this->lang->line('month'), 'required|integer');
-			 	$this->form_validation->set_rules('day', $this->lang->line('day'), 'required|integer');
+			 	$this->form_validation->set_rules('year', $this->lang->line('year'), 'required');
 				$this->form_validation->set_rules('is_public', $this->lang->line('is_public'), 'required|integer');
 				$this->form_validation->set_message('required', $this->lang->line('required'));
 				$this->form_validation->set_message('integer', $this->lang->line('integer'));
 				echo $this->session->userdata("Checknumuser");
 			//	if ($this->input->post("passcode") == $this->session->userdata("Checknumuser")) {
 					if ($this->form_validation->run() == FALSE) {
+							$date = $this->input->post("year");
+							$dates = explode("/",$date);
 							$language = $this->session->userdata("language");
 							$this->load->model("letter_model");
 							$out["data"] = array(
 								"email" => $this->input->post("email"),
 								"title" => $this->input->post("title"),
-								"year" => $this->input->post("year"),
+								"year" => $date,
 								"content" => $content,
-								"month" => $this->input->post("month"),
-								"day" => $this->input->post("day"),
 								"type" => $this->input->post("is_public"),
 								"is_abey" => $this->input->post("is_abey"),
 								"letters" => $this->letter_model->getPublicLetterByType(0,$language,0,3)
@@ -160,13 +159,14 @@ class Letterctl extends CI_Controller {
 							$this->load->view('indexfullf',$out);
 							$this->load->view('foot');
 					} else {
-
+							$date = $this->input->post("year");
+							$dates = explode("/",$date);
 						 	  	$data = array(
 									"email" => $this->input->post("email"),
 									"title" => $this->input->post("title"),
-									"year" => $this->input->post("year"),
-									"month" => $this->input->post("month"),
-									"day" => $this->input->post("day"),
+									"year" => $dates[2],
+									"month" => $dates[0],
+									"day" => $dates[1],
 									"type" => 1,
 									"user_id" => $this->session->userdata("user_id"),
 									"is_public" => $this->input->post("is_public"),
