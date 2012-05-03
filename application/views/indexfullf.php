@@ -5,6 +5,8 @@
 <script src="<?php echo base_url("static/js/jquery-1.7.1.min.js")?>"></script>
 <script src="<?php echo base_url("static/js/jquery.colorbox-min.js")?>"></script>
 <script src="<?php echo base_url("static/js/jquery.cookie.js")?>"></script>
+<script src="<?php echo base_url("static/js/jquery-ui-1.8.20.custom.min.js")?>"></script>
+<link href="<?php echo base_url('static/css/redmond/jquery-ui-1.8.20.custom.css')?>" rel="stylesheet">
 	<script>
 		$(document).ready(function(){
 			$(".iframe").colorbox({iframe:true,close:"[x] close" ,width:"622px", height:"368px"});
@@ -13,7 +15,20 @@
 
 		
 	</script>
+	<script>
 
+
+		var myDatefmin = new Date();
+		myDatefmin.setMonth(myDatefmin.getMonth()+1);
+		$(function() {
+			$( "#datepickerf" ).datepicker({
+				changeMonth: true,
+				changeYear: true,
+				minDate: myDatefmin,
+				maxDate: "+60Y"
+			});
+		});
+	</script>
 <div id="leftkuang">
        <div id="xietiao">
 			<div id="xietiao-zi"><i><?php echo $this->lang->line("whatfuture")?></i></div>
@@ -53,57 +68,7 @@
 								<label class="control-label"  for="select01"><?php echo  $this->lang->line('deliver')?></label>
 						            <div class="controls" >
 										
-											month
-						             		<select class="span1 "  name ="month" style = "width:55px;height:20px;">
-								                <option value = "1" <?php if ($data["month"] == 1) echo 'selected';?> >Jan</option>
-								                <option value = "2"  <?php if ($data["month"] == 2) echo 'selected';?>>Feb</option>
-								                <option value = "3"  <?php if ($data["month"] == 3) echo 'selected';?>>Mar</option>
-								                <option value = "4" <?php if ($data["month"] == 4) echo 'selected';?>>Apr</option>
-								                <option value = "5"  <?php if ($data["month"] == 5) echo 'selected';?>>May</option>
-												 <option value = "6"  <?php if ($data["month"] == 6) echo 'selected';?>>Jun</option>
-												 <option value = "7"  <?php if ($data["month"] == 7) echo 'selected';?>>Jul</option>
-												 <option value = "8"  <?php if ($data["month"] == 8) echo 'selected';?>>Aug</option>
-												 <option value = "9"  <?php if ($data["month"] == 9) echo 'selected';?>>Sep</option>
-												 <option value = "10"  <?php if ($data["month"] == 10) echo 'selected';?>>Oct</option>
-												 <option value = "11"  <?php if ($data["month"] == 11) echo 'selected';?>>Nov</option>
-												 <option value = "12"  <?php if ($data["month"] == 12) echo 'selected';?>>Dec</option>
-										    </select>
-										day
-									<select class="span1" name = "day" style = "width : 50px;height:20px;">
-									                <option <?php if ($data["day"] == 1) echo 'selected';?>>1</option>
-									                <option <?php if ($data["day"] == 2) echo 'selected';?>>2</option>
-									                <option <?php if ($data["day"] == 3) echo 'selected';?>>3</option>
-									                <option <?php if ($data["day"] == 4) echo 'selected';?>>4</option>
-									                <option <?php if ($data["day"] == 5) echo 'selected';?>>5</option>
-													<option <?php if ($data["day"] == 6) echo 'selected';?>>6</option>
-									                <option <?php if ($data["day"] == 7) echo 'selected';?>>7</option>
-									                <option <?php if ($data["day"] == '8') echo 'selected';?>>8</option>
-									                <option <?php if ($data["day"] == 9) echo 'selected';?>>9</option>
-									                <option <?php if ($data["day"] == 10) echo 'selected';?>>10</option>
-													<option <?php if ($data["day"] == 11) echo 'selected';?>>11</option>
-									                <option <?php if ($data["day"] == 12) echo 'selected';?>>12</option>
-									                <option <?php if ($data["day"] == 13) echo 'selected';?>>13</option>
-									                <option <?php if ($data["day"] == 14) echo 'selected';?>>14</option>
-									                <option <?php if ($data["day"] == 15) echo 'selected';?>>15</option>
-													<option <?php if ($data["day"] == 16) echo 'selected';?>>16</option>
-									                <option <?php if ($data["day"] == 17) echo 'selected';?>>17</option>
-									                <option <?php if ($data["day"] == 18) echo 'selected';?>>18</option>
-									                <option <?php if ($data["day"] == 19) echo 'selected';?>>19</option>
-									                <option <?php if ($data["day"] == 20) echo 'selected';?>>20</option>
-													<option <?php if ($data["day"] == 21) echo 'selected';?>>21</option>
-									                <option <?php if ($data["day"] == 22) echo 'selected';?>>22</option>
-									                <option <?php if ($data["day"] == 23) echo 'selected';?>>23</option>
-									                <option <?php if ($data["day"] == 24) echo 'selected';?>>24</option>
-									                <option <?php if ($data["day"] == 25) echo 'selected';?>>25</option>
-												    <option <?php if ($data["day"] == 26) echo 'selected';?>>26</option>
-									                <option <?php if ($data["day"] == 27) echo 'selected';?>>27</option>
-									                <option <?php if ($data["day"] == 28) echo 'selected';?>>28</option>
-													<option <?php if ($data["day"] == 29) echo 'selected';?>>29</option>
-									                <option <?php if ($data["day"] == 30) echo 'selected';?>>30</option>
-									                <option <?php if ($data["day"] == 31) echo 'selected';?>>31</option>
-									     </select>
-											year
-											<input class="span1" name = "year"  value = "<?php if ($data["year"]!=NULL) echo $data["year"]; else echo set_value('year'); ?>" style = "style = "width : 50px;height:15px;">
+											<input class= "span2" name = "year"  id = "datepickerf" value = "<?php if ($data["year"]!=NULL) echo $data["year"]; else echo set_value('year'); ?>" style = "style = "width : 100px;height:15px;" readonly>
 
 											     </input>
 											<span class="help-inline"><?php echo form_error('year')?></span>

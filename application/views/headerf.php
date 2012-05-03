@@ -35,12 +35,12 @@
 		<?php } else { ?>
 		<a class='iframe' href="<?php echo base_url("/userctl/userlogin")?>"><?php echo $this->lang->line("login")?></a> | <a class='iframe' href="<?php echo base_url("/userctl/usersign")?>"><?php echo $this->lang->line("sign")?></a>  <?php } ?></div>
         </div>
-        <div id="lantiao">
-           	 <div id="biaoqian1" class="biaoqian" style="color:#344e78;"><a href="<?php echo base_url("/")?>"><b><i><?php echo $this->lang->line("writeletter")?></i></b></a></div>
+         <div id="lantiao">
+	            <div id="biaoqian1" class="biaoqian" style="color:#344e78;"><a href="<?php echo base_url("/")?>"><b><i><?php echo $this->lang->line("writeletter")?></i></b></a></div>
 	            <div id="biaoqian2" class="biaoqian"><a href="<?php echo base_url("/letterctl/listPublicLetterToPast/1")?>"><b><i><?php echo $this->lang->line("readpast")?></i></b></a></div>
 	            <div id="biaoqian3" class="biaoqian"><a href="<?php echo base_url("/letterctl/listPublicLetterToFuture/1")?>"><b><i><?php echo $this->lang->line("readfuture")?></i></b></a></div>
-	            <div id="biaoqian4" class="biaoqian"><a href="<?php echo base_url("/")?>"><b><i><?php echo $this->lang->line("about")?></i></b></a></div>
-	            <div id="biaoqian5" class="biaoqian"><a href="<?php echo base_url("/")?>"><b><i><?php echo $this->lang->line("support")?></i></b></a></div>
-	            <div id="biaoqian6" class="biaoqian"><a href="<?php echo base_url("/")?>"><b><i><?php echo $this->lang->line("connect")?></i></b></a></div>
-        </div>
+	            <div id="biaoqian4" class="biaoqian"><a href="<?php echo base_url("/welcome/about")?>"><b><i><?php echo $this->lang->line("about")?></i></b></a></div>
+	            <div id="biaoqian5" class="biaoqian"><a href="<?php echo base_url("/welcome/support")?>"><b><i><?php echo $this->lang->line("support")?></i></b></a></div>
+	            <div id="biaoqian6" class="biaoqian"><a href="<?php echo base_url("/welcome/connect")?>"><b><i><?php echo $this->lang->line("connect")?></i></b></a></div>
+	        </div>
         <div class="caitiao"></div>

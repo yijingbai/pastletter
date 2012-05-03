@@ -91,6 +91,41 @@ li .beijing:link{text-decoration:none;background-color:#e9f2f5;} hover{color:#e9
 .caitiao-fix{
 	margin-top:0px;
 }
+
+#center{
+	width:911px;
+	height:659px;
+	float:left;
+	margin-left:37px;
+}
+#about{
+	width:911px;
+	height:30px;
+	font-family:Georgia;
+	font-size:13px;
+	color:#545455;
+	margin-top:30px;
+	float:left;
+}
+.tiao{
+	width:911px;
+	height:100px;
+	margin-left:37px;
+	float:left;
+}
+#tiao1_header{
+	font-family:Verdana;
+	font-size:12px;
+	color:#022b5a;
+}
+#tiao1_body{
+	color:#535455;
+	font-family:Verdana;
+	font-size:12px;
+	margin-top:15px;
+}
+
+
 #left-container{
 	width:737px;
 	height:648px;
@@ -201,6 +236,31 @@ li .beijing:link{text-decoration:none;background-color:#e9f2f5;} hover{color:#e9
 	color:#1a7ba0;
 	text-decoration:underline;
 	float:left;
+}
+#support_header{
+	font-family:Georgia;
+	font-size:13px;
+	color:#545455;
+}
+#center{
+	width:700px;
+	height:500px;
+}
+#center_header{
+	font-family:Verdana;
+	font-size:12px;
+	color:#022b5a;
+	margin-top:15px;
+}
+#center_body{
+	color:#535455;
+	font-family:Verdana;
+	font-size:12px;
+	margin-top:5px;
+}
+#sangetu{
+	margin-left:100px;
+	margin-top:60px;
 }
 #footer{
 	background-image:url(../img/QQ%E6%88%AA%E5%9B%BE20120416152136.png);

@@ -3,6 +3,8 @@
 		$(".iframe2").colorbox({iframe:true,close:"[x] close" ,width:"635px", height:"780px"});
 	});
 </script>
+ <div id="huitiao"><b><p style="margin-top:10px;">Please go to your mailbox for validation</p></b></div> <!-- //todo 添加动态-->
+
 <div id="left-container">
        <div id="leftkuang">
        <div style="width:737px;height:30px;margin-top:-20px;"><p style="font-family:Georgia;font-size:13px;color:#545455;float:left;">Public, but Anonymous, to past Letters: Recently Delivered<img src="<?php echo base_url("static/img/3d-bian.png")?>" style="width:737px;height:5px;"></div>

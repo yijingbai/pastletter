@@ -33,6 +33,7 @@ a:hover{text-decoration:none;color:#ab0000;}
 .tab_box .hide{display:none;}}
 </style>
 <link href="<?php echo base_url('static/css/stylei.css')?>" rel="stylesheet">
+<link href="<?php echo base_url('static/css/redmond/jquery-ui-1.8.20.custom.css')?>" rel="stylesheet">
 <style type="text/css">
     body{
 		width:1004px;
@@ -54,7 +55,7 @@ a:hover{text-decoration:none;color:#ab0000;}
 	<link rel="stylesheet" href="<?php echo base_url("static/css/colorbox.css")?>" />
 	<script src="<?php echo base_url("static/js/jquery.colorbox-min.js")?>"></script>
 	<script src="<?php echo base_url("static/js/jquery.cookie.js")?>"></script>
-
+<script src="<?php echo base_url("static/js/jquery-ui-1.8.20.custom.min.js")?>"></script>
 <script src="<?php echo base_url('static/js/jquery.tabs.js')?>"></script>
 <script src="<?php echo base_url('static/js/jquery.lazyload.js')?>"></script>
 <script type="text/javascript">
@@ -71,7 +72,31 @@ $(function(){
 
 });	
 </script>
-
+<script>
+	var myDatepmin = new Date();
+	myDatepmin.setYear(myDatepmin.getYear()-60);
+	var myDatepmax = new Date();
+	myDatepmax.setMonth(myDatepmax.getMonth()-1);
+	$(function() {
+		$( "#datepickerp" ).datepicker({
+			changeMonth: true,
+			changeYear: true,
+			minDate: myDatepmin,
+			maxDate: myDatepmax
+		});
+	});
+	
+	var myDatefmin = new Date();
+	myDatefmin.setMonth(myDatefmin.getMonth()+1);
+	$(function() {
+		$( "#datepickerf" ).datepicker({
+			changeMonth: true,
+			changeYear: true,
+			minDate: myDatefmin,
+			maxDate: "+60Y"
+		});
+	});
+</script>
 
 
 <div id="container">
@@ -120,7 +145,7 @@ $(function(){
 							          <div class="control-group  <?php if (form_error('email') != null) echo 'error'?>" >
 							            <label class="control-label" for="input01"><?php echo $this->lang->line("email")?></label>
 							            <div class="controls">
-							              <input type="text"  onfocus="fop();" style = "width:380px;height:30px;" name = "email" class="input-xlarge" id="input01" value = "<?php if ($pdata["email"]!=NULL) echo $pdata["email"]; echo set_value('email'); ?>">
+							              <input type="text"  onfocus="fop();" style = "width:380px;height:20px;" name = "email" class="input-xlarge" id="input01" value = "<?php if ($pdata["email"]!=NULL) echo $pdata["email"]; echo set_value('email'); ?>">
 										<span class="help-inline"><?php echo form_error('email')?></span>
 							            </div>
 							          </div>
@@ -128,7 +153,7 @@ $(function(){
 									  <div class="control-group   <?php if (form_error('title') != null) echo 'error'?>">
 							            <label class="control-label" for="input02"><?php echo $this->lang->line("subject")?></label>
 							            <div class="controls">
-							              <input type="text" onfocus="fop();" style = "width:380px;height:30px;" value = "<?php if ($pdata["title"]!=NULL) echo $pdata["title"]; echo set_value('title'); ?>" name = "title" class="input-xlarge" id="input02">
+							              <input type="text" onfocus="fop();" style = "width:380px;height:20px;" value = "<?php if ($pdata["title"]!=NULL) echo $pdata["title"]; echo set_value('title'); ?>" name = "title" class="input-xlarge" id="input02">
 							            	<span class="help-inline"><?php echo form_error('title')?></span>
 							            </div>
 							          </div>
@@ -147,57 +172,7 @@ $(function(){
 									   <div class="control-group  <?php if (form_error('year') != null) echo 'error'?>" style = "margin-bottom:1px;">
 								            <div class="controls" >
 												<label class="control-label"  style = 'float: left;width: 70px;padding-top:3px;' for="select01"><?php echo  $this->lang->line('deliver')?></label>
-													month
-								             		<select class="span1 "  name ="month" style = "width:55px;height:20px;">
-										                <option value = "1" <?php if ($pdata["month"] == 1) echo 'selected';?> >Jan</option>
-										                <option value = "2"  <?php if ($pdata["month"] == 2) echo 'selected';?>>Feb</option>
-										                <option value = "3"  <?php if ($pdata["month"] == 3) echo 'selected';?>>Mar</option>
-										                <option value = "4" <?php if ($pdata["month"] == 4) echo 'selected';?>>Apr</option>
-										                <option value = "5"  <?php if ($pdata["month"] == 5) echo 'selected';?>>May</option>
-														 <option value = "6"  <?php if ($pdata["month"] == 6) echo 'selected';?>>Jun</option>
-														 <option value = "7"  <?php if ($pdata["month"] == 7) echo 'selected';?>>Jul</option>
-														 <option value = "8"  <?php if ($pdata["month"] == 8) echo 'selected';?>>Aug</option>
-														 <option value = "9"  <?php if ($pdata["month"] == 9) echo 'selected';?>>Sep</option>
-														 <option value = "10"  <?php if ($pdata["month"] == 10) echo 'selected';?>>Oct</option>
-														 <option value = "11"  <?php if ($pdata["month"] == 11) echo 'selected';?>>Nov</option>
-														 <option value = "12"  <?php if ($pdata["month"] == 12) echo 'selected';?>>Dec</option>
-												    </select>
-												day
-											<select class="span1" name = "day" style = "width:45px;height:20px;">
-											                <option <?php if ($pdata["month"] == 1) echo 'selected';?>>1</option>
-											                <option <?php if ($pdata["month"] == 2) echo 'selected';?>>2</option>
-											                <option <?php if ($pdata["month"] == 3) echo 'selected';?>>3</option>
-											                <option <?php if ($pdata["month"] == 4) echo 'selected';?>>4</option>
-											                <option <?php if ($pdata["month"] == 5) echo 'selected';?>>5</option>
-															<option <?php if ($pdata["month"] == 6) echo 'selected';?>>6</option>
-											                <option <?php if ($pdata["month"] == 7) echo 'selected';?>>7</option>
-											                <option <?php if ($pdata["month"] == 8) echo 'selected';?>>8</option>
-											                <option <?php if ($pdata["month"] == 9) echo 'selected';?>>9</option>
-											                <option <?php if ($pdata["month"] == 10) echo 'selected';?>>10</option>
-															<option <?php if ($pdata["month"] == 11) echo 'selected';?>>11</option>
-											                <option <?php if ($pdata["month"] == 12) echo 'selected';?>>12</option>
-											                <option <?php if ($pdata["month"] == 13) echo 'selected';?>>13</option>
-											                <option <?php if ($pdata["month"] == 14) echo 'selected';?>>14</option>
-											                <option <?php if ($pdata["month"] == 15) echo 'selected';?>>15</option>
-															<option <?php if ($pdata["month"] == 16) echo 'selected';?>>16</option>
-											                <option <?php if ($pdata["month"] == 17) echo 'selected';?>>17</option>
-											                <option <?php if ($pdata["month"] == 18) echo 'selected';?>>18</option>
-											                <option <?php if ($pdata["month"] == 19) echo 'selected';?>>19</option>
-											                <option <?php if ($pdata["month"] == 20) echo 'selected';?>>20</option>
-															<option <?php if ($pdata["month"] == 21) echo 'selected';?>>21</option>
-											                <option <?php if ($pdata["month"] == 22) echo 'selected';?>>22</option>
-											                <option <?php if ($pdata["month"] == 23) echo 'selected';?>>23</option>
-											                <option <?php if ($pdata["month"] == 24) echo 'selected';?>>24</option>
-											                <option <?php if ($pdata["month"] == 25) echo 'selected';?>>25</option>
-														    <option <?php if ($pdata["month"] == 26) echo 'selected';?>>26</option>
-											                <option <?php if ($pdata["month"] == 27) echo 'selected';?>>27</option>
-											                <option <?php if ($pdata["month"] == 28) echo 'selected';?>>28</option>
-															<option <?php if ($pdata["month"] == 29) echo 'selected';?>>29</option>
-											                <option <?php if ($pdata["month"] == 30) echo 'selected';?>>30</option>
-											                <option <?php if ($pdata["month"] == 31) echo 'selected';?>>31</option>
-											     </select>
-													year
-													<input class="span1" name = "year"    onfocus="fop();" value = "<?php if ($pdata["year"]!=NULL) echo $pdata["year"]; echo set_value('year'); ?>" style = "width:50px;height:20px;">
+													<input class="span1" name = "year" id = "datepickerp"  onfocus="fop();" value = "<?php if ($pdata["year"]!=NULL) echo $pdata["year"]; echo set_value('year'); ?>" style = "width:100px;height:15px;" readonly="readonly"/>
 
 													     </input>
 													<span class="help-inline"><?php echo form_error('year')?></span>
@@ -223,7 +198,7 @@ $(function(){
 							    	<div class="control-group <?php if (form_error('passcode') != null) echo 'error'?>" style = "margin-bottom:0px;">
 							            <label class="control-label" style = 'float: left;width: 110px; padding-top: 5px;' for="input03"><?php echo $this->lang->line("human")?><br /><a onClick="reloadcode1();">change image</a></label>
 							            <div class="controls" style = "display: inline-block;margin-left: 0;padding-top:10px;" >
-							              <img id = "safecode1" style = "height:25px;float:left" onClick="reloadcode1();" src="<?php echo base_url("showimg")?>">&nbsp;<input type="text" style = "width:60px;height:25px;" name = "passcode" id="input03">	<span class="help-inline"><?php echo form_error('passcode')?></span>
+							              <img id = "safecode1" style = "height:25px;float:left" onClick="reloadcode1();" src="<?php echo base_url("showimg")?>">&nbsp;<input type="text" style = "width:60px;height:15px;" name = "passcode" id="input03">	<span class="help-inline"><?php echo form_error('passcode')?></span>
 							              <p class="help-block"></p>
 							            </div>
 							          </div>
@@ -292,7 +267,7 @@ $(function(){
 				         	   <div class="control-group  <?php if (form_error('email') != null) echo 'error'?>" >
 					            <label class="control-label" for="input01"><?php echo $this->lang->line("email")?></label>
 					            <div class="controls">
-					              <input type="text"  onfocus="fof();" style = "width:380px;height:30px;" name = "email" class="input-xlarge" id="input01" value = "<?php if ($fdata["email"]!=NULL) echo $fdata["email"]; echo set_value('email'); ?>">
+					              <input type="text"  onfocus="fof();" style = "width:380px;height:20px;" name = "email" class="input-xlarge" id="input01" value = "<?php if ($fdata["email"]!=NULL) echo $fdata["email"]; echo set_value('email'); ?>">
 								<span class="help-inline"><?php echo form_error('email')?></span>
 					            </div>
 					          </div>
@@ -300,7 +275,7 @@ $(function(){
 							  <div class="control-group   <?php if (form_error('title') != null) echo 'error'?>">
 					            <label class="control-label" for="input02"><?php echo $this->lang->line("subject")?></label>
 					            <div class="controls">
-					              <input type="text"  onfocus="fof();"  style = "width:380px;height:30px;" value = "<?php if ($fdata["title"]!=NULL) echo $fdata["title"]; echo set_value('title'); ?>" name = "title" class="input-xlarge" id="input02">
+					              <input type="text"  onfocus="fof();"  style = "width:380px;height:20px;" value = "<?php if ($fdata["title"]!=NULL) echo $fdata["title"]; echo set_value('title'); ?>" name = "title" class="input-xlarge" id="input02">
 					            	<span class="help-inline"><?php echo form_error('title')?></span>
 					            </div>
 					          </div>
@@ -322,57 +297,8 @@ $(function(){
 							 	 <div class="control-group  <?php if (form_error('year') != null) echo 'error'?>" style = "margin-bottom:0px;">
 							            <div class="controls" >
 											<label class="control-label"  style = 'float: left;width: 70px;padding-top:3px;' for="select01"><?php echo  $this->lang->line('deliver')?></label>
-												month
-							             		<select class="span1 "  name ="month" style = "width:55px;height:20px;">
-									                <option value = "1" <?php if ($fdata["month"] == 1) echo 'selected';?> >Jan</option>
-									                <option value = "2"  <?php if ($fdata["month"] == 2) echo 'selected';?>>Feb</option>
-									                <option value = "3"  <?php if ($fdata["month"] == 3) echo 'selected';?>>Mar</option>
-									                <option value = "4" <?php if ($fdata["month"] == 4) echo 'selected';?>>Apr</option>
-									                <option value = "5"  <?php if ($fdata["month"] == 5) echo 'selected';?>>May</option>
-													 <option value = "6"  <?php if ($fdata["month"] == 6) echo 'selected';?>>Jun</option>
-													 <option value = "7"  <?php if ($fdata["month"] == 7) echo 'selected';?>>Jul</option>
-													 <option value = "8"  <?php if ($fdata["month"] == 8) echo 'selected';?>>Aug</option>
-													 <option value = "9"  <?php if ($fdata["month"] == 9) echo 'selected';?>>Sep</option>
-													 <option value = "10"  <?php if ($fdata["month"] == 10) echo 'selected';?>>Oct</option>
-													 <option value = "11"  <?php if ($fdata["month"] == 11) echo 'selected';?>>Nov</option>
-													 <option value = "12"  <?php if ($fdata["month"] == 12) echo 'selected';?>>Dec</option>
-											    </select>
-											day
-										<select class="span1" name = "day" style = "width:45px;height:20px;">
-										                <option <?php if ($fdata["day"] == 1) echo 'selected';?>>1</option>
-										                <option <?php if ($fdata["day"] == 2) echo 'selected';?>>2</option>
-										                <option <?php if ($fdata["day"] == 3) echo 'selected';?>>3</option>
-										                <option <?php if ($fdata["day"] == 4) echo 'selected';?>>4</option>
-										                <option <?php if ($fdata["day"] == 5) echo 'selected';?>>5</option>
-														<option <?php if ($fdata["day"] == 6) echo 'selected';?>>6</option>
-										                <option <?php if ($fdata["day"] == 7) echo 'selected';?>>7</option>
-										                <option <?php if ($fdata["day"] == 8) echo 'selected';?>>8</option>
-										                <option <?php if ($fdata["day"] == 9) echo 'selected';?>>9</option>
-										                <option <?php if ($fdata["day"] == 10) echo 'selected';?>>10</option>
-														<option <?php if ($fdata["day"] == 11) echo 'selected';?>>11</option>
-										                <option <?php if ($fdata["day"] == 12) echo 'selected';?>>12</option>
-										                <option <?php if ($fdata["day"] == 13) echo 'selected';?>>13</option>
-										                <option <?php if ($fdata["day"] == 14) echo 'selected';?>>14</option>
-										                <option <?php if ($fdata["day"] == 15) echo 'selected';?>>15</option>
-														<option <?php if ($fdata["day"] == 16) echo 'selected';?>>16</option>
-										                <option <?php if ($fdata["day"] == 17) echo 'selected';?>>17</option>
-										                <option <?php if ($fdata["day"] == 18) echo 'selected';?>>18</option>
-										                <option <?php if ($fdata["day"] == 19) echo 'selected';?>>19</option>
-										                <option <?php if ($fdata["day"] == 20) echo 'selected';?>>20</option>
-														<option <?php if ($fdata["day"] == 21) echo 'selected';?>>21</option>
-										                <option <?php if ($fdata["day"] == 22) echo 'selected';?>>22</option>
-										                <option <?php if ($fdata["day"] == 23) echo 'selected';?>>23</option>
-										                <option <?php if ($fdata["day"] == 24) echo 'selected';?>>24</option>
-										                <option <?php if ($fdata["day"] == 25) echo 'selected';?>>25</option>
-													    <option <?php if ($fdata["day"] == 26) echo 'selected';?>>26</option>
-										                <option <?php if ($fdata["day"] == 27) echo 'selected';?>>27</option>
-										                <option <?php if ($fdata["day"] == 28) echo 'selected';?>>28</option>
-														<option <?php if ($fdata["day"] == 29) echo 'selected';?>>29</option>
-										                <option <?php if ($fdata["day"] == 30) echo 'selected';?>>30</option>
-										                <option <?php if ($fdata["day"] == 31) echo 'selected';?>>31</option>
-										     </select>
-												year
-												<input class="span1" name = "year"  value = "<?php if ($fdata["year"]!=NULL) echo $fdata["year"]; echo set_value('year'); ?>" style = "width:50px;height:20px;">
+											
+												<input class="span1" name = "year"  id = "datepickerf" value = "<?php if ($fdata["year"]!=NULL) echo $fdata["year"]; echo set_value('year'); ?>" style = "width:100px;height:15px;" readonly="readonly" />
 
 												     </input>
 												<span class="help-inline"><?php echo form_error('year')?></span>
@@ -399,7 +325,7 @@ $(function(){
 					    	 	<div class="control-group <?php if (form_error('passcode') != null) echo 'error'?>" style = "margin-bottom:0px;">
 							            <label class="control-label" style = 'float: left;width: 110px; padding-top: 5px;' for="input03"><?php echo $this->lang->line("human")?><br /><a onClick="reloadcode2();">change image</a></label>
 							            <div class="controls" style = "display: inline-block;margin-left: 0;padding-top:10px;">
-							              <img id = "safecode2" style = "height:25px;float:left" onClick="reloadcode2();" src="<?php echo base_url("showimg")?>">&nbsp;<input type="text" style = "width:60px;height:25px;" name = "passcode" id="input03">	<span class="help-inline"><?php echo form_error('passcode')?></span>
+							              <img id = "safecode2" style = "height:25px;float:left" onClick="reloadcode2();" src="<?php echo base_url("showimg")?>">&nbsp;<input type="text" style = "width:60px;height:15px;" name = "passcode" id="input03">	<span class="help-inline"><?php echo form_error('passcode')?></span>
 							              <p class="help-block"></p>
 							            </div>
 							          </div>
@@ -449,6 +375,7 @@ $(function(){
 			UEDITOR_HOME_URL: '<?php echo base_url("static/ueditor").'/'?>',
 			iframeCssUrl: '<?php echo base_url("static/ueditor/themes/default/iframe.css")?>',
 			autoClearinitialContent: true,
+			wordCount:false,
 			 imagePath:'<?php echo base_url("static/ueditor/server/upload").'/'?>',
 			 filePath:'<?php echo base_url("static/ueditor/server/upload").'/'?>',
 			initialContent: '<?php echo $this->lang->line("dearpast")?>', //初始化编辑器的内容
@@ -465,6 +392,7 @@ $(function(){
 				UEDITOR_HOME_URL: '<?php echo base_url("static/ueditor").'/'?>',
 				iframeCssUrl: '<?php echo base_url("static/ueditor/themes/default/iframe.css")?>',
 				autoClearinitialContent: true,
+				wordCount:false,
 				 imagePath:'<?php echo base_url("static/ueditor/server/upload").'/'?>',
 				 filePath:'<?php echo base_url("static/ueditor/server/upload").'/'?>',
 				initialContent: '<?php echo $this->lang->line("dearfuture")?>', //初始化编辑器的内容

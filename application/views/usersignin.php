@@ -1,4 +1,4 @@
-
+<link rel="stylesheet" href="<?php echo base_url("static/css/bootformr.css") ?>"  charset="utf-8">
 <div id='inline_content' style='background:#fff;width:622px;height:358px;'>
 	<style type="text/css">
 	body {
@@ -61,8 +61,13 @@
 		font-size:16px;
 		font-family:Georgia;
 	}
+	label {
+		font-size:18px;
+		color:grey;
+	}
 	.help-inline{
 		color:red;
+		font-size:17px;
 	}
 	.down{
 		background:url(<?php echo base_url("/static/img/forgot.png")?>);
@@ -82,23 +87,33 @@
         <div id="zuo"></div>
         <div id="center">
 		<div class="biaoti"><p style = "margin-left:5px;"><i><?php echo $this->lang->line("login")?></i></p><hr style="width:480px;float:left;margin-left:1px;margin-top:0px;">
-			<form name = "signin" style  = "margin-top:30px;" method="post" action = "<?php echo base_url("userctl/userlogin")?>">
+			<form name = "signin" class="form-horizontal" style  = "margin-top:30px;" method="post" action = "<?php echo base_url("userctl/userlogin")?>">
 				<div class="control-group <?php if($errormess != null) echo 'error' ; if (form_error('email') != null) echo 'error'?>">
-					<label class="control-label" for="input01" ><?php echo $this->lang->line('enteremail')?></label>
+					<label class="control-label" for="input01" ><?php echo $this->lang->line('signinemail')?></label>
 					<div class="controls">
-						<input type="text" id="input01" class="input" name="email"  value = "<?php echo set_value('email')?>">	<span class="help-inline"><?php if($errormess != null) echo $errormess["message"];if (form_error('email') != null) echo form_error('email')?></span>
+						<input type="text" id="input01" class="input" name="email" style ="height:25px; " value = "<?php echo set_value('email')?>">	<span style ="height:10px;margin-top:-20px;" class="help-inline"><?php if($errormess != null) echo $errormess["message"];if (form_error('email') != null) echo form_error('email')?></span>
 					</div>
 				</div>
 				<div class="control-group <?php if (form_error('password') != null) echo 'error'?>">
-					<label class="control-label" for="input01" ><?php echo $this->lang->line('enterpass')?></label>
+					<label class="control-label" for="input01" ><?php echo $this->lang->line('password')?></label>
 					<div class="controls">
-						<input type="password" class="input" name="password">	<span class="help-inline"><?php if (form_error('password') != null) echo form_error('password')?></span>
+						<input type="password"  style ="height:25px;"  class="input" name="password">	<span class="help-inline" style ="height:10px;margin-top:-15px;"><?php if (form_error('password') != null) echo form_error('password')?></span>
 					</div>
 				</div>
-		  <input class="down" type="button" onClick="javascript:signin.submit();">
+					<div class="control-group" >
+					            <div class="controls">
+					              <label class="checkbox" style = "display: inline-block;margin-left:10px;">
+					                <input type="checkbox" id="optionsCheckbox" value="1">
+					                  <?php echo $this->lang->line('remember'); ?>
+					              </label>
+					<input class="down" type="button" style = "float:right;margin-right:120px;margin-top:-5px;" onClick="javascript:signin.submit();" >
+					            </div>
+					
+					 </div>
+		  
 
 			</form>
-			
+			<a href="<?php echo base_url('/userctl/forgetPassword') ?>"><span><?php echo $this->lang->line('forgetpass'); ?></span></a>
 			
             </div>
             <div id="enter"><div id="drop"></div>

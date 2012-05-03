@@ -6,14 +6,14 @@
 
 			<?php  foreach($letters as $letter) { ?>
 				
-					<a class="iframe" href="<?php  echo base_url("letterctl/showFutureLetterById/".$letter["letter_id"]); ?>">
+					<a class="iframe2" href="<?php  echo base_url("letterctl/showFutureLetterById/".$letter["letter_id"]); ?>">
 					<li>
 					<div class="kuai">
 						<?php $letter["letter_id"]?>
 						<?php  $letter["content"]?>
 		                <p style="font-family:Verdana;font-size:12px;color:#ab0000;margin-left:24px;"><b><?php echo $letter["title"]?> </b></p>
 		                <p style="font-family:Verdana;font-size:12px;color:#535455;margin-left:24px;"><?php echo strip_tags($letter["content"])?>  ...</p>
-		                <p style="font-family:Verdana;font-size:12px;color:#999999;margin-top:-9px;float:right;margin-right:5px;">sent <?php  $year=date('Y',time()); echo $year-$letter["year"];?> years into the past, to Yestoday</p><p style="color:#ac0202;font-family:Verdana;font-size:12px;float:left;margin-top:-5px;margin-left:22px;"><img src="<?php echo base_url("static/img/xinxing.png")?>" style="float:left;">Like(0)</p>
+		                <p style="font-family:Verdana;font-size:12px;color:#999999;margin-top:-9px;float:right;margin-right:5px;">sent <?php  $year=date('Y',time()); echo $year-$letter["year"];?> years into the future, to Tomorrow</p><p style="color:#ac0202;font-family:Verdana;font-size:12px;float:left;margin-top:-5px;margin-left:22px;"><img src="<?php echo base_url("static/img/xinxing.png")?>" style="float:left;">Like(<?php echo $letter["likenum"] ?>)</p>
 		            </div><hr style="border:dashed thin;width:677px;color:#cbcbcb;">
 					</li></a>
 			<?php }?>
@@ -32,7 +32,7 @@
 				<ul id="zhongxinwenzi"class="list hongxian">
 				  <li><p style="color:#ab0000;font-family:Verdana;font-size:13px;"><i>	<a href = "<?php echo base_url("letterctl/listPublicLetterToFuture/1")?>"><?php echo $this->lang->line("sendrecent")?></a></i></p>	</li>
 					<li><p style="color:#ab0000;font-family:Verdana;font-size:13px;"><i>	<a href = "<?php echo base_url("letterctl/listPublicLetterToFuture/2")?>"><?php echo $this->lang->line("favorite")?></a></i></p>	</li>
-						<li><p style="color:#ab0000;font-family:Verdana;font-size:13px;"><i>	<a href = "<?php echo base_url("letterctl/listPublicLetterToFuture/3")?>"><?php echo $this->lang->line("farthest")?></a></i></p>	</li>
+						<li><p style="color:#ab0000;font-family:Verdana;font-size:13px;"><i>	<a href = "<?php echo base_url("letterctl/listPublicLetterToFuture/3")?>"><?php echo $this->lang->line("farthestfuture")?></a></i></p>	</li>
 							<li><p style="color:#ab0000;font-family:Verdana;font-size:13px;"><i>	<a href = "<?php echo base_url("letterctl/listPublicLetterToFuture/1")?>"><?php echo $this->lang->line("already")?></a></i></p>	</li>
 				</ul>
                </div>

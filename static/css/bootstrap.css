@@ -836,13 +836,6 @@ input.span1, textarea.span1, .uneditable-input.span1 {
 input[disabled],
 select[disabled],
 textarea[disabled],
-input[readonly],
-select[readonly],
-textarea[readonly] {
-  background-color: #eeeeee;
-  border-color: #ddd;
-  cursor: not-allowed;
-}
 .control-group.warning > label,
 .control-group.warning .help-block,
 .control-group.warning .help-inline {
