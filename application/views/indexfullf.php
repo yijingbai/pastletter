@@ -10,6 +10,7 @@
 	<script>
 		$(document).ready(function(){
 			$(".iframe").colorbox({iframe:true,close:"[x] close" ,width:"622px", height:"368px"});
+				$(".iframe2").colorbox({iframe:true,close:"[x] close" ,width:"635px", height:"780px"});
 		});
 		    
 
@@ -35,7 +36,7 @@
 		</div>
 		
 			<hr style="width:591px;margin-left:49px;margin-top:64px;"  />
-				<form id = "futurel" method="post" class="form-horizontal" action = "<?php echo base_url("/letterctl/insertLetterToFuture")?>"  style = "height:100%; float:left;">
+				<form id = "futurel" method="post" class="form-horizontal" action = "<?php echo base_url("/letterctl/insertLetterToFuture")?>"  style = "height:100%; float:left; font-family:<?php if ($this->session->userdata("language") == 1) echo "微软雅黑"; else echo "Georgia";  ?>;font-style: italic;">
 				        <fieldset>
 				          <div class="control-group  <?php if (form_error('email') != null) echo 'error'?>" style = "margin-bottom:10px;">
 				            <label class="control-label" for="input01"><?php echo $this->lang->line("email")?></label>
@@ -68,7 +69,7 @@
 								<label class="control-label"  for="select01"><?php echo  $this->lang->line('deliver')?></label>
 						            <div class="controls" >
 										
-											<input class= "span2" name = "year"  id = "datepickerf" value = "<?php if ($data["year"]!=NULL) echo $data["year"]; else echo set_value('year'); ?>" style = "style = "width : 100px;height:15px;" readonly>
+											<input  name = "year"  id = "datepickerf" value = "<?php if ($data["year"]!=NULL) echo $data["year"]; else echo set_value('year'); ?>" style = "width : 140px;height:20px;" readonly>
 
 											     </input>
 											<span class="help-inline"><?php echo form_error('year')?></span>
@@ -92,7 +93,7 @@
 						  </div>
 
 				    	 	<div class="control-group <?php if (form_error('passcode') != null) echo 'error'?>" style = "margin-top:-5px;margin-bottom:5px;">
-						            <label class="control-label"  for="input03"><?php echo $this->lang->line("human")?><br /><a  onClick="reloadcode();">change image</a></label>
+						            <label class="control-label"  for="input03"><?php echo $this->lang->line("human")?><br /><a  onClick="reloadcode();"><?php echo $this->lang->line('changeimage'); ?></a></label>
 						            <div class="controls" style = "margin-top:8px;">
 						              <img id = "safecode" style = "height:25px;float:left" onClick="reloadcode();" src="<?php echo base_url("showimg")?>">&nbsp;<input type="text" style = "width:60px;height:20px;" name = "passcode" id="input03" >	<span class="help-inline"><?php echo form_error('passcode')?></span>
 						              <p class="help-block"></p>
@@ -100,19 +101,22 @@
 						          </div>
 					
 
-						<div class="control-group" >
-						         	<label class="control-label" for="optionsCheckbox">Checkbox</label>
-						            <div class="controls">
-						                <input type="checkbox" id="optionsCheckbox" name = "is_abey" <?php if($data["is_abey"] == 1) echo  "checked"?> value="1">
-						                  yes
-						            </div>
-						 </div>
+										<div class="control-group" >
+										         	<label class="control-label"  style = 'float:left'  for="optionsCheckbox"><?php echo $this->lang->line('abeyuser'); ?></label>
+										            <div class="controls">
+										              <label class="checkbox" style = "display: inline-block;margin-left:10px;position:relative;top:-4px;">
+										                <input type="checkbox" <?php if($data["is_abey"] == 1) echo  "checked=''"?> value="option1">
+										                 <?php echo $this->lang->line('yes'); ?> <a class="iframe2" href="<?php echo base_url("/letterctl/showUserAgreement") ?>">   <?php echo $this->lang->line('useragree'); ?></a>
+										              </label>
+										            </div>
+										 </div>
+										
 								<img onClick= "submitfuture();" src="<?php if ($this->session->userdata("language") == 2) {
-									echo base_url("static/img/senttofuture-wuyinying.png");
-								} ?>" style="float:right;margin-top:-140px;margin-right:0px;">
+									echo base_url("static/img/sendtofuturecn-wuyinying.png");
+								} ?>" style="float:right;margin-top:-150px;margin-right:0px;">
 								<img onClick= "submitfuture();" src="<?php if ($this->session->userdata("language") == 1) {
 								 	echo base_url("static/img/senttofuture-wuyinying.png");
-								}?>" style="float:right;margin-top:-140px;margin-top:0px;">
+								}?>" style="float:right;margin-top:-150px;">
 				        </fieldset>
 				      </form>
 							<script type="text/javascript">
@@ -121,6 +125,9 @@
 									UEDITOR_HOME_URL: '<?php echo base_url("static/ueditor").'/'?>',
 									iframeCssUrl: '<?php echo base_url("static/ueditor/themes/default/iframe.css")?>',
 									autoClearinitialContent: true,
+										autoHeightEnabled:false,
+										elementPathEnabled : false,
+											wordCount:false,
 									 imagePath:'<?php echo base_url("static/ueditor/server/upload").'/'?>',
 									 filePath:'<?php echo base_url("static/ueditor/server/upload").'/'?>',
 									initialContent: '<?php echo $this->lang->line("dearpast")?>', //初始化编辑器的内容
@@ -167,7 +174,7 @@
     <div id="lan1" class="lan lan-bian">
         <div id="dear"><b><?php echo $letter["title"]?></b></div>
         <div id="duan1" class="duan"><?php echo strip_tags($letter["content"]);?></div>
-        <div id="duan-fix1" class="duan-fix">sent <?php  $year=date('Y',time()); echo $year-$letter["year"];?> years into the future</div>
+        <div id="duan-fix1" class="duan-fix"><?php echo $this->lang->line('sent'); ?> <?php  $year=date('Y',time()); echo $year-$letter["year"];?> <?php echo $this->lang->line('manyyearslater'); ?></div>
     </div>
 	<?php }?>
     <!--<div id="lan2" class="lan lan-bian"><div id="dear"><b>Dear PastMe</b></div>
@@ -180,4 +187,4 @@
     </div>-->
     <div id="more"><?php echo $this->lang->line("morefuture")?></div>
     </div>
-    <div id="kongbai"><div id="kongbai-zi">More than 1,795,000 letters written to the past</div></div>
+    <div id="kongbai"><div id="kongbai-zi"><?php echo $this->lang->line('morethan');?></div></div>

@@ -72,11 +72,15 @@ a:visited {
 .caitiao{
 	background-image:url(../img/index_fullscreen_09.jpg);
 	width:1004px;
+	margin-top:-10px;
 	height:5px;
 	float:left;
 }
 .caitiao-fix{
-	margin-top:0px;
+	width:1004px;
+	margin-top:-10px;
+	height:5px;
+	float:left;
 }
 #leftkuang{
 	width:623px;

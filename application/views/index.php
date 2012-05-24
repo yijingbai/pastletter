@@ -74,15 +74,13 @@ $(function(){
 </script>
 <script>
 	var myDatepmin = new Date();
-	myDatepmin.setYear(myDatepmin.getYear()-60);
-	var myDatepmax = new Date();
-	myDatepmax.setMonth(myDatepmax.getMonth()-1);
+	myDatepmin.setYear(myDatepmin.getMonth()+1);
 	$(function() {
 		$( "#datepickerp" ).datepicker({
 			changeMonth: true,
 			changeYear: true,
 			minDate: myDatepmin,
-			maxDate: myDatepmax
+			maxDate: "+60Y"
 		});
 	});
 	
@@ -101,17 +99,18 @@ $(function(){
 
 <div id="container">
     <div id="banner">
-        <div class="logo"><img src="<?php echo base_url('static/img/index_fullscreen_04.jpg')?>">
-        </div>       
+      	 <div class="logo"><img src="<?php if ($this->session->userdata('language') == 2)echo base_url('static/img/index_fullscreen_04.jpg'); else echo base_url('static/img/logo_cn.jpg');?> ">
+	        </div> 
+	 	<form style = "float:left;position:absolute;left:400px;top:10px;width:242px;height:30px;"><input style="background-image:url(<?php echo base_url("static/img/input.png") ?>)" /></form>
         <div class="jiantizhongwen"><p style = "float:right;margin-right:10px;"><?php if ($this->session->userdata("language") == 1){ ?>
-        	<a class="red" href="<?php echo base_url("/languagectl/setlanguage/2"); ?>">English</a>
+        	<a class="red" href="<?php echo base_url("/languagectl/setlanguage/2" ); ?>" style = "font-family:<?php if ($this->session->userdata("language") == 1) echo "宋体"; else echo "Georgia"; ?>;">English</a>
         <?php } else { ?>
-			<a href="<?php echo base_url("/languagectl/setlanguage/1"); ?>">简体中文</a>
+			<a href="<?php echo base_url("/languagectl/setlanguage/1"); ?>" style = "font-family:<?php if ($this->session->userdata("language") == 1) echo "宋体"; else echo "Georgia";  ?>;">简体中文</a>
 		<?php } ?></p>
         </div>
          <div style = "float:right;margin-right:10px;margin-top:-10px;">
 	<?php if ($this->session->userdata("username") != NULL) { ?>
-		<span style = "width:200px;"><?php echo $this->lang->line('welcome');?>,<?php echo $this->session->userdata("username"); ?>|<a href="<?php echo base_url("/letterctl/listUserLetter/1"); ?>"><?php echo $this->lang->line('myaccount');?></a>|<a href="<?php echo base_url("/userctl/userlogout"); ?>"><?php echo $this->lang->line('logout'); ?></a></span>
+		<span style = "width:200px;font-family:<?php if ($this->session->userdata("language") == 1) echo "宋体"; else echo "Georgia"; ?>;"><?php echo $this->lang->line('welcome');?>,<?php echo $this->session->userdata("username"); ?>|<a href="<?php echo base_url("/letterctl/listUserLetter/1"); ?>"><?php echo $this->lang->line('myaccount');?></a>|<a href="<?php echo base_url("/userctl/userlogout"); ?>"><?php echo $this->lang->line('logout'); ?></a></span>
 	<?php } else { ?>
 	<a class='iframe' href="<?php echo base_url("/userctl/userlogin")?>"><?php echo $this->lang->line("login")?></a> | <a class='iframe' href="<?php echo base_url("/userctl/usersign")?>"><?php echo $this->lang->line("sign")?></a>  <?php } ?></div>
     </div>
@@ -126,39 +125,39 @@ $(function(){
     <div class="caitiao">
     </div>
     <div id="left-container">
-        <div id="leftkuang" class="box demo2">
+        <div id="leftkuang" class="box demo2" >
             <ul class="tab_menu">
                 <li class="current">
-                    <div id="xietiao-da"><p style="margin-top:3px;margin-left:7px;"><i><?php echo $this->lang->line("whatpast")?></i></p>
+                    <div id="xietiao-da"><p style="margin-left:7px;"><i><?php echo $this->lang->line("whatpast")?></i></p>
                     </div>
                 </li>
 			    <li class="current-fix">
-                    <div id="xietiao-xiao"><p style="margin-left:25px;margin-top:3px;"><i><?php echo $this->lang->line("readpast")?></i></p>
+                    <div id="xietiao-xiao"><p style="margin-left:10px;"><i><?php echo $this->lang->line("readpast")?></i></p>
                     </div>
                 </li>
             </ul>
-            <hr style="margin-top:-2px;width:408px;margin-left:24px;float:left;" />
+            <hr style="margin-top:-2px;width:420px;margin-left:24px;float:left;" />
             <div class="tab_box">
 				       <div>
-							<form id = "pastl"  method="post"  action = "<?php echo base_url("/letterctl/insertLetterToPast")?>"  style = "height:100%; float:left;margin-top:10px;margin-left:35px;">
+							<form id = "pastl"  method="post"  action = "<?php echo base_url("/letterctl/insertLetterToPast")?>"  style = "height:100%; float:left;margin-top:10px;margin-left:35px;font-family:<?php if ($this->session->userdata("language") == 1) echo "微软雅黑"; else echo "Georgia";  ?>;font-style: italic;" >
 							        <fieldset>
-							          <div class="control-group  <?php if (form_error('email') != null) echo 'error'?>" >
-							            <label class="control-label" for="input01"><?php echo $this->lang->line("email")?></label>
-							            <div class="controls">
-							              <input type="text"  onfocus="fop();" style = "width:380px;height:20px;" name = "email" class="input-xlarge" id="input01" value = "<?php if ($pdata["email"]!=NULL) echo $pdata["email"]; echo set_value('email'); ?>">
-										<span class="help-inline"><?php echo form_error('email')?></span>
-							            </div>
-							          </div>
+							         	<div class="control-group  <?php if (form_error('email') != null) echo 'error'?>" style = "margin-bottom:-2px;margin-top: -8px;">
+								            <label class="control-label" for="input01"><?php echo $this->lang->line("email")?></label>
+								            <div class="controls">
+								              <input type="text"  onfocus="fop();" style = "width:409px;height:20px;" name = "email" class="input-xlarge" id="input01" value = "<?php if ($pdata["email"]!=NULL) echo $pdata["email"]; echo set_value('email'); ?>">
+											<span class="help-inline"><?php echo form_error('email')?></span>
+								            </div>
+								          </div>
 
-									  <div class="control-group   <?php if (form_error('title') != null) echo 'error'?>">
-							            <label class="control-label" for="input02"><?php echo $this->lang->line("subject")?></label>
-							            <div class="controls">
-							              <input type="text" onfocus="fop();" style = "width:380px;height:20px;" value = "<?php if ($pdata["title"]!=NULL) echo $pdata["title"]; echo set_value('title'); ?>" name = "title" class="input-xlarge" id="input02">
-							            	<span class="help-inline"><?php echo form_error('title')?></span>
-							            </div>
-							          </div>
+										  <div class="control-group   <?php if (form_error('title') != null) echo 'error'?>">
+								            <label class="control-label" for="input02"><?php echo $this->lang->line("subject")?></label>
+								            <div class="controls">
+								              <input type="text" onfocus="fop();" style = "width:409px;height:20px;" value = "<?php if ($pdata["title"]!=NULL) echo $pdata["title"]; echo set_value('title'); ?>" name = "title" class="input-xlarge" id="input02">
+								            	<span class="help-inline"><?php echo form_error('title')?></span>
+								            </div>
+								          </div>
 
-									<div class="control-group   <?php if (form_error('content') != null) echo 'error'?>">
+									<div class="control-group   <?php if (form_error('content') != null) echo 'error'?>" style = "margin-top:-14px;">
 										<div class="controls">
 											<div id="myEditor"></div>
 										
@@ -167,12 +166,13 @@ $(function(){
 										</div>
 									</div>
 
+								
 									<a href = "#" onClick="changeurlsubmit(1);"><span style = "float:right" ><?php echo $this->lang->line("full")?></span></a>
 
 									   <div class="control-group  <?php if (form_error('year') != null) echo 'error'?>" style = "margin-bottom:1px;">
 								            <div class="controls" >
 												<label class="control-label"  style = 'float: left;width: 70px;padding-top:3px;' for="select01"><?php echo  $this->lang->line('deliver')?></label>
-													<input class="span1" name = "year" id = "datepickerp"  onfocus="fop();" value = "<?php if ($pdata["year"]!=NULL) echo $pdata["year"]; echo set_value('year'); ?>" style = "width:100px;height:15px;" readonly="readonly"/>
+													<input class="span1" name = "year" id = "datepickerp"  onfocus="fop();" value = "<?php if ($pdata["year"]!=NULL) echo $pdata["year"]; echo set_value('year'); ?>" style = "margin-left:50px;width:140px;height:15px;" readonly="readonly"/>
 
 													     </input>
 													<span class="help-inline"><?php echo form_error('year')?></span>
@@ -180,9 +180,9 @@ $(function(){
 								       </div>
 
 									 <div class="control-group <?php if (form_error('is_public') != null) echo 'error'?>" style = "margin-bottom:0px;">
-							            <label style = 'float: left;width: 110px; padding-top: 5px;'  class="control-label"><?php echo $this->lang->line("maketo")?></label>
+							            <label style = 'float: left;width: 120px; padding-top: 5px;'  class="control-label"><?php echo $this->lang->line("maketo")?></label>
 							            <div class="controls" style = "display: inline-block;margin-left: 0;">
-										 
+
 							              <label class="radio">
 							                <input type="radio" name="is_public" id="optionsRadios1" value="0" <?php if ($pdata["type"] == 0) echo  "checked=''"?>>
 							                <?php echo $this->lang->line("private")?>
@@ -195,32 +195,31 @@ $(function(){
 										<span class="help-inline"><?php echo form_error('is_public')?></span>
 									  </div>
 
-							    	<div class="control-group <?php if (form_error('passcode') != null) echo 'error'?>" style = "margin-bottom:0px;">
-							            <label class="control-label" style = 'float: left;width: 110px; padding-top: 5px;' for="input03"><?php echo $this->lang->line("human")?><br /><a onClick="reloadcode1();">change image</a></label>
-							            <div class="controls" style = "display: inline-block;margin-left: 0;padding-top:10px;" >
-							              <img id = "safecode1" style = "height:25px;float:left" onClick="reloadcode1();" src="<?php echo base_url("showimg")?>">&nbsp;<input type="text" style = "width:60px;height:15px;" name = "passcode" id="input03">	<span class="help-inline"><?php echo form_error('passcode')?></span>
-							              <p class="help-block"></p>
-							            </div>
-							          </div>
+							    		<div class="control-group <?php if (form_error('passcode') != null) echo 'error'?>" style = "margin-bottom:0px;">
+								            <label class="control-label" style = 'float: left;width: 110px; padding-top: 5px;' for="input03"><?php echo $this->lang->line("human")?><br /><a onClick="reloadcode1();"><?php echo $this->lang->line('changeimage'); ?></a></label>
+								            <div class="controls" style = "display: inline-block;margin-left: 15px;padding-top:10px;" >
+								              <img id = "safecode1" style = "height:25px;float:left" onClick="reloadcode1();" src="<?php echo base_url("showimg")?>">&nbsp;<input type="text" style = "width:60px;height:15px;" name = "passcode" id="input03">	<span class="help-inline"><?php echo form_error('passcode')?></span>
+								              <p class="help-block"></p>
+								            </div>
+								          </div>
 
 									<div class="control-group" >
-									         	<label class="control-label"  style = 'float:left'  for="optionsCheckbox">Checkbox</label>
+									         	<label class="control-label"  style = 'float:left'  for="optionsCheckbox"><?php echo $this->lang->line('abeyuser'); ?></label>
 									            <div class="controls">
-									              <label class="checkbox" style = "display: inline-block;margin-left:10px;">
-									                <input type="checkbox" id="optionsCheckbox" <?php if($pdata["is_abey"] == 1) echo  "checked=''"?> value="option1">
-									                  yes
+									              <label class="checkbox" style = "display: inline-block;margin-left:10px;position:relative;top:-4px;">
+									                <input type="checkbox" id="optionsCheckbox" style = "margin-left:17px;"<?php if($pdata["is_abey"] == 1) echo  "checked=''"?> value="option1">
+									                  <?php echo $this->lang->line('yes'); ?>  <a class="iframe2" href="<?php echo base_url("/letterctl/showUserAgreement") ?>">   <?php echo $this->lang->line('useragree'); ?></a>
 									              </label>
 									            </div>
 									 </div>
 							        </fieldset>
-									 <img  src="<?php if ($this->session->userdata("language") == 2) {
-										echo base_url("static/img/sendtopast-wuyinying.png");
-									} ?>" onClick="submitpast();" style="float:right;margin-top:-150px;margin-right:0px;">
-
-									<img src="<?php if ($this->session->userdata("language") == 1) {
-									 	echo base_url("static/img/sendtopastcn-wuyinying.png");
-									}?>" onClick="submitpast();" style="float:right;margin-top:50px;">
-									<img id="subimgp"  src="<?php echo base_url("static/img/lantiao.png")?>" style="display:none;margin-top:-50px;margin-left:210px;float:left;">
+									<img onClick= "submitpast();" src="<?php echo base_url("static/img/sendtopast-wuyinying.png"); ?>" style="<?php if ($this->session->userdata("language")==1){ echo "display:none;"; } else { echo ""; } ?>float:right;margin-top:-130px;margin-right:-20px;">
+									<img onClick= "submitpast();" src="<?php echo base_url("static/img/sendtopastcn-wuyinying.png");?>" style="<?php if ($this->session->userdata("language")==2){ echo "display:none;"; } else { echo ""; } ?>float:right;margin-top:-130px;margin-right:-20px;">
+					
+							
+							
+									
+									<img id="subimgp"  src="<?php echo base_url("static/img/lantiao.png")?>" style="display:none;position:relative;left:200px;top:-10px;float:left;">
 							      </form>
 								 
 						</div>
@@ -231,7 +230,7 @@ $(function(){
 								<li><span>▪</span><div class="kuai">
 		                <p style="font-family:Verdana;font-size:12px;color:#022b5a;margin-left:24px;"><b><?php echo $letter["title"]?></b></p>
 		                <p style="font-family:Verdana;font-size:12px;color:#535455;margin-left:24px;"><?php echo strip_tags($letter["content"]);?></p>
-		                <p style="font-family:Verdana;font-size:12px;color:#999999;margin-top:-9px;float:right;margin-right:5px;">sent <?php  $year=date('Y',time()); echo $year-$letter["year"];?>  years into the past, to Yestoday</p>
+		                <p style="font-family:Verdana;font-size:12px;color:#999999;margin-top:-9px;float:right;margin-right:5px;"><?php echo $this->lang->line('sent'); ?> <?php  $year=date('Y',time()); echo $year-$letter["year"];?> <?php echo $this->lang->line('manyyearslater'); ?></p>
 		            </div><hr style="border:dashed thin;width:408px;color:#cbcbcb;"></li>
 							<?php }?>
 					
@@ -255,32 +254,32 @@ $(function(){
                     </div>
                 </li>
 			    <li class="current-fix">
-                    <div id="xietiao-xiao"><i style="margin-left:25px;margin-top:3px;"><?php echo $this->lang->line("readfuture")?></i>
+                    <div id="xietiao-xiao"><i style="margin-left:15px;margin-top:3px;"><?php echo $this->lang->line("readfuture")?></i>
                     </div>
                 </li>
         </ul>
-        <hr style="margin-top:-2px;width:408px;margin-right:21px;float:right;" />
+        <hr style="margin-top:-2px;width:420px;margin-right:30px;float:right;" />
         <div class="tab_box tab_box-fix" style = "margin-right:15px;">
             <div>
-			   		<form id = "futurel"  method="post"  action = "<?php echo base_url("/letterctl/insertLetterToFuture")?>"  style = "height:100%; float:left;margin-top:10px;margin-left:35px;">
+			   		<form id = "futurel"  method="post"  action = "<?php echo base_url("/letterctl/insertLetterToFuture")?>"  style = "height:100%; float:left;margin-top:10px;margin-left:35px;font-family:<?php if ($this->session->userdata("language") == 1) echo "微软雅黑"; else echo "Georgia";  ?>;font-style: italic;">
 					        <fieldset>
-				         	   <div class="control-group  <?php if (form_error('email') != null) echo 'error'?>" >
+				         	   <div class="control-group  <?php if (form_error('email') != null) echo 'error'?>" style = "margin-bottom:0px;margin-top:-7px;" >
 					            <label class="control-label" for="input01"><?php echo $this->lang->line("email")?></label>
 					            <div class="controls">
-					              <input type="text"  onfocus="fof();" style = "width:380px;height:20px;" name = "email" class="input-xlarge" id="input01" value = "<?php if ($fdata["email"]!=NULL) echo $fdata["email"]; echo set_value('email'); ?>">
+					              <input type="text"  onfocus="fof();" style = "width:409px;height:20px;" name = "email" class="input-xlarge" id="input01" value = "<?php if ($fdata["email"]!=NULL) echo $fdata["email"]; echo set_value('email'); ?>">
 								<span class="help-inline"><?php echo form_error('email')?></span>
 					            </div>
 					          </div>
 
-							  <div class="control-group   <?php if (form_error('title') != null) echo 'error'?>">
+							  <div class="control-group   <?php if (form_error('title') != null) echo 'error'?>" style = "margin-top:-3px;">
 					            <label class="control-label" for="input02"><?php echo $this->lang->line("subject")?></label>
 					            <div class="controls">
-					              <input type="text"  onfocus="fof();"  style = "width:380px;height:20px;" value = "<?php if ($fdata["title"]!=NULL) echo $fdata["title"]; echo set_value('title'); ?>" name = "title" class="input-xlarge" id="input02">
+					              <input type="text"  onfocus="fof();"  style = "width:409px;height:20px;" value = "<?php if ($fdata["title"]!=NULL) echo $fdata["title"]; echo set_value('title'); ?>" name = "title" class="input-xlarge" id="input02">
 					            	<span class="help-inline"><?php echo form_error('title')?></span>
 					            </div>
 					          </div>
 
-							<div class="control-group   <?php if (form_error('content') != null) echo 'error'?>">
+							<div class="control-group   <?php if (form_error('content') != null) echo 'error'?>" style = "margin-top:-14px;">
 								<div class="controls">
 									<div id="myEditor2"></div>
 								
@@ -292,62 +291,57 @@ $(function(){
 								</div>
 							</div>
 
-							<a href = "#" onClick="changeurlsubmit(2);"><span style = "float:right" ><?php echo $this->lang->line("full")?></span></a>
+									<a href = "#" onClick="changeurlsubmit(2);"><span style = "float:right" ><?php echo $this->lang->line("full")?></span></a>
 
-							 	 <div class="control-group  <?php if (form_error('year') != null) echo 'error'?>" style = "margin-bottom:0px;">
-							            <div class="controls" >
-											<label class="control-label"  style = 'float: left;width: 70px;padding-top:3px;' for="select01"><?php echo  $this->lang->line('deliver')?></label>
-											
-												<input class="span1" name = "year"  id = "datepickerf" value = "<?php if ($fdata["year"]!=NULL) echo $fdata["year"]; echo set_value('year'); ?>" style = "width:100px;height:15px;" readonly="readonly" />
+									 	 <div class="control-group  <?php if (form_error('year') != null) echo 'error'?>" style = "margin-bottom:0px;">
+									            <div class="controls" >
+													<label class="control-label"  style = 'float: left;width: 70px;padding-top:3px;' for="select01"><?php echo  $this->lang->line('deliver')?></label>
 
-												     </input>
-												<span class="help-inline"><?php echo form_error('year')?></span>
-							            </div>
-							       </div>
+														<input class="span1" name = "year"  id = "datepickerf" value = "<?php if ($fdata["year"]!=NULL) echo $fdata["year"]; echo set_value('year'); ?>" style = "margin-left:50px;width:140px;height:15px;" readonly="readonly" />
 
-							 <div class="control-group <?php if (form_error('is_public') != null) echo 'error'?>" style = "margin-bottom:0px;">
-					            <label style = 'float: left;width: 110px; padding-top: 5px;'  class="control-label"><?php echo $this->lang->line("maketo")?></label>
-					            <div class="controls" style = "display: inline-block;margin-left: 0;">
-
-					              <label class="radio">
-					                <input type="radio" name="is_public" id="optionsRadios1" value="0" <?php if ($fdata["type"] == 0) echo  "checked=''"?>>
-					                <?php echo $this->lang->line("private")?>
-					              </label>
-					              <label class="radio">
-					                <input type="radio" name="is_public" id="optionsRadios2" <?php if ($fdata["type"] == 1) echo  "checked=''"?> value="1">
-				                     <?php echo $this->lang->line("public")?>
-					              </label>
-
-					            </div>
-								<span class="help-inline"><?php echo form_error('is_public')?></span>
-							  </div>
-
-					    	 	<div class="control-group <?php if (form_error('passcode') != null) echo 'error'?>" style = "margin-bottom:0px;">
-							            <label class="control-label" style = 'float: left;width: 110px; padding-top: 5px;' for="input03"><?php echo $this->lang->line("human")?><br /><a onClick="reloadcode2();">change image</a></label>
-							            <div class="controls" style = "display: inline-block;margin-left: 0;padding-top:10px;">
-							              <img id = "safecode2" style = "height:25px;float:left" onClick="reloadcode2();" src="<?php echo base_url("showimg")?>">&nbsp;<input type="text" style = "width:60px;height:15px;" name = "passcode" id="input03">	<span class="help-inline"><?php echo form_error('passcode')?></span>
-							              <p class="help-block"></p>
-							            </div>
-							          </div>
-						
-
-									<div class="control-group" >
-									         	<label class="control-label"  style = 'float:left'  for="optionsCheckbox">Checkbox</label>
-									            <div class="controls">
-									              <label class="checkbox" style = "display: inline-block;margin-left:10px;">
-									                <input type="checkbox" id="optionsCheckbox" <?php if($fdata["is_abey"] == 1) echo  "checked=''"?> value="option1">
-									                  yes
-									              </label>
+														     </input>
+														<span class="help-inline"><?php echo form_error('year')?></span>
 									            </div>
-									 </div>
+									       </div>
+							
+										<div class="control-group <?php if (form_error('is_public') != null) echo 'error'?>" style = "margin-bottom:0px;">
+								            <label style = 'float: left;width: 120px; padding-top: 5px;'  class="control-label"><?php echo $this->lang->line("maketo")?></label>
+								            <div class="controls" style = "display: inline-block;margin-left: 0;">
+
+								              <label class="radio">
+								                <input type="radio" name="is_public" id="optionsRadios1" value="0" <?php if ($fdata["type"] == 0) echo  "checked=''"?>>
+								                <?php echo $this->lang->line("private")?>
+								              </label>
+								              <label class="radio">
+								                <input type="radio" name="is_public" id="optionsRadios2" <?php if ($fdata["type"] == 1) echo  "checked=''"?> value="1">
+							                     <?php echo $this->lang->line("public")?>
+								              </label>
+
+								            </div>
+											<span class="help-inline"><?php echo form_error('is_public')?></span>
+										  </div>
+
+					    	 				<div class="control-group <?php if (form_error('passcode') != null) echo 'error'?>" style = "margin-bottom:0px;">
+										            <label class="control-label" style = 'float: left;width: 110px; padding-top: 5px;' for="input03"><?php echo $this->lang->line("human")?><br /><a onClick="reloadcode2();"><?php echo $this->lang->line('changeimage'); ?></a></label>
+										            <div class="controls" style = "display: inline-block;margin-left: 0;margin-left:13px;padding-top:10px;">
+										              <img id = "safecode2" style = "height:25px;float:left" onClick="reloadcode2();" src="<?php echo base_url("showimg")?>">&nbsp;<input type="text" style = "width:60px;height:15px;" name = "passcode" id="input03">	<span class="help-inline"><?php echo form_error('passcode')?></span>
+										              <p class="help-block"></p>
+										            </div>
+										          </div>
+						
+													<div class="control-group" >
+													         	<label class="control-label"  style = 'float:left'  for="optionsCheckbox"><?php echo $this->lang->line('abeyuser'); ?></label>
+													            <div class="controls">
+													              <label class="checkbox" style = "display: inline-block;margin-left:10px;position:relative;top:-4px;">
+													                <input type="checkbox" style = "margin-left:17px;" <?php if($fdata["is_abey"] == 1) echo  "checked=''"?> value="option1">
+													                 <?php echo $this->lang->line('yes'); ?> <a class="iframe2" href="<?php echo base_url("/letterctl/showUserAgreement") ?>">   <?php echo $this->lang->line('useragree'); ?></a>
+													              </label>
+													            </div>
+													 </div>
 					        </fieldset>
-							<img onClick= "submitfuture();" src="<?php if ($this->session->userdata("language") == 2) {
-								echo base_url("static/img/senttofuture-wuyinying.png");
-							} ?>" style="float:right;margin-top:-140px;margin-right:0px;">
-							<img onClick= "submitfuture();" src="<?php if ($this->session->userdata("language") == 1) {
-							 	echo base_url("static/img/senttofuture-wuyinying.png");
-							}?>" style="float:right;margin-top:-140px;margin-top:0px;">
-							<img id="subimgf"  src="<?php echo base_url("static/img/hongtiao-wuyinying.png")?>" style="display:none;margin-top:-50px;margin-left:210px;float:left;">
+							<img onClick= "submitfuture();" src="<?php echo base_url("static/img/sendtofuturecn-wuyinying.png"); ?>" style="<?php if ($this->session->userdata("language")==2){ echo "display:none;"; } else { echo ""; } ?>float:right;margin-top:-120px;margin-right:0px;">
+							<img onClick= "submitfuture();" src="<?php echo base_url("static/img/senttofuture-wuyinying.png");?>" style="<?php if ($this->session->userdata("language")==1){ echo "display:none;"; } else { echo ""; } ?>float:right;margin-top:-120px;margin-right:0px;">
+							<img id="subimgf"  src="<?php echo base_url("static/img/hongtiao-wuyinying.png")?>" style="display:none;position:relative;top:-30px;right:80px;float:right;">
 					      </form>
 			</div>
 			<div  class="hide">
@@ -356,12 +350,12 @@ $(function(){
 							<li><span>▪</span><div class="kuai">
 	                <p style="font-family:Verdana;color:#ab0000;margin-left:24px;"><b><?php echo $letter["title"]?></b></p>
 	                <p style="font-family:Verdana;color:#535455;margin-left:24px;"><?php echo strip_tags($letter["content"]);?></p>
-	                <p style="font-family:Verdana;color:#999999;margin-top:-9px;float:right;margin-right:5px;">sent <?php  $year=date('Y',time()); echo $letter["year"]-$year;?>  years into the future, to Tomorrow</p>
+	                <p style="font-family:Verdana;color:#999999;margin-top:-9px;float:right;margin-right:5px;"><?php echo $this->lang->line('sent'); ?> <?php  $year=date('Y',time()); echo $year-$letter["year"];?> <?php echo $this->lang->line('manyyearslater'); ?>
 	            </div><hr style="border:dashed thin;width:408px;color:#cbcbcb;"></li>
 						<?php }?>
 				
 					</ul>
-				  <p style="font-family:Verdana;font-size:7px;color:#1a7ba0;text-decoration:underline;float:right;margin-top:34px;">more</p>
+				  <p style="font-family:Verdana;color:#1a7ba0;text-decoration:underline;float:right;margin-top:34px;">more</p>
             </div>
     </div>            
        
@@ -382,6 +376,7 @@ $(function(){
 			minFrameHeight:110,
 			maxFrameHeight: 120, //设置高度
 			autoHeightEnabled:false,
+			elementPathEnabled : false,
 			textarea: 'content' //设置提交时编辑器内容的名字，之前我们用的名字是默认的editorValue
 		});
 		editor.render("myEditor");
@@ -399,6 +394,7 @@ $(function(){
 				minFrameHeight:110,
 				maxFrameHeight: 120, //设置高度
 				autoHeightEnabled:false,
+				elementPathEnabled : false,
 				textarea: 'content' //设置提交时编辑器内容的名字，之前我们用的名字是默认的editorValue
 			});
 			editor2.render("myEditor2");
@@ -406,7 +402,7 @@ $(function(){
 	<script>
 		$(document).ready(function(){
 			$(".iframe").colorbox({iframe:true,close:"[x] close" ,width:"622px", height:"368px",	onClosed:function(){ location.reload(); }});
-			
+			$(".iframe2").colorbox({iframe:true,close:"[x] close" ,width:"635px", height:"780px"});
 		});
 	</script>
 	<?php

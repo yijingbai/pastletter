@@ -3,12 +3,11 @@
 class Indexfullf extends CI_Controller {
 	function __construct() {
 		parent::__construct();
-		/*if ($this->session->userdata("language") == "1") {
+		if ($this->session->userdata("language") == "1") {
 			$this->lang->load('index', 'chinese');
 		} else {
 			$this->lang->load('index', 'english');
-		}*/
-			$this->lang->load('index', 'english');//额外添加
+		}
 	}
 	
 	public function index()

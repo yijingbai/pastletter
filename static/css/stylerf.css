@@ -85,6 +85,7 @@ li .beijing:link{text-decoration:none;background-color:#e9f2f5;} hover{color:#e9
 .caitiao{
 	background-image:url(../img/index_fullscreen_09.jpg);
 	width:1004px;
+	margin-top:-15px;
 	height:5px;
 	float:left;
 }

@@ -28,10 +28,12 @@ a.red：link{color:#344e78;} visit{color:#F00; text-decoration:underline;}
 	font-family:Verdana;
 }
 #lantiao{
-	background-image:url(../img/QQ%E6%88%AA%E5%9B%BE20120416141637.png);
-	width:1004px;
+	background-image:url(../img/naviback.png);
+	background-repeat:repeat-x;
+	width:1003px;
 	height:33px;
 	margin-top:1px;
+	margin-bottom:0px;
 }
 .biaoqian{
 	font-size:12px;
@@ -68,6 +70,7 @@ a.red：link{color:#344e78;} visit{color:#F00; text-decoration:underline;}
 .caitiao{
 	background-image:url(../img/index_fullscreen_09.jpg);
 	width:1004px;
+	margin-top:-10px;
 	height:5px;
 	float:left;
 }
@@ -93,7 +96,7 @@ a.red：link{color:#344e78;} visit{color:#F00; text-decoration:underline;}
 	
 }
 .xietiao{
-	width:474px;
+	width:484px;
 	height:30px;
 	margin-top:29px;
 }
@@ -102,6 +105,7 @@ a.red：link{color:#344e78;} visit{color:#F00; text-decoration:underline;}
 	height:648px;
 	margin-left:-10px;
 	float:right;
+	font-family: Georgia, sans-serif;
 }
 #rightkuang{
 	width:474px;
@@ -117,7 +121,7 @@ a.red：link{color:#344e78;} visit{color:#F00; text-decoration:underline;}
 }
 #xietiao-da{
 	background-image:url(../img/index_fullscreen_16.jpg);
-	width:235px;
+	width:255px;
 	height:28px;
 	float:left;
 	margin-left:25px;
@@ -125,7 +129,7 @@ a.red：link{color:#344e78;} visit{color:#F00; text-decoration:underline;}
 	color:#7f7f7f;
 }
 #xietiao-xiao{
-	width:153px;
+	width:163px;
 	height:28px;
 	background-image:url(../img/index_fullscreen_16.jpg);
 	float:left;

@@ -51,7 +51,8 @@
 <body>
     <div id="container">
         <div id="banner">
-            <div class="logo"><img src="<?php echo base_url("static/img/index_fullscreen_04.jpg")?>"></div>       
+           	 <div class="logo"><img src="<?php if ($this->session->userdata('language') == 2)echo base_url('static/img/index_fullscreen_04.jpg'); else echo base_url('static/img/logo_cn.jpg');?> ">
+		        </div>      
                <div class="jiantizhongwen"><p style = "float:right;margin-right:10px;"><?php if ($this->session->userdata("language") == 1){ ?>
 		        	<a class="red" href="<?php echo base_url("/languagectl/setlanguage/2"); ?>">English</a>
 		        <?php } else { ?>

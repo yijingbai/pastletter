@@ -3,13 +3,13 @@
 class Letterctl extends CI_Controller {
 	function __construct() {
 		parent::__construct();
-		/*if ($this->session->userdata("language") == "1") {
+		if ($this->session->userdata("language") == "1") {
 			$this->lang->load('index', 'chinese');
+			$this->lang->load('form_validation', 'chinese');
 		} else {
 			$this->lang->load('index', 'english');
-		}*/
-			$this->lang->load('index', 'english');
-				$this->lang->load('form_validation', 'english');
+			$this->lang->load('form_validation', 'english');
+		}
 	}
 	
 	
@@ -108,10 +108,7 @@ class Letterctl extends CI_Controller {
 								"language" => $language
 							);
 						$this->letter_model->insertLetter($data);
-						echo "<script>alert(\"发送成功\")</script>";
-						$this->load->view('header');
-						$this->load->view('indexfullp');
-						$this->load->view('foot');			 		 
+						redirect(base_url("letterctl/listUserLetter/1"));		 		 
 				}
 /*		} else {
 			$out['error'] = $this->lang->line("errorcode");
@@ -391,8 +388,37 @@ class Letterctl extends CI_Controller {
 		$language = $this->session->userdata("language");
 		$this->load->model("letter_model");
 		if ($this->session->userdata("username")!==NULL) {
-			$out["letters"] = $this->letter_model->getPublicLetterById($id,$language);
-			$this->load->view("email-past",$out);
+			$result = $this->checkLikeLetter($id,$this->session->userdata('user_id'));
+			if ($result == 1) {
+				$out = array(
+					"letters" => $this->letter_model->getPublicLetterById($id,$language),
+					"liked" => '1'
+				);
+				$this->load->view("email-past",$out);
+			} else {
+				$out = array(
+					"letters" => $this->letter_model->getPublicLetterById($id,$language),
+					"liked" => '0'
+				);
+				$this->load->view("email-past",$out);
+			}
+		} else {
+			
+		}
+	}
+	
+	public function showUserAgreement()
+	{
+		$language = $this->session->userdata("language");
+		$this->load->model("letter_model");
+		if ($this->session->userdata("username")!==NULL) {
+			$out["letters"] = array(
+				array(	"title" => "User Agreement",
+						"content" => "This is the user content",
+						"year" => "90"
+					)
+			);
+			$this->load->view("UserAgreement",$out);
 		} else {
 			
 		}
@@ -400,23 +426,36 @@ class Letterctl extends CI_Controller {
 	
 	public function showFutureLetterById($id)
 	{
-		$language = $this->session->userdata("language");
-		$this->load->model("letter_model");
-		if ($this->session->userdata("username")!==NULL) {
-			$out["letters"] = $this->letter_model->getPublicLetterById($id,$language);
-			$this->load->view("email-future",$out);
-		} else {
-			
-		}
+			$language = $this->session->userdata("language");
+			$this->load->model("letter_model");
+			if ($this->session->userdata("username")!==NULL) {
+				$result = $this->checkLikeLetter($id,$this->session->userdata("user_id"));
+				if ($result == 1) {
+					$out = array(
+						"letters" => $this->letter_model->getPublicLetterById($id,$language),
+						"liked" => '1'
+					);
+					$this->load->view("email-future",$out);
+				} else {
+					$out = array(
+						"letters" => $this->letter_model->getPublicLetterById($id,$language),
+						"liked" => '0'
+					);
+					$this->load->view("email-future",$out);
+				}
+			} else {
+
+			}
+
 	}
 	
 	public function listPublicLetterToPast($type) {
 		$language = $this->session->userdata("language");
 		$this->load->model("letter_model");
 		$this->load->library('pagination');
-    	$config['per_page'] = 5;
+		$config['per_page'] = 5;
 		$pass =  $this->uri->segment(4)*1;
-		$this->pagination->initialize($config); 
+		$config['use_page_numbers'] = TRUE;
 		switch($type) {
 			case 1 :
 				$config['base_url'] = base_url("/letterctl/listPublicLetterToPast/1");
@@ -440,6 +479,12 @@ class Letterctl extends CI_Controller {
 				);
 				break;
 		}
+		$config['first_link'] = $this->lang->line('firstlink');
+		$config['last_link'] = $this->lang->line('lastlink');
+		$config['prev_link'] = $this->lang->line('previouspage')."  «";
+		$config['next_link'] = $this->lang->line('nextpage')."  »";
+		$config['uri_segment'] = 4;
+		$this->pagination->initialize($config);
 		$this->load->view('headerrp');
 		$this->load->view('readpublicpast',$out);
 		$this->load->view('foot');
@@ -451,13 +496,12 @@ class Letterctl extends CI_Controller {
 			$this->load->library('pagination');
 	    	$config['per_page'] = 5;
 			$pass =  $this->uri->segment(4)*1;
-			$this->pagination->initialize($config); 
 			switch($type) {
 				case 1 :
 					$config['base_url'] = base_url("/letterctl/listPublicLetterToFuture/1");
 			 		$config['total_rows']= count($this->letter_model->getPublicLetterByTypeC(1,$language));
 					$out = array(
-						"letters" => $this->letter_model->getPublicLetterByType(0,$language,$pass,$config['per_page'])
+						"letters" => $this->letter_model->getPublicLetterByType(1,$language,$pass,$config['per_page'])
 					);
 					break;
 				case 2 : 
@@ -475,7 +519,13 @@ class Letterctl extends CI_Controller {
 					);
 					break;
 			}
-
+			$config['first_link'] = $this->lang->line('firstlink');
+			$config['last_link'] = $this->lang->line('lastlink');
+			$config['prev_link'] = $this->lang->line('previouspage')."  «";
+			$config['next_link'] = $this->lang->line('nextpage')."  »";
+			$config['uri_segment'] = 4;
+			$config['use_page_numbers'] = TRUE;
+			$this->pagination->initialize($config); 
 			$this->load->view('headerrf');
 			$this->load->view('readpublicfuture',$out);
 			$this->load->view('foot');
@@ -544,6 +594,12 @@ class Letterctl extends CI_Controller {
 					$config['base_url'] = base_url("/letterctl/listUserLetter/1");
 					$config['total_rows']= count($this->letter_model->getAllUserLetterC($userid));
 					$pass =  $this->uri->segment(4)*1;
+						$config['first_link'] = $this->lang->line('firstlink');
+						$config['last_link'] = $this->lang->line('lastlink');
+						$config['prev_link'] = $this->lang->line('previouspage')."  «";
+						$config['next_link'] = $this->lang->line('nextpage')."  »";
+						$config['uri_segment'] = 4;
+						$config['use_page_numbers'] = TRUE;
 					$this->pagination->initialize($config); 
 					$out = array(
 							"letters" => $this->letter_model->getAllUserLetter($userid,$pass,$config['per_page'])
@@ -553,6 +609,12 @@ class Letterctl extends CI_Controller {
 					$config['base_url'] = base_url("/letterctl/listUserLetter/2");
 					$config['total_rows']= count($this->letter_model->getUserLetterByTypeC(0,$userid));
 					$pass =  $this->uri->segment(4)*1;
+						$config['first_link'] = $this->lang->line('firstlink');
+						$config['last_link'] = $this->lang->line('lastlink');
+						$config['prev_link'] = $this->lang->line('previouspage')."  «";
+						$config['next_link'] = $this->lang->line('nextpage')."  »";
+						$config['uri_segment'] = 4;
+						$config['use_page_numbers'] = TRUE;
 					$this->pagination->initialize($config); 
 					$out = array(
 							"letters" => $this->letter_model->getUserLetterByType(0,$userid,$pass,$config['per_page'])
@@ -562,6 +624,12 @@ class Letterctl extends CI_Controller {
 					$config['base_url'] = base_url("/letterctl/listUserLetter/3");
 					$config['total_rows']= count($this->letter_model->getUserLikeLetterC($userid));
 					$pass =  $this->uri->segment(4)*1;
+						$config['first_link'] = $this->lang->line('firstlink');
+						$config['last_link'] = $this->lang->line('lastlink');
+						$config['prev_link'] = $this->lang->line('previouspage')."  «";
+						$config['next_link'] = $this->lang->line('nextpage')."  »";
+						$config['uri_segment'] = 4;
+						$config['use_page_numbers'] = TRUE;
 					$this->pagination->initialize($config);
 					$out = array(
 							"letters" => $this->letter_model->getUserLikeLetter($userid,$pass,$config['per_page'])
@@ -574,6 +642,12 @@ class Letterctl extends CI_Controller {
 					$config['base_url'] = base_url("/letterctl/listUserLetter/4");
 					$config['total_rows']= count($this->letter_model->getUserLetterByTypeC(1,$userid));
 					$pass =  $this->uri->segment(4)*1;
+						$config['first_link'] = $this->lang->line('firstlink');
+						$config['last_link'] = $this->lang->line('lastlink');
+						$config['prev_link'] = $this->lang->line('previouspage')."  «";
+						$config['next_link'] = $this->lang->line('nextpage')."  »";
+						$config['uri_segment'] = 4;
+						$config['use_page_numbers'] = TRUE;
 					$this->pagination->initialize($config); 
 					$out = array(
 							"letters" => $this->letter_model->getUserLetterByType(1,$userid,$pass,$config['per_page'])
@@ -588,7 +662,69 @@ class Letterctl extends CI_Controller {
 		}
 	}
 	
-
+	public function checkLikeLetter($id,$user) {
+		$result = $this->letter_model->checkLikeLetter($id,$user);
+		$result = $result[0];
+		if ($result["amount"] > 0) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
+	
+	public function letterLikeByType($id,$type) {
+		$userid = $this->session->userdata("user_id");
+		$language = $this->session->userdata('language');
+		$this->load->model("letter_model");
+		if ($this->session->userdata("username") != NULL) {
+	        $result = $this->checkLikeLetter($id,$userid);
+			if ($result == 1) {
+				$out = array(
+					"letters" => $this->letter_model->getPublicLetterById($id,$language),
+					"liked" => '1'
+				);
+				if ($type == 0) 
+					$this->load->view("email-past",$out);
+				if ($type == 1)
+				 	$this->load->view("email-future",$out);
+			} else {
+				$this->letter_model->likeLetterById($id,$this->session->userdata("user_id"));
+				$out = array(
+					"letters" => $this->letter_model->getPublicLetterById($id,$language),
+					"liked" => '1'
+				);
+				if ($type == 0)
+					$this->load->view("email-past",$out);
+				if ($type == 1)
+				 	$this->load->view("email-future",$out);
+			}
+	
+		
+		
+		} else {
+			redirect("/userctl/userlogin");
+		}
+	}
+	
+	public function getNextLetterByType($id,$type,$pagetype)
+	{
+		$language = $this->session->userdata('language');
+		$this->load->model("letter_model");
+		$letter = $this->letter_model->getNextLetterByType($id,$pagetype,$language,$type);
+		if ($letter != NULL) {
+			$letter = $letter[0];
+			if ($type == 0)
+				redirect(base_url("letterctl/showPastLetterById/".$letter["letter_id"]));
+			else
+				redirect(base_url("letterctl/showFutureLetterById/".$letter["letter_id"]));
+		} else {
+			if ($type == 0)
+				redirect(base_url("letterctl/showPastLetterById/".$id));
+			else
+				redirect(base_url("letterctl/showFutureLetterById/".$id));
+		}
+	}
+	
 	public function checkletterToSend() {
 		$this->load->model("letter_model");
 		$fletters = $this->letter_model->getLetterToSendFuture();

@@ -4,21 +4,13 @@ class Userctl extends CI_Controller {
 	
 	function __construct() {
 		 parent::__construct();
-		$language;
-		$this->lang->load('index', 'english');//设定
-		$this->lang->load('form_validation', 'english');
-			if($this->session->userdata("language")==NULL) {
-				$this->session->set_userdata(array("language" => 1));
-				$language=1;
+			if ($this->session->userdata("language") == "1") {
 				$this->lang->load('index', 'chinese');
+				$this->lang->load('form_validation', 'chinese');
 			} else {
-				$language = $this->session->userdata("language");
-				switch ($language) {
-					case 1 : $this->lang->load('index', 'chinese');break;
-					case 2 : $this->lang->load('index', 'english');
-				}
-				
-			}	
+				$this->lang->load('index', 'english');
+				$this->lang->load('form_validation', 'english');
+			}
 	}
 	
 	public function loadheader() {
@@ -42,7 +34,6 @@ class Userctl extends CI_Controller {
 		if ($this->session->userdata('username') == NULL) {
 			$this->form_validation->set_rules('email', $this->lang->line('email'), 'required|valid_email');
 			$this->form_validation->set_rules('password',$this->lang->line('password'), 'required');
-			$this->form_validation->set_message('required', '%s'.$this->lang->line('notnull'));
 			if ($this->form_validation->run() == FALSE) {
 				$out["errormess"] = "";
 			   	$this->load->view('usersignin',$out);

@@ -29,6 +29,13 @@ class Letter_model extends CI_Model {
 		$query = $this->db->query($sql,array($user_id,$letter_id));
 	}
 	
+	
+	
+	function checkLikeLetter($letter_id,$user_id) {
+		$sql = 'SELECT count(*) AS amount FROM user_like WHERE letter_id=? AND user_id=?';
+		$query = $this->db->query($sql,array($letter_id,$user_id));
+		return $query->result_array();
+	}
 	function delLetter($id) {
 		$sql = "DELETE FROM letter WHERE letter_id = ?";
 		$query = $this->db->query($sql,$id);
@@ -132,7 +139,15 @@ class Letter_model extends CI_Model {
 	}
 	
 	function getPublicLetterById($id,$language) {
-		$sql = "SELECT * FROM letter WHERE letter_id = ? AND language = ? AND is_public = 1";
+		$sql = "SELECT letter.*, IFNULL( ed.num, 0 ) likenum
+		FROM (
+		SELECT letter.letter_id lid, letter.title, count( * ) num
+		FROM user_like, letter
+		WHERE letter.letter_id = user_like.letter_id
+		GROUP BY letter.letter_id, letter.title
+		)ed
+		RIGHT JOIN letter ON ed.lid = letter.letter_id 
+		where letter.letter_id=? AND letter.language = ? AND letter.is_public=1";
 		$query = $this->db->query($sql,array($id,$language));
 		return $query->result_array();
 	}
@@ -318,12 +333,25 @@ class Letter_model extends CI_Model {
 		return $query->result_array();
 	}
 	
+	
 	function fuzzySearchUserLetter($userid,$keyword,$language) {
 		$this->db->like('title',$keyword);
 		$this->db->or_like('content',$keyword);
 		$this->db->where('language',$language);
 		$this->db->where('user_id',$userid);
 		$query = $this->db->get('letter');
+		return $query->result_array();
+	}
+	
+	public function getNextLetterByType($id,$type,$language,$lettertype)
+	{
+		if ($type == 1) {
+			$sql = "SELECT * FROM `letter` WHERE letter_id in (select min(letter_id) from letter where letter_id > ? AND language = ? AND type = ?)";
+		}
+		if ($type == 0) {
+			$sql = "SELECT * FROM `letter` WHERE letter_id in (select max(letter_id) from letter where letter_id < ? AND language = ? AND type = ?)";
+		}
+		$query = $this->db->query($sql,array($id,$language,$lettertype));
 		return $query->result_array();
 	}
 }

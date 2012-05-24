@@ -28,7 +28,6 @@ class Imagectl extends CI_Controller {
 		$this->load->view('admin_left');
 	}
 
-
 	
 	
 	public function listAllImage() {

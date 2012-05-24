@@ -67,6 +67,7 @@ body{
 	margin-top:10px;
 	margin-left: 40px;
 }
+a.red：link{color:#344e78;} visit{color:#F00; text-decoration:underline;}
 .p{
 	font-family:Verdana;
 	font-size:12px;
@@ -94,14 +95,14 @@ body{
 
     <div id="neirong" class="p">
 		<?php foreach ($letters as $letter): ?>
-        <div id="biaoti"><?php echo $letter["title"];  echo "&nbsp;";echo "(".$this->lang->line('apast').")";?></div>
+        <div id="biaoti"><?php echo $letter["title"];  echo "&nbsp;";echo "(".$this->lang->line('afuture').")";?></div>
         <div id="zhuti"><?php echo $letter["content"]; ?></div>
 	
 
     </div>
-	<p style="font-family:Verdana;font-size:12px;color:#999999;margin-top:15px;float:right;margin-right:5px;">sent <?php echo $letter["year"]-date('Y',time()); ?> years into the future, to Yestoday</p><p style="color:#ac0202;font-family:Verdana;font-size:12px;float:left;margin-top:15px;margin-left:22px;"><img src="<?php echo base_url("static/img/xinxing.png")?>" style="float:left;">Like(0)</p>
+	<p style="font-family:Verdana;font-size:12px;color:#999999;margin-top:15px;float:right;margin-right:5px;"><?php echo $this->lang->line('sent'); ?> <?php echo $letter["year"]-date('Y',time()); ?><?php echo $this->lang->line('manyyearslater'); ?></p><p style="color:#ac0202;font-family:Verdana;font-size:12px;float:left;margin-top:15px;margin-left:22px;"><img src="<?php echo base_url("static/img/xinxing.png")?>" style="float:left;"><a href = "<?php if ($liked == 0)echo base_url("letterctl/letterLikeByType"."/".$letter["letter_id"]."/"."1"); else echo "javascript:void(0);" ?>"><?php if ($liked == 0) echo $this->lang->line('like'); else echo $this->lang->line('liked'); ?></a>(<?php echo $letter["likenum"] ?>)</p>
 		<?php endforeach ?>
     <hr style="background-color:#b70105;width:634px;height:5px;border:0;" noshade="noshade">
-    <div id="xiabiao">« Previous page    |   Next page »</div>
+    <div id="xiabiao"> <a href="<?php echo base_url("letterctl/getNextLetterByType/".$letter["letter_id"]."/"."1/"."1") ?>"> « <?php echo $this->lang->line('privousletter'); ?></a>    |    <a href="<?php echo base_url("letterctl/getNextLetterByType/".$letter["letter_id"]."/"."1/"."0") ?>"><?php echo $this->lang->line('nextletter'); ?> »</a></div>
 </div>
 </html>

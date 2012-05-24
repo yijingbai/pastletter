@@ -52,6 +52,7 @@ $lang["back"] = "Back";
 $lang["changeimage"] = "change image";
 $lang["viewletter"] = "VIEW LETTERS THAT ARE";
 $lang["apast"] = "A letter from your past";
+$lang["afuture"] = "A letter from your future";
 $lang["edit"] = "Edit";
 $lang["delete"] = "Delete";
 $lang["welcome"] = "Welcome back";
@@ -76,10 +77,31 @@ $lang['reset'] = "reset";
 $lang['resetpasssuccess'] = "You can login with your new password now";
 $lang['signinemail'] = "E-mail";
 $lang['remember'] = "remeber me?";
- 
+$lang['publicanoymouspast'] = "Public, but Anonymous, to past Letters:";
+$lang['publicanoymousfuture'] = "Public, but Anonymous, to future Letters:";
+$lang['abeyuser'] = "agree the User Agreement";
+$lang['yes'] = "Yes";
+$lang['useragree'] = "Legal and Private";
+$lang['sent'] = "sent";
+$lang['manyyearslater'] = "years into the past";
+$lang['manyyearsfuture'] = "years into the future";
+$lang['passconf'] = "confirm password";
+$lang['like'] = "like";
+$lang['liked'] = "liked";
+$lang['logout'] = "Logout";
+$lang['changeimage'] = "change image";
+$lang["morethan"] = "More than 1,795,000 letters written to the past";
+$lang["nextletter"] = "Next page";
+$lang["privousletter"] = "Previous page";
+$lang["nextpage"] = "Next page";
+$lang["previouspage"] = "Previous page";
+$lang['firstlink'] = "First";
+$lang['lastlink'] = "Last";
+
+
+
 
 $lang['hello'] = "Hello";
-$lang['logout'] = "Logout";
 $lang['comment'] = "Comment";
 
 

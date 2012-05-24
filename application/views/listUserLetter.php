@@ -29,7 +29,7 @@
 					</li>
 			<?php }?>
 			</ul>
-				<?php echo $this->pagination->create_links();?>
+				<div style = "float:right;margin-right:20px;"><?php echo $this->pagination->create_links();?></div>
        </div>
 
 	

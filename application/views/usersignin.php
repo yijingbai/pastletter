@@ -62,12 +62,12 @@
 		font-family:Georgia;
 	}
 	label {
-		font-size:18px;
+		font-size:12px;
 		color:grey;
 	}
 	.help-inline{
 		color:red;
-		font-size:17px;
+		font-size:12px;
 	}
 	.down{
 		background:url(<?php echo base_url("/static/img/forgot.png")?>);
