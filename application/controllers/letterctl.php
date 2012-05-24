@@ -71,7 +71,7 @@ class Letterctl extends CI_Controller {
 			$this->form_validation->set_rules('is_public', $this->lang->line('is_public'), 'required|integer');
 			$this->form_validation->set_message('required', $this->lang->line('required'));
 			$this->form_validation->set_message('integer', $this->lang->line('integer'));
-			if ($this->input->post("passcode") == $this->session->userdata("Checknumuser")) {
+		
 				if ($this->form_validation->run() == FALSE) {
 						$language = $this->session->userdata("language");
 						$this->load->model("letter_model");
@@ -84,13 +84,15 @@ class Letterctl extends CI_Controller {
 							"content" => $this->input->post("content"),
 							"type" => $this->input->post("is_public"),
 							"is_abey" => $this->input->post("is_abey"),
-							"letters" => $this->letter_model->getPublicLetterByType(0,$language,0,3)
+							"letters" => $this->letter_model->getPublicLetterByType(0,$language,0,3),
+							"passerror" => ""
 						);
 					
 						$this->load->view('header');
 						$this->load->view('indexfullp',$out);
 						$this->load->view('foot');
 				} else {
+					if ($this->input->post("passcode") == $this->session->userdata("Checknumuser")) {
 						$date = $this->input->post("year");
 						$dates = explode("/",$date);
 					 	  	$data = array(
@@ -103,32 +105,34 @@ class Letterctl extends CI_Controller {
 								"user_id" => $this->session->userdata("user_id"),
 								"is_public" => $this->input->post("is_public"),
 								"content" => $this->input->post("content"),
-								"language" => $language
+								"language" => $language,
+								"passerror" =>""
 							);
 						$this->letter_model->insertLetter($data);
 						redirect(base_url("letterctl/listUserLetter/1"));		 		 
+					} else {
+						$out['error'] = $this->lang->line("errorcode");
+							$language = $this->session->userdata("language");
+							$this->load->model("letter_model");
+							$date = $this->input->post("year");
+							$dates = explode("/",$date);
+							$out["data"] = array(
+								"email" => $this->input->post("email"),
+								"title" => $this->input->post("title"),
+								"year" => $date,
+								"content" => $this->input->post("content"),
+								"type" => $this->input->post("is_public"),
+								"is_abey" => $this->input->post("is_abey"),
+								"letters" => $this->letter_model->getPublicLetterByType(0,$language,0,3),
+								"passerror" => $this->lang->line('passcodewrong')
+							);
+
+							$this->load->view('header');
+							$this->load->view('indexfullp',$out);
+							$this->load->view('foot');
+					}
 				}
-			} else {
-				$out['error'] = $this->lang->line("errorcode");
-					$language = $this->session->userdata("language");
-					$this->load->model("letter_model");
-					$date = $this->input->post("year");
-					$dates = explode("/",$date);
-					$out["data"] = array(
-						"email" => $this->input->post("email"),
-						"title" => $this->input->post("title"),
-						"year" => $date,
-						"content" => $this->input->post("content"),
-						"type" => $this->input->post("is_public"),
-						"is_abey" => $this->input->post("is_abey"),
-						"letters" => $this->letter_model->getPublicLetterByType(0,$language,0,3),
-						"passerror" => $this->lang->line('passcodewrong')
-					);
-				
-					$this->load->view('header');
-					$this->load->view('indexfullp',$out);
-					$this->load->view('foot');
-			}
+			
   		} else { 
 			redirect(base_url("userctl/singlesignin"));
 		}
