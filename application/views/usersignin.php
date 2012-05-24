@@ -82,6 +82,11 @@
 		margin-top:10px;
 	}
 	</style>
+	<script type = "javascript">
+		function jumpToHome() {
+			this.parent.parent.location = <?php echo base_url("/"); ?>;
+		}
+	</script>
 	<div id="waikuang">
         <div id="shang"></div>
         <div id="zuo"></div>
