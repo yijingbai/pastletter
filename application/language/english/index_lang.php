@@ -97,6 +97,7 @@ $lang["nextpage"] = "Next page";
 $lang["previouspage"] = "Previous page";
 $lang['firstlink'] = "First";
 $lang['lastlink'] = "Last";
+$lang['passcodewrong'] = "verification code wrong";
 
 
 

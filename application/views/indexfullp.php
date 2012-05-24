@@ -95,9 +95,10 @@
 				    	 	<div class="control-group <?php if (form_error('passcode') != null) echo 'error'?>" style = "margin-top:-5px;margin-bottom:5px;">
 						            <label class="control-label"  for="input03"><?php echo $this->lang->line("human")?><br /><a  onClick="reloadcode();"><?php echo $this->lang->line('changeimage'); ?></a></label>
 						            <div class="controls" style = "margin-top:8px;">
-						              <img id = "safecode" style = "height:25px;float:left" onClick="reloadcode();" src="<?php echo base_url("showimg")?>">&nbsp;<input type="text" style = "width:60px;height:20px;" name = "passcode" id="input03" >	<span class="help-inline"><?php echo form_error('passcode')?></span>
+						              <img id = "safecode" style = "height:25px;float:left" onClick="reloadcode();" src="<?php echo base_url("showimg/user")?>">&nbsp;<input type="text" style = "width:60px;height:20px;" name = "passcode" id="input03" >	<span class="help-inline"><?php echo form_error('passcode')?></span>
 						              <p class="help-block"></p>
 						            </div>
+									<span class="help-inline"><?php if($data["passerror"] != null) echo $data["passerror"]?></span>
 						          </div>
 					
 										<div class="control-group" >

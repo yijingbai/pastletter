@@ -72,22 +72,20 @@ $(function(){
 
 });	
 </script>
+
 <script>
-	var myDatepmin = new Date();
-	myDatepmin.setYear(myDatepmin.getMonth()+1);
-	$(function() {
-		$( "#datepickerp" ).datepicker({
-			changeMonth: true,
-			changeYear: true,
-			minDate: myDatepmin,
-			maxDate: "+60Y"
-		});
-	});
+
 	
 	var myDatefmin = new Date();
 	myDatefmin.setMonth(myDatefmin.getMonth()+1);
 	$(function() {
 		$( "#datepickerf" ).datepicker({
+			changeMonth: true,
+			changeYear: true,
+			minDate: myDatefmin,
+			maxDate: "+60Y"
+		});
+		$( "#datepickerp" ).datepicker({
 			changeMonth: true,
 			changeYear: true,
 			minDate: myDatefmin,
@@ -115,12 +113,12 @@ $(function(){
 	<a class='iframe' href="<?php echo base_url("/userctl/userlogin")?>"><?php echo $this->lang->line("login")?></a> | <a class='iframe' href="<?php echo base_url("/userctl/usersign")?>"><?php echo $this->lang->line("sign")?></a>  <?php } ?></div>
     </div>
     <div id="lantiao">
-     	 <div id="biaoqian1" class="biaoqian" style="color:#344e78;"><a href="<?php echo base_url("/")?>"><b><i><?php echo $this->lang->line("writeletter")?></i></b></a></div>
+  		 <div id="biaoqian1" class="biaoqian" style="color:#344e78;"><a href="<?php echo base_url("/")?>"><b><i><?php echo $this->lang->line("writeletter")?></i></b></a></div>
             <div id="biaoqian2" class="biaoqian"><a href="<?php echo base_url("/letterctl/listPublicLetterToPast/1")?>"><b><i><?php echo $this->lang->line("readpast")?></i></b></a></div>
             <div id="biaoqian3" class="biaoqian"><a href="<?php echo base_url("/letterctl/listPublicLetterToFuture/1")?>"><b><i><?php echo $this->lang->line("readfuture")?></i></b></a></div>
-            <div id="biaoqian4" class="biaoqian"><a href="<?php echo base_url("/")?>"><b><i><?php echo $this->lang->line("about")?></i></b></a></div>
-            <div id="biaoqian5" class="biaoqian"><a href="<?php echo base_url("/")?>"><b><i><?php echo $this->lang->line("support")?></i></b></a></div>
-            <div id="biaoqian6" class="biaoqian"><a href="<?php echo base_url("/")?>"><b><i><?php echo $this->lang->line("connect")?></i></b></a></div>
+            <div id="biaoqian4" class="biaoqian"><a href="<?php echo base_url("/welcome/about")?>"><b><i><?php echo $this->lang->line("about")?></i></b></a></div>
+            <div id="biaoqian5" class="biaoqian"><a href="<?php echo base_url("/welcome/support")?>"><b><i><?php echo $this->lang->line("support")?></i></b></a></div>
+            <div id="biaoqian6" class="biaoqian"><a href="<?php echo base_url("/welcome/connect")?>"><b><i><?php echo $this->lang->line("connect")?></i></b></a></div>
     </div>
     <div class="caitiao">
     </div>
@@ -198,7 +196,7 @@ $(function(){
 							    		<div class="control-group <?php if (form_error('passcode') != null) echo 'error'?>" style = "margin-bottom:0px;">
 								            <label class="control-label" style = 'float: left;width: 110px; padding-top: 5px;' for="input03"><?php echo $this->lang->line("human")?><br /><a onClick="reloadcode1();"><?php echo $this->lang->line('changeimage'); ?></a></label>
 								            <div class="controls" style = "display: inline-block;margin-left: 15px;padding-top:10px;" >
-								              <img id = "safecode1" style = "height:25px;float:left" onClick="reloadcode1();" src="<?php echo base_url("showimg")?>">&nbsp;<input type="text" style = "width:60px;height:15px;" name = "passcode" id="input03">	<span class="help-inline"><?php echo form_error('passcode')?></span>
+								              <img id = "safecode1" style = "height:25px;float:left" onClick="reloadcode1();" src="<?php echo base_url("showimg/user")?>">&nbsp;<input type="text" style = "width:60px;height:15px;" name = "passcode" id="input03">	<span class="help-inline"><?php echo form_error('passcode')?></span>
 								              <p class="help-block"></p>
 								            </div>
 								          </div>
@@ -235,7 +233,7 @@ $(function(){
 							<?php }?>
 					
 						</ul>
-					  <p style="font-family:Verdana;color:#1a7ba0;text-decoration:underline;float:right;margin-top:34px;">more</p>
+					  <a href="<?php echo base_url("/letterctl/listPublicLetterToPast/1")?>"><p style="font-family:Verdana;color:#1a7ba0;text-decoration:underline;float:right;margin-top:34px;">more</p></a>
 					
 				</div>
                 
@@ -324,7 +322,7 @@ $(function(){
 					    	 				<div class="control-group <?php if (form_error('passcode') != null) echo 'error'?>" style = "margin-bottom:0px;">
 										            <label class="control-label" style = 'float: left;width: 110px; padding-top: 5px;' for="input03"><?php echo $this->lang->line("human")?><br /><a onClick="reloadcode2();"><?php echo $this->lang->line('changeimage'); ?></a></label>
 										            <div class="controls" style = "display: inline-block;margin-left: 0;margin-left:13px;padding-top:10px;">
-										              <img id = "safecode2" style = "height:25px;float:left" onClick="reloadcode2();" src="<?php echo base_url("showimg")?>">&nbsp;<input type="text" style = "width:60px;height:15px;" name = "passcode" id="input03">	<span class="help-inline"><?php echo form_error('passcode')?></span>
+										              <img id = "safecode2" style = "height:25px;float:left" onClick="reloadcode2();" src="<?php echo base_url("showimg/user")?>">&nbsp;<input type="text" style = "width:60px;height:15px;" name = "passcode" id="input03">	<span class="help-inline"><?php echo form_error('passcode')?></span>
 										              <p class="help-block"></p>
 										            </div>
 										          </div>
@@ -355,7 +353,7 @@ $(function(){
 						<?php }?>
 				
 					</ul>
-				  <p style="font-family:Verdana;color:#1a7ba0;text-decoration:underline;float:right;margin-top:34px;">more</p>
+			 <a href="<?php echo base_url("/letterctl/listPublicLetterToFuture/1")?>"><p style="font-family:Verdana;color:#1a7ba0;text-decoration:underline;float:right;margin-top:34px;">more</p></a>
             </div>
     </div>            
        

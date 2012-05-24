@@ -95,6 +95,7 @@ $lang["nextpage"] = "下一页";
 $lang["previouspage"] = "上一页";
 $lang['firstlink'] = "首页";
 $lang['lastlink'] = "末页";
+$lang['passcode'] = "验证码错误";
 
 
 $lang['hello'] = "Hello";
