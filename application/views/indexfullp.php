@@ -16,19 +16,22 @@
 		
 	</script>
 	<script>
-		var myDatepmin = new Date();
-		myDatepmin.setYear(myDatepmin.getYear()-60);
-		var myDatepmax = new Date();
-		myDatepmax.setMonth(myDatepmax.getMonth()-1);
-		$(function() {
-			$( "#datepickerp" ).datepicker({
-				changeMonth: true,
-				changeYear: true,
-				minDate: myDatepmin,
-				maxDate: myDatepmax,
-			});
+	var myDatefmin = new Date();
+	myDatefmin.setMonth(myDatefmin.getMonth()+1);
+	$(function() {
+		$( "#datepickerf" ).datepicker({
+			changeMonth: true,
+			changeYear: true,
+			minDate: myDatefmin,
+			maxDate: "+60Y"
 		});
-
+		$( "#datepickerp" ).datepicker({
+			changeMonth: true,
+			changeYear: true,
+			minDate: myDatefmin,
+			maxDate: "+60Y"
+		});
+	});
 
 	</script>
 <div id="leftkuang">
@@ -92,14 +95,14 @@
 							<span class="help-inline"><?php echo form_error('is_public')?></span>
 						  </div>
 
-				    	 	<div class="control-group <?php if (form_error('passcode') != null) echo 'error'?>" style = "margin-top:-5px;margin-bottom:5px;">
+				    	 	<div class="control-group <?php if (form_error('passcode') != null) echo 'error'; if ($data["passerror"] != null) echo 'error';?>" style = "margin-top:-5px;margin-bottom:5px;">
 						            <label class="control-label"  for="input03"><?php echo $this->lang->line("human")?><br /><a  onClick="reloadcode();"><?php echo $this->lang->line('changeimage'); ?></a></label>
 						            <div class="controls" style = "margin-top:8px;">
 						              <img id = "safecode" style = "height:25px;float:left" onClick="reloadcode();" src="<?php echo base_url("showimg/user")?>">&nbsp;<input type="text" style = "width:60px;height:20px;" name = "passcode" id="input03" >	<span class="help-inline"><?php echo form_error('passcode')?></span>
-						              <p class="help-block"></p>
+						             	<span class="help-inline"><?php if($data["passerror"] != null) echo $data["passerror"]?></span>
 						            </div>
-									<span class="help-inline"><?php if($data["passerror"] != null) echo $data["passerror"]?></span>
-						          </div>
+								
+						         </div>
 					
 										<div class="control-group" >
 										         	<label class="control-label"  style = 'float:left'  for="optionsCheckbox"><?php echo $this->lang->line('abeyuser'); ?></label>

@@ -28,7 +28,7 @@ $lang['subject'] = "Subject";
 $lang['label1'] = "You must submit a username";
 $lang['username'] = "Username";
 $lang['password'] = "Password";
-$lang['year'] = "Year";
+$lang['year'] = "Date";
 $lang["month"] = "Month";
 $lang["day"] = "Day";
 $lang["sendrecent"] = "Recently deliver";
@@ -98,7 +98,7 @@ $lang["previouspage"] = "Previous page";
 $lang['firstlink'] = "First";
 $lang['lastlink'] = "Last";
 $lang['passcodewrong'] = "verification code wrong";
-
+$lang['success'] = "success!";
 
 
 

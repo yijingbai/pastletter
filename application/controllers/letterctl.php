@@ -142,9 +142,7 @@ class Letterctl extends CI_Controller {
 	public function insertLetterToFuture() {
 			$this->load->model("letter_model");
 				$language = $this->session->userdata("language");
-				$language = 1; //设定
-		//	if ($this->session->userdata('username') != NULL) {
-				$content = $this->input->post("content");
+			if ($this->session->userdata('username') != NULL) {
 				$this->form_validation->set_rules('email',$this->lang->line('email'), 'required|valid_email');
 				$this->form_validation->set_rules('title', $this->lang->line('title'), 'required');
 				$this->form_validation->set_rules('content', $this->lang->line('content'), 'required');
@@ -152,27 +150,28 @@ class Letterctl extends CI_Controller {
 				$this->form_validation->set_rules('is_public', $this->lang->line('is_public'), 'required|integer');
 				$this->form_validation->set_message('required', $this->lang->line('required'));
 				$this->form_validation->set_message('integer', $this->lang->line('integer'));
-				echo $this->session->userdata("Checknumuser");
-			//	if ($this->input->post("passcode") == $this->session->userdata("Checknumuser")) {
+
 					if ($this->form_validation->run() == FALSE) {
-							$date = $this->input->post("year");
-							$dates = explode("/",$date);
 							$language = $this->session->userdata("language");
 							$this->load->model("letter_model");
+							$date = $this->input->post("year");
+							$dates = explode("/",$date);
 							$out["data"] = array(
 								"email" => $this->input->post("email"),
 								"title" => $this->input->post("title"),
 								"year" => $date,
-								"content" => $content,
+								"content" => $this->input->post("content"),
 								"type" => $this->input->post("is_public"),
 								"is_abey" => $this->input->post("is_abey"),
-								"letters" => $this->letter_model->getPublicLetterByType(0,$language,0,3)
+								"letters" => $this->letter_model->getPublicLetterByType(0,$language,0,3),
+								"passerror" => ""
 							);
 
-							$this->load->view('headerf');
-							$this->load->view('indexfullf',$out);
+							$this->load->view('header');
+							$this->load->view('indexfullp',$out);
 							$this->load->view('foot');
 					} else {
+						if ($this->input->post("passcode") == $this->session->userdata("Checknumuser")) {
 							$date = $this->input->post("year");
 							$dates = explode("/",$date);
 						 	  	$data = array(
@@ -185,21 +184,38 @@ class Letterctl extends CI_Controller {
 									"user_id" => $this->session->userdata("user_id"),
 									"is_public" => $this->input->post("is_public"),
 									"content" => $this->input->post("content"),
-									"language" => $language
+									"language" => $language,
+									"passerror" =>""
 								);
 							$this->letter_model->insertLetter($data);
-							echo "<script>alert(\"发送成功\")</script>";
-							$this->load->view('headerf');
-							$this->load->view('indexfullf');
-							$this->load->view('foot');			 		 
+							echo "<script>alert('".$this->lang->line('success')."')</script>";
+							redirect(base_url("letterctl/listUserLetter/1"));		 		 
+						} else {
+							$out['error'] = $this->lang->line("errorcode");
+								$language = $this->session->userdata("language");
+								$this->load->model("letter_model");
+								$date = $this->input->post("year");
+								$dates = explode("/",$date);
+								$out["data"] = array(
+									"email" => $this->input->post("email"),
+									"title" => $this->input->post("title"),
+									"year" => $date,
+									"content" => $this->input->post("content"),
+									"type" => $this->input->post("is_public"),
+									"is_abey" => $this->input->post("is_abey"),
+									"letters" => $this->letter_model->getPublicLetterByType(0,$language,0,3),
+									"passerror" => $this->lang->line('passcodewrong')
+								);
+
+								$this->load->view('header');
+								$this->load->view('indexfullp',$out);
+								$this->load->view('foot');
+						}
 					}
-	/*		} else {
-				$out['error'] = $this->lang->line("errorcode");
-					$this->load->view('header');
-					$this->load->view('indexfullp',$out);
-					$this->load->view('foot');
-			};*/
-	  	//	} else { echo  "验证码错误";}
+
+	  		} else { 
+				redirect(base_url("userctl/singlesignin"));
+			}
 	}
 	
 	public function changePage($change,$type) {

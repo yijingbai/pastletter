@@ -18,17 +18,22 @@
 	</script>
 	<script>
 
-
-		var myDatefmin = new Date();
-		myDatefmin.setMonth(myDatefmin.getMonth()+1);
-		$(function() {
-			$( "#datepickerf" ).datepicker({
-				changeMonth: true,
-				changeYear: true,
-				minDate: myDatefmin,
-				maxDate: "+60Y"
-			});
+	var myDatefmin = new Date();
+	myDatefmin.setMonth(myDatefmin.getMonth()+1);
+	$(function() {
+		$( "#datepickerf" ).datepicker({
+			changeMonth: true,
+			changeYear: true,
+			minDate: myDatefmin,
+			maxDate: "+60Y"
 		});
+		$( "#datepickerp" ).datepicker({
+			changeMonth: true,
+			changeYear: true,
+			minDate: myDatefmin,
+			maxDate: "+60Y"
+		});
+	});
 	</script>
 <div id="leftkuang">
        <div id="xietiao">

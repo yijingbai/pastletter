@@ -27,7 +27,7 @@ $lang['errorcode'] = "验证码错误";
 $lang['label1'] = "你必须提交一个用户名";
 $lang['username'] = "用户名";
 $lang['password'] = "密码";
-$lang['year'] = "年";
+$lang['year'] = "目的日期";
 $lang["month"] = "月";
 $lang["day"] = "日";
 $lang["sendrecent"] = "最近发送";
@@ -96,6 +96,7 @@ $lang["previouspage"] = "上一页";
 $lang['firstlink'] = "首页";
 $lang['lastlink'] = "末页";
 $lang['passcode'] = "验证码错误";
+$lang['success'] = "发送成功";
 
 
 $lang['hello'] = "Hello";
