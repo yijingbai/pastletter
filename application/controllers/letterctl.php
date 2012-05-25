@@ -168,7 +168,7 @@ class Letterctl extends CI_Controller {
 							);
 
 							$this->load->view('header');
-							$this->load->view('indexfullp',$out);
+							$this->load->view('indexfullf',$out);
 							$this->load->view('foot');
 					} else {
 						if ($this->input->post("passcode") == $this->session->userdata("Checknumuser")) {
@@ -208,7 +208,7 @@ class Letterctl extends CI_Controller {
 								);
 
 								$this->load->view('header');
-								$this->load->view('indexfullp',$out);
+								$this->load->view('indexfullf',$out);
 								$this->load->view('foot');
 						}
 					}

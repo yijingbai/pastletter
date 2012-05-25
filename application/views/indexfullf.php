@@ -116,12 +116,8 @@
 										            </div>
 										 </div>
 										
-								<img onClick= "submitfuture();" src="<?php if ($this->session->userdata("language") == 2) {
-									echo base_url("static/img/sendtofuturecn-wuyinying.png");
-								} ?>" style="float:right;margin-top:-150px;margin-right:0px;">
-								<img onClick= "submitfuture();" src="<?php if ($this->session->userdata("language") == 1) {
-								 	echo base_url("static/img/senttofuture-wuyinying.png");
-								}?>" style="float:right;margin-top:-150px;">
+											<img onClick= "submitfuture();" src="<?php echo base_url("static/img/sendtofuturecn-wuyinying.png"); ?>" style="<?php if ($this->session->userdata("language")==2){ echo "display:none;"; } else { echo ""; } ?>float:right;margin-top:-150px;margin-right:0px;">
+											<img onClick= "submitfuture();" src="<?php echo base_url("static/img/senttofuture-wuyinying.png");?>" style="<?php if ($this->session->userdata("language")==1){ echo "display:none;"; } else { echo ""; } ?>float:right;margin-top:-150px;margin-right:0px;">
 				        </fieldset>
 				      </form>
 							<script type="text/javascript">
@@ -166,11 +162,11 @@
 						 			document.getElementById('safecode').src="<?php echo base_url("showimg")?>"+"?d="+d.toString();
 								}
 							</script>
-								<?php
-				    				$content = $data["content"];
-				  					if ($content != NULL) 
-				 						echo "<script>editor.setContent('".$content."')</script>"; 
-								?>
+									<?php
+					    				$content = $data["content"];
+					  					if ($content != NULL) 
+					 						echo "<script>editor.setContent('".htmlspecialchars_decode($content)."')</script>"; 
+									?>
 						
 			
 </div>

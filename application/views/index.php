@@ -45,6 +45,13 @@ a:hover{text-decoration:none;color:#ab0000;}
 	}
 	
 </style>
+
+<script>
+function  window.onbeforeunload()  {  
+ if  (event.clientX>document.body.clientWidth  &&  event.clientY<0 ||event.altKey)  
+     window.event.returnValue="确定要退出本页吗？";  
+ }
+</script>
 </head>
 
 <body>
@@ -93,6 +100,7 @@ $(function(){
 		});
 	});
 </script>
+
 
 
 <div id="container">

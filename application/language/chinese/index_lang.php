@@ -63,7 +63,7 @@ $lang['loginsuccess'] = "成功！您可以关闭该窗口";
 $lang['editsuccess'] = "编辑成功！您可以关闭该窗口";
 $lang['editletter'] = "编辑信件";
 $lang['validaccount'] = "请验证您的账户";
-$lang['validmailsent'] = "信件已经发送到您的邮箱";
+$lang['validmailsent'] = "注册成功，请登录您的邮箱验证";
 $lang['click'] = "请点击";
 $lang['toresetpass'] = "来重新设置您的密码";
 $lang['dear'] = "亲爱的";
@@ -97,7 +97,7 @@ $lang['firstlink'] = "首页";
 $lang['lastlink'] = "末页";
 $lang['passcode'] = "验证码错误";
 $lang['success'] = "发送成功";
-
+$lang['title'] = "主题";
 
 $lang['hello'] = "Hello";
 $lang['comment'] = "Comment";

@@ -93,10 +93,6 @@
 	}
 	</style>
 
-	
-  <script language="javascript" type="text/javascript">
-          parent.window.location.href = '<?php echo base_url('/'); ?>';
-    </script>
 
 	<div id="waikuang">
         <div id="shang"></div>
@@ -107,7 +103,6 @@
 			
             <img src = "<?php echo base_url("static/img/send-success-Future.png") ?>" />
 			<h2><?php echo $message ?></h2>
-			<input type = "button" onclick="" value="测试">
             <div id="enter"><div id="drop"></div>
         </div>  
     </div>

@@ -52,7 +52,7 @@ class Userctl extends CI_Controller {
 						);
 						$this->session->set_userdata($newdata);
 						$out["message"] = $this->lang->line('loginsuccess');
-					 	$this->load->view("success",$out);
+					 	$this->load->view("loginsuccess",$out);
 					} else {
 							$out["errormess"] = $this->user_check($vipname,$vippass);
 	 					    $this->load->view('usersignin',$out);
@@ -117,7 +117,14 @@ class Userctl extends CI_Controller {
 		$this->load->model("user_model");
 		if ($this->key_check($key) == "TRUE") {
 			$this->user_model->setValidByKey($key);
-			redirect("userctl/userlogin");
+			$users = $this->user_model->getUserByActionkey($key);
+			$user = $users[0];
+			$data = array(
+				"username" => $user["name"],
+				"user_id" => $user["user_id"]
+			);
+			$this->session->set_userdata($data);
+			redirect("/");
 		} else  {
 			$out["error"] = $this->key_check($key);
 			$this->load->view("lettererror");
@@ -222,7 +229,7 @@ class Userctl extends CI_Controller {
 				<table border='0' align ='center' cellspacing='0' cellpadding='0' style ='width:791px;' >
 					<tbody width='791'>
 					<tr >
-						<td><img src='".base_url('static/img/index_fullscreen_04.png')."' /></td>
+						<td><img src='".base_url('static/img/index_fullscreen_04.jpg')."' /></td>
 						<td style = 'font-family:Verdana;font-size:12px;color:#576b8e;float:right;margin-top:30px;'>www.pastletter.com</td>
 					</tr>
 
@@ -230,7 +237,7 @@ class Userctl extends CI_Controller {
 							<td colspan=2><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."'><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /><img src='".base_url('static/img/index_fullscreen_09.jpg')."' /></td>
 						</tr>
 					<tr background='".base_url('static/img/index_fullscreen_13.jpg')."'>
-						<td><p style='font-family:Verdana;font-size:12px;float:left;margin-top:30px;margin-left:40px;color:#022b5a;'>Dear".$this->input->post("username").','.'Thank your for sign in PastLetter'."</p></td>
+						<td><p style='font-family:Verdana;font-size:12px;float:left;margin-top:30px;margin-left:40px;color:#022b5a;'>".$this->lang->line('dear')." &nbsp;".$this->input->post("username").','.'Thank your for sign in PastLetter'."</p></td>
 						<td><img src='".base_url('static/img/future.png')."'></td>
 					</tr>
 					<tr background='".base_url('static/img/index_fullscreen_13.jpg')."'>
