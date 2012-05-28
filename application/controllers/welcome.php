@@ -50,7 +50,8 @@ class Welcome extends CI_Controller {
 			"passcode" => "",
 			"is_abey" => "",
 			"pletters" => $this->letter_model->getPublicLetterByType(0,$language,0,4),
-			"fletters" => $this->letter_model->getPublicLetterByType(1,$language,0,4)
+			"fletters" => $this->letter_model->getPublicLetterByType(1,$language,0,4),
+			"count" => $this->letter_model->getAllLetterCountByType(0)
 		);
 		$out["fdata"] = array(
 			"email" => "",
@@ -63,7 +64,8 @@ class Welcome extends CI_Controller {
 			"passcode" => "",
 			"is_abey" => "",
 			"pletters" => $this->letter_model->getPublicLetterByType(0,$language,0,4),
-			"fletters" => $this->letter_model->getPublicLetterByType(1,$language,0,4)
+			"fletters" => $this->letter_model->getPublicLetterByType(1,$language,0,4),
+			"count" => $this->letter_model->getAllLetterCountByType(1)
 		);
 		
 		$this->load->view('index',$out);
@@ -83,6 +85,13 @@ class Welcome extends CI_Controller {
 		$this->load->view('foot');
 	}
 	
+	public function connect()
+	{
+		$this->load->view('headerrf');
+		$this->load->view('join');
+		$this->load->view('foot');
+	}
+	
 	public function fullfilldata($type,$page) {
 		switch($type) {
 			case 1 : 
@@ -99,7 +108,8 @@ class Welcome extends CI_Controller {
 						"passcode" => $this->input->post("passcode"),
 						"is_abey" => $this->input->post("is_abey"),
 						"letters" => $this->letter_model->getPublicLetterByType(0,$language,0,3),
-							"passerror" => ""
+							"passerror" => "",
+							"count" => $this->letter_model->getAllLetterCountByType(0)
 					);
 
 					$this->load->view('header');
@@ -120,7 +130,8 @@ class Welcome extends CI_Controller {
 						"passcode" => $this->input->post("passcode"),
 						"is_abey" => $this->input->post("is_abey"),
 						"letters" => $this->letter_model->getPublicLetterByType(1,$language,0,3),
-							"passerror" => ""
+							"passerror" => "",
+							"count" => $this->letter_model->getAllLetterCountByType(1)
 					);
 					$this->load->view('headerf');
 					$this->load->view('indexfullf',$out);
@@ -143,7 +154,8 @@ class Welcome extends CI_Controller {
 							"is_abey" => $this->input->post("is_abey"),
 								"pletters" => $this->letter_model->getPublicLetterByType(0,$language,0,4),
 								"fletters" => $this->letter_model->getPublicLetterByType(1,$language,0,4),
-									"passerror" => ""
+									"passerror" => "",
+									"count" => $this->letter_model->getAllLetterCountByType(0)
 						);
 						$out["fdata"] = array(
 							"email" => "",
@@ -157,7 +169,8 @@ class Welcome extends CI_Controller {
 							"is_abey" => "",
 								"pletters" => $this->letter_model->getPublicLetterByType(0,$language,0,4),
 								"fletters" => $this->letter_model->getPublicLetterByType(1,$language,0,4),
-									"passerror" => ""
+									"passerror" => "",
+									"count" => $this->letter_model->getAllLetterCountByType(1)
 						);
 						$this->load->view('index',$out);
 						break;
@@ -176,7 +189,8 @@ class Welcome extends CI_Controller {
 							"is_abey" => "",
 								"pletters" => $this->letter_model->getPublicLetterByType(0,$language,0,4),
 								"fletters" => $this->letter_model->getPublicLetterByType(1,$language,0,4),
-									"passerror" => ""
+									"passerror" => "",
+									"count" => $this->letter_model->getAllLetterCountByType(0)
 						);
 						$out["fdata"] = array(
 							"email" => $this->input->post("email"),
@@ -190,7 +204,8 @@ class Welcome extends CI_Controller {
 							"is_abey" => $this->input->post("is_abey"),
 								"pletters" => $this->letter_model->getPublicLetterByType(0,$language,0,4),
 								"fletters" => $this->letter_model->getPublicLetterByType(1,$language,0,4),
-									"passerror" => ""
+									"passerror" => "",
+									"count" => $this->letter_model->getAllLetterCountByType(1)
 						);
 						$this->load->view('index',$out);
 				}

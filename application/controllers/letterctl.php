@@ -133,7 +133,17 @@ class Letterctl extends CI_Controller {
 					}
 				}
 			
-  		} else { 
+  		} else {
+				$out["data"] = array(
+					"email" => $this->input->post("email"),
+					"title" => $this->input->post("title"),
+					"year" => $date,
+					"content" => $this->input->post("content"),
+					"type" => $this->input->post("is_public"),
+					"is_abey" => $this->input->post("is_abey"),
+					"letters" => $this->letter_model->getPublicLetterByType(0,$language,0,3),
+					"passerror" => ""
+				);
 			redirect(base_url("userctl/singlesignin"));
 		}
 			
@@ -163,11 +173,11 @@ class Letterctl extends CI_Controller {
 								"content" => $this->input->post("content"),
 								"type" => $this->input->post("is_public"),
 								"is_abey" => $this->input->post("is_abey"),
-								"letters" => $this->letter_model->getPublicLetterByType(0,$language,0,3),
+								"letters" => $this->letter_model->getPublicLetterByType(1,$language,0,3),
 								"passerror" => ""
 							);
 
-							$this->load->view('header');
+							$this->load->view('headerf');
 							$this->load->view('indexfullf',$out);
 							$this->load->view('foot');
 					} else {
@@ -188,7 +198,6 @@ class Letterctl extends CI_Controller {
 									"passerror" =>""
 								);
 							$this->letter_model->insertLetter($data);
-							echo "<script>alert('".$this->lang->line('success')."')</script>";
 							redirect(base_url("letterctl/listUserLetter/1"));		 		 
 						} else {
 							$out['error'] = $this->lang->line("errorcode");
@@ -207,7 +216,7 @@ class Letterctl extends CI_Controller {
 									"passerror" => $this->lang->line('passcodewrong')
 								);
 
-								$this->load->view('header');
+								$this->load->view('headerf');
 								$this->load->view('indexfullf',$out);
 								$this->load->view('foot');
 						}
@@ -488,11 +497,11 @@ class Letterctl extends CI_Controller {
 		$this->load->library('pagination');
 		$config['per_page'] = 5;
 		$pass =  $this->uri->segment(4)*1;
-		$config['use_page_numbers'] = TRUE;
 		switch($type) {
 			case 1 :
 				$config['base_url'] = base_url("/letterctl/listPublicLetterToPast/1");
 		 		$config['total_rows']= count($this->letter_model->getPublicLetterByTypeC(0,$language));
+		
 				$out = array(
 					"letters" => $this->letter_model->getPublicLetterByType(0,$language,$pass,$config['per_page'])
 				);
@@ -500,6 +509,7 @@ class Letterctl extends CI_Controller {
 			case 2 : 
 				$config['base_url'] = base_url("/letterctl/listPublicLetterToPast/2");
 		 		$config['total_rows']= count($this->letter_model->getPublicFavoriteLetterC($language));
+				echo "total".$config['total_rows'];
 				$out = array(
 					"letters" => $this->letter_model->getPublicFavoriteLetterPage($language,$pass,$config['per_page'])
 				);
@@ -557,7 +567,6 @@ class Letterctl extends CI_Controller {
 			$config['prev_link'] = $this->lang->line('previouspage')."  «";
 			$config['next_link'] = $this->lang->line('nextpage')."  »";
 			$config['uri_segment'] = 4;
-			$config['use_page_numbers'] = TRUE;
 			$this->pagination->initialize($config); 
 			$this->load->view('headerrf');
 			$this->load->view('readpublicfuture',$out);
@@ -735,6 +744,10 @@ class Letterctl extends CI_Controller {
 		
 		
 		} else {
+			$data = array(
+				"returnurl" =>base_url("letterctl/letterLikeByType/".$id.'/'.$type)
+			);
+			$this->session->set_userdata($data);
 			redirect("/userctl/userlogin");
 		}
 	}

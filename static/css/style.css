@@ -1,7 +1,7 @@
 #container{
     width:1004px;
 	height:auto;
-	height:930px;
+	height:830px;
 
 	background-image:url(../img/index_fullscreen_02.jpg);
 }
@@ -16,8 +16,8 @@
 	padding:0px;
 }
 .jiantizhongwen{
-	margin-top:-40px;
-	margin-right:10px;
+	margin-top:-45px;
+	width:185px;
 	height:18px;
 	float:right;
 	font-family:"Times New Roman", Times, serif;
@@ -33,7 +33,7 @@ a:visited {
 	font-family:Verdana;
 }
 #lantiao{
-	background-image:url(../img/bluebottom.png);
+	background-image:url(../img/naviback.png);
 	width:1004px;
 	height:33px;
 	margin-top:1px;
@@ -78,7 +78,7 @@ a:visited {
 }
 .caitiao-fix{
 	width:1004px;
-	margin-top:-10px;
+	margin-top:-1px;
 	height:5px;
 	float:left;
 }
@@ -167,7 +167,7 @@ a:visited {
 	margin-left:15px;
 	font-size:12px;
 	font-family:Verdana;
-	margin-top:-18px;
+	margin-top:15px;
 	color:#999999;
 }
 #more{
@@ -213,8 +213,8 @@ a:visited {
 	float:left;
 }
 #copyright{
+font-size:13px;
 	float:left;
-	margin-top:-8px;
 	margin-left:10px;
 }
 #sigetu{

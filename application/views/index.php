@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>index1</title>
+<title>PastLetter</title>
 
 <link href = '<?php echo base_url('static/css/bootform.css')?>' rel="stylesheet">
 <style type="text/css">
@@ -10,13 +10,13 @@
 
 *{margin:0;padding:0;list-style-type:none;}
 a,img{border:0;}
-body{background:#e3e3e3;height:100%;font:normal normal 12px/24px "Microsoft yahei", Arial;padding-bottom:30px;}
+body{background:#e3e3e3;height:100%;padding-bottom:30px;}
 a{color:#344e78;text-decoration:none;}
 a:hover{text-decoration:none;color:#ab0000;}
 #wrapper{width:980px;margin:0 auto;background:#f8f8f8;padding:20px 20px 50px;border-radius:5px;-moz-border-radius:5px;}
 #wrapper h3{color:#333;font-size:14px;text-align:center;margin:20px 0;}
 /* box */
-.box{width:400px;margin-top:30px;background:#FFF;float:left;}
+.box{width:400px;margin-top:30px;font:normal normal 12px/24px "Microsoft yahei", Arial;background:#FFF;float:left;}
 .tab_menu{float:left;margin-top:28px;}
 .tab_menu li{width:238px;float:left;height:28px;line-height:28px;color:#fff;text-align:center;cursor:pointer;}
 .tab_menu li.current p i{color:#022b5a;}
@@ -90,13 +90,27 @@ $(function(){
 			changeMonth: true,
 			changeYear: true,
 			minDate: myDatefmin,
-			maxDate: "+60Y"
+			maxDate: "+60Y",
+			beforeShow: function () {
+			                setTimeout(
+			                    function () {
+			                        $('#ui-datepicker-div').css("z-index", 1000);
+			                    }, 100
+			                );
+			            }
 		});
 		$( "#datepickerp" ).datepicker({
 			changeMonth: true,
 			changeYear: true,
 			minDate: myDatefmin,
-			maxDate: "+60Y"
+			maxDate: "+60Y",
+			beforeShow: function () {
+			                setTimeout(
+			                    function () {
+			                        $('#ui-datepicker-div').css("z-index", 1000);
+			                    }, 100
+			                );
+			            }
 		});
 	});
 </script>
@@ -105,23 +119,23 @@ $(function(){
 
 <div id="container">
     <div id="banner">
-      	 <div class="logo"><img src="<?php if ($this->session->userdata('language') == 2)echo base_url('static/img/index_fullscreen_04.jpg'); else echo base_url('static/img/logo_cn.jpg');?> ">
+      	 <div class="logo"><a><img src="<?php if ($this->session->userdata('language') == 2)echo base_url('static/img/index_fullscreen_04.jpg'); else echo base_url('static/img/logo_cn.jpg');?> "></a>
 	        </div> 
-	 	<form style = "float:left;position:absolute;left:400px;top:10px;width:242px;height:30px;"><input style="background-image:url(<?php echo base_url("static/img/input.png") ?>)" /></form>
+	 	<form style = "float:left;position:absolute;left:500px;top:10px;height:30px;"><input style="background-image:url(<?php echo base_url("static/img/input.png") ?>);width:224px;" /></form>
         <div class="jiantizhongwen"><p style = "float:right;margin-right:10px;"><?php if ($this->session->userdata("language") == 1){ ?>
-        	<a class="red" href="<?php echo base_url("/languagectl/setlanguage/2" ); ?>" style = "font-family:<?php if ($this->session->userdata("language") == 1) echo "宋体"; else echo "Georgia"; ?>;">English</a>
+        	<a class="red" href="<?php echo base_url("/languagectl/setlanguage/2" ); ?>" >English</a>
         <?php } else { ?>
 			<a href="<?php echo base_url("/languagectl/setlanguage/1"); ?>" style = "font-family:<?php if ($this->session->userdata("language") == 1) echo "宋体"; else echo "Georgia";  ?>;">简体中文</a>
 		<?php } ?></p>
         </div>
-         <div style = "float:right;margin-right:10px;margin-top:-10px;">
+         <div style = "float:right;margin-right:10px;margin-top:-10px;font-size:13px;">
 	<?php if ($this->session->userdata("username") != NULL) { ?>
-		<span style = "width:200px;font-family:<?php if ($this->session->userdata("language") == 1) echo "宋体"; else echo "Georgia"; ?>;"><?php echo $this->lang->line('welcome');?>,<?php echo $this->session->userdata("username"); ?>|<a href="<?php echo base_url("/letterctl/listUserLetter/1"); ?>"><?php echo $this->lang->line('myaccount');?></a>|<a href="<?php echo base_url("/userctl/userlogout"); ?>"><?php echo $this->lang->line('logout'); ?></a></span>
+		<span style = "width:200px;font-family:<?php if ($this->session->userdata("language") == 1) echo "宋体"; else echo "Georgia"; ?>;"><?php echo $this->lang->line('welcome');?>,<?php echo $this->session->userdata("username"); ?>&nbsp;|&nbsp;<a href="<?php echo base_url("/letterctl/listUserLetter/1"); ?>"><?php echo $this->lang->line('myaccount');?></a>|<a href="<?php echo base_url("/userctl/userlogout"); ?>"><?php echo $this->lang->line('logout'); ?></a></span>
 	<?php } else { ?>
-	<a class='iframe' href="<?php echo base_url("/userctl/userlogin")?>"><?php echo $this->lang->line("login")?></a> | <a class='iframe' href="<?php echo base_url("/userctl/usersign")?>"><?php echo $this->lang->line("sign")?></a>  <?php } ?></div>
+	<a class='iframe' href="<?php echo base_url("/userctl/userlogin")?>"><?php echo $this->lang->line("login")?></a> &nbsp;| &nbsp;<a class='iframe' href="<?php echo base_url("/userctl/usersign")?>"><?php echo $this->lang->line("sign")?></a>  <?php } ?></div>
     </div>
     <div id="lantiao">
-  		 <div id="biaoqian1" class="biaoqian" style="color:#344e78;"><a href="<?php echo base_url("/")?>"><b><i><?php echo $this->lang->line("writeletter")?></i></b></a></div>
+  		 <div id="biaoqian1" class="biaoqian" ><a href="<?php echo base_url("/")?>" style="color:#ab0000;"><b><i><?php echo $this->lang->line("writeletter")?></i></b></a></div>
             <div id="biaoqian2" class="biaoqian"><a href="<?php echo base_url("/letterctl/listPublicLetterToPast/1")?>"><b><i><?php echo $this->lang->line("readpast")?></i></b></a></div>
             <div id="biaoqian3" class="biaoqian"><a href="<?php echo base_url("/letterctl/listPublicLetterToFuture/1")?>"><b><i><?php echo $this->lang->line("readfuture")?></i></b></a></div>
             <div id="biaoqian4" class="biaoqian"><a href="<?php echo base_url("/welcome/about")?>"><b><i><?php echo $this->lang->line("about")?></i></b></a></div>
@@ -173,7 +187,7 @@ $(function(){
 									</div>
 
 								
-									<a href = "#" onClick="changeurlsubmit(1);"><span style = "float:right" ><?php echo $this->lang->line("full")?></span></a>
+									<a href = "#" onClick="changeurlsubmit(1);"><span style = "float:right;font-style:normal;" ><?php echo $this->lang->line("full")?></span></a>
 
 									   <div class="control-group  <?php if (form_error('year') != null) echo 'error'?>" style = "margin-bottom:1px;">
 								            <div class="controls" >
@@ -230,14 +244,17 @@ $(function(){
 								 
 						</div>
 	
-                <div class="hide">
-						<ul>
+                <div class="hide" >
+						<ul style = "margin-top:10px;">
 							<?php foreach($pdata["pletters"] as $letter) {?>
 								<li><span>▪</span><div class="kuai">
 		                <p style="font-family:Verdana;font-size:12px;color:#022b5a;margin-left:24px;"><b><?php echo $letter["title"]?></b></p>
-		                <p style="font-family:Verdana;font-size:12px;color:#535455;margin-left:24px;"><?php echo strip_tags($letter["content"]);?></p>
-		                <p style="font-family:Verdana;font-size:12px;color:#999999;margin-top:-9px;float:right;margin-right:5px;"><?php echo $this->lang->line('sent'); ?> <?php  $year=date('Y',time()); echo $year-$letter["year"];?> <?php echo $this->lang->line('manyyearslater'); ?></p>
-		            </div><hr style="border:dashed thin;width:408px;color:#cbcbcb;"></li>
+		                <p style="font-family:Verdana;font-size:12px;color:#535455;margin-left:24px;overflow: hidden; /*自动隐藏文字*/
+					    text-overflow: ellipsis;/*文字隐藏后添加省略号*/
+					    width: 35em;/*不允许出现半汉字截断*/height:6em;
+					   "><?php echo strip_tags($letter["content"]);?></p>
+		                <p style="font-family:Verdana;font-size:12px;color:#999999;margin-top:-9px;float:right;margin-right:5px;"><?php echo $this->lang->line('sent'); ?> <?php  $year=date('Y',time()); echo $letter["year"]-$year;?> <?php echo $this->lang->line('manyyearslater'); ?></p>
+		            </div><hr style="border:dashed thin;width:408px;color:#cbcbcb;margin-left:30px;"></li>
 							<?php }?>
 					
 						</ul>
@@ -249,7 +266,7 @@ $(function(){
             </div>
         </div>
          
-            <p style="font-size:11px;font-family:Verdana;color:#2d2d2d;margin-top:15px;margin-left:100px;float:left;"><?php echo $this->lang->line("morethanpast")?></p>
+            <p style="font-size:11px;font-family:Verdana;color:#2d2d2d;margin-top:15px;margin-left:100px;float:left;"><?php echo $this->lang->line("morethan")?>&nbsp;<?php $count=$pdata["count"];$count = $count[0]; $count=$count["amount"];echo $count;  ?>&nbsp;<?php echo $this->lang->line('lettertopast'); ?></p>
             </div>
        
 <div id="right-container">   
@@ -297,7 +314,7 @@ $(function(){
 								</div>
 							</div>
 
-									<a href = "#" onClick="changeurlsubmit(2);"><span style = "float:right" ><?php echo $this->lang->line("full")?></span></a>
+									<a href = "#" onClick="changeurlsubmit(2);"><span style = "float:right;font-style:normal;" ><?php echo $this->lang->line("full")?></span></a>
 
 									 	 <div class="control-group  <?php if (form_error('year') != null) echo 'error'?>" style = "margin-bottom:0px;">
 									            <div class="controls" >
@@ -347,17 +364,20 @@ $(function(){
 					        </fieldset>
 							<img onClick= "submitfuture();" src="<?php echo base_url("static/img/sendtofuturecn-wuyinying.png"); ?>" style="<?php if ($this->session->userdata("language")==2){ echo "display:none;"; } else { echo ""; } ?>float:right;margin-top:-120px;margin-right:0px;">
 							<img onClick= "submitfuture();" src="<?php echo base_url("static/img/senttofuture-wuyinying.png");?>" style="<?php if ($this->session->userdata("language")==1){ echo "display:none;"; } else { echo ""; } ?>float:right;margin-top:-120px;margin-right:0px;">
-							<img id="subimgf"  src="<?php echo base_url("static/img/hongtiao-wuyinying.png")?>" style="display:none;position:relative;top:-30px;right:80px;float:right;">
+							<img id="subimgf"  src="<?php echo base_url("static/img/hongtiao-wuyinying.png")?>" style="display:none;position:relative;top:-10px;right:80px;float:right;">
 					      </form>
 			</div>
 			<div  class="hide">
-					<ul>
+					<ul style = "margin-top:10px;">
 						<?php foreach($fdata["fletters"] as $letter) {?>
 							<li><span>▪</span><div class="kuai">
 	                <p style="font-family:Verdana;color:#ab0000;margin-left:24px;"><b><?php echo $letter["title"]?></b></p>
-	                <p style="font-family:Verdana;color:#535455;margin-left:24px;"><?php echo strip_tags($letter["content"]);?></p>
-	                <p style="font-family:Verdana;color:#999999;margin-top:-9px;float:right;margin-right:5px;"><?php echo $this->lang->line('sent'); ?> <?php  $year=date('Y',time()); echo $year-$letter["year"];?> <?php echo $this->lang->line('manyyearslater'); ?>
-	            </div><hr style="border:dashed thin;width:408px;color:#cbcbcb;"></li>
+	                <p style="font-family:Verdana;font-size:12px;color:#535455;margin-left:24px;overflow: hidden; /*自动隐藏文字*/
+				    text-overflow: ellipsis;/*文字隐藏后添加省略号*/
+				    width: 35em;/*不允许出现半汉字截断*/height:6em;
+				   "><?php echo strip_tags($letter["content"]);?>...</p>
+	                <p style="font-family:Verdana;color:#999999;margin-top:-9px;float:right;margin-right:5px;"><?php echo $this->lang->line('sent'); ?> <?php  $year=date('Y',time()); echo $letter["year"]-$year;?> <?php echo $this->lang->line('manyyearslater'); ?>
+	            </div><hr style="border:dashed thin;width:408px;color:#cbcbcb;margin-left:30px;"></li>
 						<?php }?>
 				
 					</ul>
@@ -367,20 +387,20 @@ $(function(){
        
     </div>
 
-    <p style="font-size:11px;font-family:Verdana;color:#2d2d2d;margin-top:15px;margin-left:65px;float:left;"><?php echo $this->lang->line("morethanfuture")?></p>
+     <p style="font-size:11px;font-family:Verdana;color:#2d2d2d;margin-top:15px;margin-left:100px;float:left;"><?php echo $this->lang->line("morethan")?>&nbsp;<?php $count=$fdata["count"];$count = $count[0]; $count=$count["amount"];echo $count;  ?>&nbsp;<?php echo $this->lang->line('lettertofuture'); ?></p>
 </div>    
 	<script type="text/javascript">
 		 var editor = new baidu.editor.ui.Editor({
 			 toolbars:[['Bold', 'Italic', 'Underline', 'StrikeThrough','ForeColor', 'BackColor','|','InsertOrderedList', 'InsertUnorderedList','|', 'InsertImage', 'Emotion','JustifyLeft', 'JustifyCenter', 'JustifyRight',  ]],
 			UEDITOR_HOME_URL: '<?php echo base_url("static/ueditor").'/'?>',
-			iframeCssUrl: '<?php echo base_url("static/ueditor/themes/default/iframe.css")?>',
+			 initialStyle:"*{z-index:2;}",
 			autoClearinitialContent: true,
 			wordCount:false,
 			 imagePath:'<?php echo base_url("static/ueditor/server/upload").'/'?>',
 			 filePath:'<?php echo base_url("static/ueditor/server/upload").'/'?>',
 			initialContent: '<?php echo $this->lang->line("dearpast")?>', //初始化编辑器的内容
-			minFrameHeight:110,
-			maxFrameHeight: 120, //设置高度
+			minFrameHeight:160,
+			maxFrameHeight: 160, //设置高度
 			autoHeightEnabled:false,
 			elementPathEnabled : false,
 			textarea: 'content' //设置提交时编辑器内容的名字，之前我们用的名字是默认的editorValue
@@ -391,14 +411,14 @@ $(function(){
 			 var editor2 = new baidu.editor.ui.Editor({
 				 toolbars:[['Bold', 'Italic', 'Underline', 'StrikeThrough','ForeColor', 'BackColor','|','InsertOrderedList', 'InsertUnorderedList','|', 'InsertImage', 'Emotion','JustifyLeft', 'JustifyCenter', 'JustifyRight',  ]],
 				UEDITOR_HOME_URL: '<?php echo base_url("static/ueditor").'/'?>',
-				iframeCssUrl: '<?php echo base_url("static/ueditor/themes/default/iframe.css")?>',
+     			 initialStyle:"*{z-index:2;}",
 				autoClearinitialContent: true,
 				wordCount:false,
 				 imagePath:'<?php echo base_url("static/ueditor/server/upload").'/'?>',
 				 filePath:'<?php echo base_url("static/ueditor/server/upload").'/'?>',
 				initialContent: '<?php echo $this->lang->line("dearfuture")?>', //初始化编辑器的内容
-				minFrameHeight:110,
-				maxFrameHeight: 120, //设置高度
+				minFrameHeight:160,
+				maxFrameHeight: 160, //设置高度
 				autoHeightEnabled:false,
 				elementPathEnabled : false,
 				textarea: 'content' //设置提交时编辑器内容的名字，之前我们用的名字是默认的editorValue
@@ -407,7 +427,7 @@ $(function(){
 		</script>
 	<script>
 		$(document).ready(function(){
-			$(".iframe").colorbox({iframe:true,close:"[x] close" ,width:"622px", height:"368px",	onClosed:function(){ location.reload(); }});
+			$(".iframe").colorbox({iframe:true,close:"[x] close" ,width:"622px", height:"368px"});
 			$(".iframe2").colorbox({iframe:true,close:"[x] close" ,width:"635px", height:"780px"});
 		});
 	</script>
@@ -465,7 +485,7 @@ $(function(){
 </script>    
     <div class="caitiao caitiao-fix"></div>
         <div id="footer">
-            <div id="kuan"><img src="<?php echo base_url('static/img/index_fullscreen_27.jpg')?>"><hr style="margin-top:3px;float:left;width:1004px;" />
+            <div id="kuan"><img src="<?php echo base_url('static/img/index_fullscreen_27.jpg')?>"><hr style="margin-top:3px;float:left;width:1002px;" />
             <div id="copyright">Copyright © 2012 - pastletter labs - All rights reserved.</div>       
                 <div id="sigetu">
                     <ul>

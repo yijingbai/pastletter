@@ -38,7 +38,7 @@
         #cboxPrevious{position:absolute; bottom:0px; left:0; color:#444;}
         #cboxNext{position:absolute; bottom:0px; left:63px; color:#444;}
         #cboxLoadingOverlay{background:#fff url(images/loading.gif) no-repeat 5px 5px;}
-        #cboxClose{position:absolute; top:10px; right:10px; display:block; color:#444;}
+        #cboxClose{position:absolute; top:10px; right:20px; display:block; color:#444;}
 
 /*
   The following fixes a problem where IE7 and IE8 replace a PNG's alpha transparency with a black fill

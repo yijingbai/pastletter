@@ -57,6 +57,17 @@ body{
 	margin-top:20px;
 	margin-left: 20px;
 }
+ a:link {color:#344e78;
+		TEXT-DECORATION:none;
+		} 
+
+a:visited {
+		color:#344e78;
+	}
+ a:hover {
+		color:#ab0000;
+		TEXT-DECORATION:none;
+	}
 #neirong{
 	float:left;
 	width:634px;
@@ -64,6 +75,7 @@ body{
 	margin-top:50px;
 }
 #zhuti{
+	height:100%;
 	margin-top:10px;
 	margin-left: 40px;
 }
@@ -83,6 +95,7 @@ a.red：link{color:#344e78;} visit{color:#F00; text-decoration:underline;}
 	color:#1a7ba0;
 }
 </style>
+
 </head>
 
 <body>
@@ -97,10 +110,16 @@ a.red：link{color:#344e78;} visit{color:#F00; text-decoration:underline;}
 		<?php foreach ($letters as $letter): ?>
        <div id="biaoti"><?php echo $letter["title"];  echo "&nbsp;";echo "(".$this->lang->line('apast').")";?></div>
         <div id="zhuti"><?php echo $letter["content"]; ?></div>
-	
+				<script>
+				function changesize() {
+
+					parent.$(".iframe2").colorbox.resize({width:"622px", height:"368px"});
+					window.location = '<?php if ($liked == 0) echo base_url("letterctl/letterLikeByType"."/".$letter["letter_id"]."/"."0"); else echo "javascript:void(0);" ?>';
+				}
+				</script>
 
     </div>
-	<p style="font-family:Verdana;font-size:12px;color:#999999;margin-top:15px;float:right;margin-right:5px;"><?php echo $this->lang->line('sent'); ?> <?php echo $letter["year"]-date('Y',time()); ?><?php echo $this->lang->line('manyyearslater'); ?></p><p style="color:#ac0202;font-family:Verdana;font-size:12px;float:left;margin-top:15px;margin-left:22px;"><img src="<?php echo base_url("static/img/xinxing.png")?>" style="float:left;"><a href = "<?php if ($liked == 0)echo base_url("letterctl/letterLikeByType"."/".$letter["letter_id"]."/"."0"); else echo "javascript:void(0);" ?>"><?php if ($liked == 0) echo $this->lang->line('like'); else echo $this->lang->line('liked'); ?></a>(<?php echo $letter["likenum"] ?>)</p>
+	<p style="font-family:Verdana;font-size:12px;color:#999999;margin-top:15px;float:right;margin-right:5px;"><?php echo $this->lang->line('sent'); ?> <?php echo $letter["year"]-date('Y',time()); ?><?php echo $this->lang->line('manyyearslater'); ?></p><p style="color:#ac0202;font-family:Verdana;font-size:12px;float:left;margin-top:15px;margin-left:22px;"><img src="<?php echo base_url("static/img/xinxing.png")?>" style="float:left;"><a href = "<?php if ($liked == 0)echo base_url("letterctl/letterLikeByType"."/".$letter["letter_id"]."/"."0"); else echo "javascript:void(0);" ?>" onclick="<?php if ($this->session->userdata("username") == null) echo "changesize();"; else echo ""; ?>"><?php if ($liked == 0) echo $this->lang->line('like'); else echo $this->lang->line('liked'); ?></a>(<?php echo $letter["likenum"] ?>)</p>
 		<?php endforeach ?>
     <hr style="background-color:#022b5a;width:634px;height:5px;border:0;" noshade="noshade">
 

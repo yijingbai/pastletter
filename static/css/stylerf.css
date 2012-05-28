@@ -1,6 +1,6 @@
 #container{
     width:1003px;
-	height:934px;
+	height:784px;
 	background-image:url(../img/index_fullscreen_02.jpg);
 	margin-top:-41px;
 }
@@ -15,7 +15,7 @@
 	padding:0px;
 }
 .jiantizhongwen{
-	margin-top:-40px;
+	margin-top:-45px;
 	width:185px;
 	height:18px;
 	float:right;
@@ -24,7 +24,7 @@
 }
 
 .beijing {
-	margin-left:-30px;	
+	margin-left:-60px;	
 }
 a.red：link{color:#344e78;} visit{color:#F00; text-decoration:underline;}
 li .beijing:link{text-decoration:none;background-color:#e9f2f5;} hover{color:#e9f2f5;text-decoration:none;} visit{text-decoration:none;}
@@ -34,7 +34,7 @@ li .beijing:link{text-decoration:none;background-color:#e9f2f5;} hover{color:#e9
 	font-family:Verdana;
 }
 #lantiao{
-	background-image:url(../img/QQ%E6%88%AA%E5%9B%BE20120416141637.png);
+	background-image:url(../img/naviback.png);
 	width:1004px;
 	height:33px;
 	margin-top:1px;
@@ -58,6 +58,7 @@ li .beijing:link{text-decoration:none;background-color:#e9f2f5;} hover{color:#e9
 	height:33px;
 	float:left;
 	margin-top:9px;
+		margin-bottom:6px;
 	text-align:center;
 }
 #biaoqian1{
@@ -162,9 +163,8 @@ li .beijing:link{text-decoration:none;background-color:#e9f2f5;} hover{color:#e9
 #huangtiao{
 	width:230px;
 	height:100%;
-	height:222px;
+	height:200px;
 	overflow:hidden;
-	background-image:url(../img/biaoqian-yinying.png);
 	float:right;
 	margin-right:15px;
 }
@@ -276,8 +276,8 @@ li .beijing:link{text-decoration:none;background-color:#e9f2f5;} hover{color:#e9
 	float:left;
 }
 #copyright{
+	font-size:10px;
 	float:left;
-	margin-top:-2px;
 	margin-left:10px;
 }
 #sigetu{

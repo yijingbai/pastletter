@@ -23,13 +23,27 @@
 			changeMonth: true,
 			changeYear: true,
 			minDate: myDatefmin,
-			maxDate: "+60Y"
+			maxDate: "+60Y",
+				beforeShow: function () {
+				                setTimeout(
+				                    function () {
+				                        $('#ui-datepicker-div').css("z-index", 1000);
+				                    }, 100
+				                );
+				            }
 		});
 		$( "#datepickerp" ).datepicker({
 			changeMonth: true,
 			changeYear: true,
 			minDate: myDatefmin,
-			maxDate: "+60Y"
+			maxDate: "+60Y",
+				beforeShow: function () {
+				                setTimeout(
+				                    function () {
+				                        $('#ui-datepicker-div').css("z-index", 1000);
+				                    }, 100
+				                );
+				            }
 		});
 	});
 
@@ -67,7 +81,7 @@
 							</div>
 						</div>
 						
-							<a href = "#" onClick="changeurlsubmit();"><span style = "float:right" ><?php echo $this->lang->line("back")?></span></a>
+							<a href = "#" onClick="changeurlsubmit();"><span style = "float:right;font-style:normal;font-size:12px;" ><?php echo $this->lang->line("back")?></span></a>
 							
 									 <div class="control-group  <?php if (form_error('year') != null) echo 'error'?>" style = "margin-bottom:0px;">
 										<label class="control-label"  for="select01"><?php echo  $this->lang->line('deliver')?></label>
@@ -117,11 +131,11 @@
 						
 							<img src="<?php if ($this->session->userdata("language") == 2) {
 								echo base_url("static/img/sendtopast-wuyinying.png");
-							} ?>" onClick="submitpast();" style="float:right;margin-top:-160px;margin-right:0px;">
+							} ?>" onClick="submitpast();" style="<?php if ($this->session->userdata("language")==1) { echo "display:none;"; } else { echo ""; } ?>float:right;margin-top:-160px;margin-right:0px;">
 
 							<img src="<?php if ($this->session->userdata("language") == 1) {
 							 	echo base_url("static/img/sendtopastcn-wuyinying.png");
-							}?>" onClick="submitpast();" style="float:right;margin-top:-160px;">
+							}?>" onClick="submitpast();" style="<?php if ($this->session->userdata("language")==2) { echo "display:none;"; } else { echo ""; } ?>float:right;margin-top:-160px;">
 				        </fieldset>
 				      </form>
 							<script type="text/javascript">
@@ -130,15 +144,18 @@
 									UEDITOR_HOME_URL: '<?php echo base_url("static/ueditor").'/'?>',
 									iframeCssUrl: '<?php echo base_url("static/ueditor/themes/default/iframe.css")?>',
 									autoClearinitialContent: true,
-										autoHeightEnabled:false,
-										elementPathEnabled : false,
-											wordCount:false,
+									wordCount:false,
 									 imagePath:'<?php echo base_url("static/ueditor/server/upload").'/'?>',
 									 filePath:'<?php echo base_url("static/ueditor/server/upload").'/'?>',
 									initialContent: '<?php echo $this->lang->line("dearpast")?>', //初始化编辑器的内容
-									minFrameHeight:150,
+									minFrameHeight:160,
+									maxFrameHeight: 160, //设置高度
 									autoHeightEnabled:false,
-									textarea: 'content' 
+									elementPathEnabled : false,
+									textarea: 'content' //设置提交时编辑器内容的名字，之前我们用的名字是默认的editorValue
+									
+									
+								
 								});
 								editor.render("myEditor");
 								
@@ -172,8 +189,11 @@
 	<?php foreach($data["letters"] as $letter) {?>
     <div id="lan1" class="lan lan-bian">
         <div id="dear"><b><?php echo $letter["title"]?></b></div>
-        <div id="duan1" class="duan"><?php echo strip_tags($letter["content"]);?></div>
-        <div id="duan-fix1" class="duan-fix"><?php echo $this->lang->line('sent'); ?> <?php  $year=date('Y',time()); echo $year-$letter["year"];?> <?php echo $this->lang->line('manyyearslater'); ?></div>
+        <div id="duan1" class="duan" style="font-family:Verdana;font-size:12px;color:#535455;margin-left:15px;overflow: hidden; /*自动隐藏文字*/
+	    text-overflow: ellipsis;/*文字隐藏后添加省略号*/
+	    height:6em;
+	   "><?php echo strip_tags($letter["content"]);?></div>
+        <div id="duan-fix1" class="duan-fix"><?php echo $this->lang->line('sent'); ?> <?php  $year=date('Y',time()); echo $letter["year"]-$year;?> <?php echo $this->lang->line('manyyearslater'); ?></div>
     </div>
 	<?php }?>
     <!--<div id="lan2" class="lan lan-bian"><div id="dear"><b>Dear PastMe</b></div>
@@ -186,4 +206,4 @@
     </div>-->
     <div id="more"><?php echo $this->lang->line("morepast")?></div>
     </div>
-    <div id="kongbai"><div id="kongbai-zi"><?php echo $this->lang->line('morethan');?></div></div>
+    <div id="kongbai"><div id="kongbai-zi"> <p style="font-size:11px;font-family:Verdana;color:#2d2d2d;margin-top:-20px;float:left;"><?php echo $this->lang->line("morethan")?>&nbsp;<?php $count=$data["count"];$count = $count[0]; $count=$count["amount"];echo $count;  ?>&nbsp;<?php echo $this->lang->line('lettertopast'); ?></p></div></div>

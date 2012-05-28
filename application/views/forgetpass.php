@@ -1,4 +1,7 @@
 
+
+
+
 <div id='inline_content' style='background:#fff;width:622px;height:358px;'>
 	<style type="text/css">
 	body {
@@ -81,10 +84,10 @@
         <div id="shang"></div>
         <div id="zuo"></div>
         <div id="center">
-		<div class="biaoti"><p style = "margin-left:5px;"><i><?php echo $this->lang->line("forgetpass")?></i></p><hr style="width:480px;float:left;margin-left:1px;margin-top:0px;">
-			<form class="well" name = "find"  method="post" action = "<?php echo base_url("index.php/userctl/forgetPassword")?>">
+		<div class="biaoti"><p style = "margin-left:5px;"><i><?php echo $this->lang->line("resetyourpass")?></i></p><hr style="width:480px;float:left;margin-left:1px;margin-top:0px;"><br />
+			<form class="well" name = "find" style = "position:relative;top:30px; left:50px;" method="post" action = "<?php echo base_url("index.php/userctl/forgetPassword")?>">
 				<div class="control-group <?php if (form_error('email') != null) echo 'error'?>">
-					<label class="control-label" for="input01" ><?php echo $this->lang->line('enteremail')?></label>
+					<label class="control-label" for="input01" style = "	font-family:Georgia;"><i><?php echo $this->lang->line('enteremail')?></i></label>
 					<div class="controls">
 						<input type="search" style = "width:300px;" class="input" name="email"  value = "<?php echo set_value('email')?>">	<span class="help-inline"><?php if (form_error('email') != null) echo form_error('email')?></span>
 					</div>

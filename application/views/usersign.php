@@ -52,7 +52,7 @@
 		font-size:18px;
 		color:#344e78;
 		margin-top:38px;
-		margin-left:90px;
+		margin-left:60px;
 	}
 	#enter{
 		margin-top:66px;
@@ -92,8 +92,8 @@
         <div id="shang"></div>
         <div id="zuo"></div>
         <div id="center">
-		<div class="biaoti"><p style = "margin-left:5px;"><i><?php echo $this->lang->line("sign")?></i></p><hr style="width:480px;float:left;margin-left:1px;margin-top:0px;">
-			<form class="well form-horizontal"  style = "width:500px;"  name = "sign" method="post" action = "<?php echo base_url("userctl/usersign")?>">
+		<div class="biaoti"><p style = "margin-left:5px;"><i><?php echo $this->lang->line("sign")?></i></p><hr style="width:480px;float:left;margin-left:1px;margin-top:0px;"><br />
+			<form class="well form-horizontal"  style = "width:500px;margin-left:40px;"  name = "sign" method="post" action = "<?php echo base_url("userctl/usersign")?>">
 				<div class="control-group <?php if (form_error('email') != null) echo 'error'?>">
 					<label class="control-label" for="input01" ><?php echo $this->lang->line('enteremail')?></label>
 					<div class="controls">
@@ -124,7 +124,7 @@
 					                <input type="checkbox" id="optionsCheckbox" value="1">
 					                  <?php echo $this->lang->line('remember'); ?>
 					              </label>
-					<input class="down" type="button" style = "float:right;margin-right:120px;margin-top:-5px;" onClick="javascript:sign.submit();" >
+					<input class="down" type="button" style = "float:right;margin-right:130px;margin-top:-5px;" onClick="javascript:sign.submit();" >
 					            </div>
 					
 					 </div>

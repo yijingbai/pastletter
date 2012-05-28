@@ -1,17 +1,20 @@
-
+<script>
+	var a3 = document.getElementById("a3");
+	var a4 = document.getElementById("a4");
+	a3.style.color = "#344E78";
+	a4.style.color = "#AB0000";
+</script>
         <div id="center">
-        <div id="about"><b><i>About Us</i></b></div>
+        <div id="about"><b><i><?php echo $this->lang->line('aboutus'); ?></i></b></div>
             <hr style="width:911px;height:1px;margin-top:50px;color:#efefef;border:thin;" noshade="noshade">
-            <div id="tiao1_header"><b>What is pastletter?</b></div>
+            <div id="tiao1_header"><b><?php echo $this->lang->line('whatispastletter'); ?></b></div>
                 <div id="tiao1_body">
-pastletter based on the principle that memories are less accurate than e-mails. And we strive for accuracy.	See, usually, it's the future that will reflect back on the present. We here at FutureMe think it'sfun to flip that all around. So send your future self some words of inspiration. Or maybe give 'em swift kick in the pants. Or just share some thoughts on where you'll or what you'll be up to in a year, three years...more? And the we'll do some time travel magic and deliver the letter to you. FutureYou, 
-that is.Getting a surprise from the past is actually kind of an amazing thing - just check out all the people on Twitter and Facebook that agree.
+					<?php echo $this->lang->line('aboutpastletter'); ?>
                 </div>
-            <hr style="width:911px;height:0.5px;margin-top:50px;color:#efefef;border: dashed thin;" noshade="noshade">
-			<div id="tiao1_header"><b>What is pastletter?</b></div>
+<hr style="border:dashed thin;width:911px;color:#cbcbcb;margin-top:50px;">
+			<div id="tiao1_header"><b><?php echo $this->lang->line('whatispastletter'); ?></b></div>
                 <div id="tiao1_body">
-pastletter based on the principle that memories are less accurate than e-mails. And we strive for accuracy.	See, usually, it's the future that will reflect back on the present. We here at FutureMe think it'sfun to flip that all around. So send your future self some words of inspiration. Or maybe give 'em swift kick in the pants. Or just share some thoughts on where you'll or what you'll be up to in a year, three years...more? And the we'll do some time travel magic and deliver the letter to you. FutureYou, 
-that is.Getting a surprise from the past is actually kind of an amazing thing - just check out all the people on Twitter and Facebook that agree.
+<?php echo $this->lang->line('aboutpastletter'); ?>
                 </div>
         
             

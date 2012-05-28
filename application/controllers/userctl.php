@@ -4,6 +4,7 @@ class Userctl extends CI_Controller {
 	
 	function __construct() {
 		 parent::__construct();
+		$addsave;
 			if ($this->session->userdata("language") == "1") {
 				$this->lang->load('index', 'chinese');
 				$this->lang->load('form_validation', 'chinese');
@@ -31,6 +32,10 @@ class Userctl extends CI_Controller {
 		$this->load->helper(array('url','form'));
 		$this->load->library('form_validation');
 		$this->load->model("user_model");
+		$address = $this->session->userdata("returnurl");
+		if ($address != null) {
+			$addsave = $address;
+		}
 		if ($this->session->userdata('username') == NULL) {
 			$this->form_validation->set_rules('email', $this->lang->line('email'), 'required|valid_email');
 			$this->form_validation->set_rules('password',$this->lang->line('password'), 'required');
@@ -51,8 +56,13 @@ class Userctl extends CI_Controller {
 								'user_id' => $userid
 						);
 						$this->session->set_userdata($newdata);
-						$out["message"] = $this->lang->line('loginsuccess');
-					 	$this->load->view("loginsuccess",$out);
+						if ($address != null) {
+							$this->load->view('showletter');
+							$this->session->unset_userdata("returnurl");
+						} else {
+						    $out["message"] = $this->lang->line('loginsuccess');
+	 					 	$this->load->view("loginsuccess",$out);
+						}
 					} else {
 							$out["errormess"] = $this->user_check($vipname,$vippass);
 	 					    $this->load->view('usersignin',$out);
@@ -60,9 +70,7 @@ class Userctl extends CI_Controller {
 					}
 			}
 		} else {
-			$this->load->view('admin_top');
-			$this->load->view('admin_left');
-			$this->load->view('admin_info');
+			redirect(base_url("/"));
 		}
 	}
 	

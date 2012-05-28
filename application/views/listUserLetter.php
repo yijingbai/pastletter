@@ -19,7 +19,11 @@
 						<?php $letter["letter_id"]?>
 						<?php  $letter["content"]?>
 		                	<a class="iframe2" href="<?php  echo base_url("letterctl/showPastLetterById/".$letter["letter_id"]); ?>"><p style="font-family:Verdana;font-size:12px;color:#022b5a;margin-left:24px;"><b><?php echo $letter["title"]?> </b></p></a>
-		                <p style="font-family:Verdana;font-size:12px;color:#535455;margin-left:24px;"><?php echo strip_tags($letter["content"])?>  ...</p>
+		            		 		<p style = "font-family:Verdana;font-size:12px;color:#535455;margin-left:24px;overflow: hidden; /*自动隐藏文字*/
+								    text-overflow: ellipsis;/*文字隐藏后添加省略号*/
+								    white-space: nowrap;/*强制不换行*/
+								    width: 50em;/*不允许出现半汉字截断*/
+								   ">  <?php echo strip_tags($letter["content"])?>  ...</p>
 		                <p style="font-family:Verdana;font-size:12px;color:#999999;margin-top:-9px;float:right;margin-right:5px;">sent <?php  $year=date('Y',time()); echo $year-$letter["year"];?> years into the past, to Yestoday</p><p style="color:#ac0202;font-family:Verdana;font-size:12px;float:left;margin-top:-5px;margin-left:22px;"></p>&nbsp;<span style = "font-size:10px;color:#ab0000;margin-bottom:5px;"><img src="<?php echo base_url("static/img/xinxing.png")?>" style="float:left;">Like(0)&nbsp;&nbsp;&nbsp;
 
 				<a class="iframe" href = "<?php echo base_url("/letterctl/editUserLetter/".$letter["letter_id"]) ?>"><?php echo $this->lang->line('edit'); ?></a>|

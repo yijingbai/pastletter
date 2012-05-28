@@ -5,6 +5,11 @@
 		padding : 0px;
 		margin : 0px;
 	}
+	a:link {color: #344E78;text-decoration:none;font-size: 10px;}		/* 未访问的链接 */
+	a:visited {color: #344E78;text-decoration:none;}	/* 已访问的链接 */
+	a:hover {color: #AB0000;font-size: 10px;}	/* 鼠标移动到链接上 */
+	a:active {color: #0000FF}
+	
 	#waikuang{
 		width:622px;
 		height:358px;
@@ -52,7 +57,7 @@
 		font-size:18px;
 		color:#344e78;
 		margin-top:38px;
-		margin-left:90px;
+		margin-left:60px;
 	}
 	#enter{
 		margin-top:66px;
@@ -73,6 +78,7 @@
 		background:url(<?php echo base_url("/static/img/forgot.png")?>);
 		width:78px;
 		margin-top:10px;
+	
 		height:31px;
 		border:0px;
 	}
@@ -87,12 +93,12 @@
         <div id="shang"></div>
         <div id="zuo"></div>
         <div id="center">
-		<div class="biaoti"><p style = "margin-left:5px;"><i><?php echo $this->lang->line("login")?></i></p><hr style="width:480px;float:left;margin-left:1px;margin-top:0px;">
+		<div class="biaoti"><p style = "margin-left:5px;"><i><?php echo $this->lang->line("login")?></i></p><hr style="width:480px;float:left;margin-left:1px;margin-top:0px;"><br />
 			<form name = "signin" class="form-horizontal" style  = "margin-top:30px;" method="post" action = "<?php echo base_url("userctl/userlogin")?>">
 				<div class="control-group <?php if($errormess != null) echo 'error' ; if (form_error('email') != null) echo 'error'?>">
 					<label class="control-label" for="input01" ><?php echo $this->lang->line('signinemail')?></label>
 					<div class="controls">
-						<input type="text" id="input01" class="input" name="email" style ="height:25px; " value = "<?php echo set_value('email')?>">	<span style ="height:10px;margin-top:-20px;" class="help-inline"><?php if($errormess != null) echo $errormess["message"];if (form_error('email') != null) echo form_error('email')?></span>
+						<input type="text" id="input01" class="input" name="email" style ="height:25px; " value = "<?php echo set_value('email')?>">	<span style ="height:10px;" class="help-inline"><?php if($errormess != null) echo $errormess["message"];if (form_error('email') != null) echo form_error('email')?></span>
 					</div>
 				</div>
 				<div class="control-group <?php if (form_error('password') != null) echo 'error'?>">
@@ -107,14 +113,14 @@
 					                <input type="checkbox" id="optionsCheckbox" value="1">
 					                  <?php echo $this->lang->line('remember'); ?>
 					              </label>
-					<input class="down" type="button" style = "float:right;margin-right:120px;margin-top:-5px;" onClick="javascript:signin.submit();" >
+					<input class="down" type="button" style = "position:relative;left:37px;bottom:10px;" onClick="javascript:signin.submit();" >
 					            </div>
 					
 					 </div>
 		  
 
 			</form>
-			<a href="<?php echo base_url('/userctl/forgetPassword') ?>"><span><?php echo $this->lang->line('forgetpass'); ?></span></a>
+			<a href="<?php echo base_url('/userctl/forgetPassword') ?>" style = "position:relative;top:50px;left:-40px;"><?php echo $this->lang->line('forgetpass'); ?></a>
 			
             </div>
             <div id="enter"><div id="drop"></div>

@@ -78,6 +78,12 @@ class Letter_model extends CI_Model {
 		$query = $this->db->query($sql,$data);
 	}
 	
+	function getAllLetterCountByType($type) {
+		$sql = "SELECT count(*)  amount FROM `letter` WHERE type = ?";
+		$query = $this->db->query($sql,$type);
+		return $query->result_array();
+	}
+	
 	function getLetterToSendPast() {
 		$sql = "SELECT * FROM `letter` WHERE year=year(now()) AND month=month(now()) AND day=day(now()) AND type=0";
 		$query = $this->db->query($sql);
